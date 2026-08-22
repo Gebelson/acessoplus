@@ -128,7 +128,7 @@ export function LandingPage() {
   return (
     <main className="site-motion overflow-hidden bg-[#f7f9fc] text-[#15203e]">
       <header className="sticky top-0 z-50 border-b border-[#e5e9f1]/80 bg-[#f7f9fc]/88 backdrop-blur-xl">
-        <nav className="mx-auto flex h-[74px] w-full max-w-[1240px] items-center justify-between px-5 sm:px-8 lg:px-10" aria-label="Navegação principal">
+        <nav className="mx-auto flex h-[74px] w-full max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-7" aria-label="Navegação principal">
           <Link href="#inicio" aria-label="Acesso+ — início">
             <Image src="/logo-acesso.svg" alt="Acesso+" width={748} height={109} priority className="h-auto w-[136px] sm:w-[152px]" />
           </Link>
@@ -150,7 +150,7 @@ export function LandingPage() {
           </button>
         </nav>
         {menuOpen && (
-          <div className="border-t border-[#e5e9f1] bg-white px-5 py-5 sm:hidden">
+          <div className="border-t border-[#e5e9f1] bg-white px-4 py-5 sm:hidden">
             <div className="flex flex-col gap-4 text-sm font-semibold text-[#596581]">
               <Link onClick={() => setMenuOpen(false)} href="#beneficios">Benefícios</Link>
               <Link onClick={() => setMenuOpen(false)} href="#como-funciona">Como funciona</Link>
@@ -162,7 +162,7 @@ export function LandingPage() {
         )}
       </header>
 
-      <section id="inicio" className="hero-scene relative mx-auto grid min-h-[calc(100svh-74px)] w-full max-w-[1240px] scroll-mt-20 items-center gap-12 px-5 pb-20 pt-14 sm:px-8 lg:grid-cols-[1.05fr_.95fr] lg:px-10 lg:py-24">
+      <section id="inicio" className="hero-scene relative mx-auto grid min-h-[calc(100svh-74px)] w-full max-w-[1440px] scroll-mt-20 items-center gap-12 px-4 pb-20 pt-14 sm:px-6 lg:grid-cols-[1.05fr_.95fr] lg:px-7 lg:py-24">
         <div className="hero-depth-grid" aria-hidden="true" />
         <span className="hero-orb hero-orb-one" aria-hidden="true" />
         <span className="hero-orb hero-orb-two" aria-hidden="true" />
@@ -219,7 +219,7 @@ export function LandingPage() {
       </section>
 
       <section className="trust-strip border-y border-[#e2e7ef] bg-white/70" data-reveal>
-        <div className="mx-auto grid max-w-[1240px] grid-cols-2 gap-6 px-5 py-7 sm:grid-cols-4 sm:px-8 lg:px-10">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-2 gap-6 px-4 py-7 sm:grid-cols-4 sm:px-6 lg:px-7">
           {[
             [ShieldCheck, 'Compra transparente', 'Tudo registrado no chat'],
             [Zap, 'Entrega digital', 'Acompanhe em tempo real'],
@@ -329,8 +329,8 @@ export function LandingPage() {
         </div>
       </section>
 
-      <section className="px-5 pb-6 sm:px-8 lg:px-10">
-        <div className="kinetic-cta relative mx-auto flex max-w-[1160px] flex-col items-center overflow-hidden rounded-[32px] bg-[#5e50d7] px-6 py-14 text-center text-white sm:px-12 sm:py-18" data-reveal>
+      <section className="px-4 pb-6 sm:px-6 lg:px-7">
+        <div className="kinetic-cta relative mx-auto flex max-w-[1384px] flex-col items-center overflow-hidden rounded-[32px] bg-[#5e50d7] px-6 py-14 text-center text-white sm:px-12 sm:py-18" data-reveal>
           <span className="kinetic-plus kinetic-plus-one" aria-hidden="true">+</span>
           <span className="kinetic-plus kinetic-plus-two" aria-hidden="true">+</span>
           <span className="kinetic-plus kinetic-plus-three" aria-hidden="true">+</span>
@@ -341,7 +341,7 @@ export function LandingPage() {
       </section>
 
       <footer className="mt-10 border-t border-[#e0e5ed] bg-white">
-        <div className="mx-auto grid max-w-[1240px] gap-8 px-5 py-10 sm:px-8 md:grid-cols-[1fr_auto] lg:px-10">
+        <div className="mx-auto grid max-w-[1440px] gap-8 px-4 py-10 sm:px-6 md:grid-cols-[1fr_auto] lg:px-7">
           <div>
             <Image src="/logo-acesso.svg" alt="Acesso+" width={748} height={109} className="h-auto w-[130px]" />
             <p className="mt-4 max-w-[560px] text-xs leading-5 text-[#7a849b]">A Acesso+ comercializa acesso digital com ativação assistida. Não somos parceiros, representantes ou afiliados oficiais do Google. Todas as marcas citadas pertencem aos seus respectivos proprietários.</p>

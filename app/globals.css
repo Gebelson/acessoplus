@@ -492,9 +492,9 @@ a { text-decoration: none; }
 
 .section-shell {
   width: 100%;
-  max-width: 1240px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 7.5rem 2.5rem;
+  padding: 7.5rem clamp(1rem, 2vw, 1.75rem);
 }
 
 .section-heading {
@@ -802,7 +802,7 @@ a { text-decoration: none; }
   .access-core-shell { width: 94px; height: 94px; transform: scale(.78) translateZ(22px); transform-origin: center; }
   .floating-chip { display: none; }
   .hero-depth-grid { inset: 10% -60% 0; opacity: .36; }
-  .section-shell { padding: 5rem 1.25rem; }
+  .section-shell { padding: 5rem 1rem; }
   .benefit-card { min-height: 210px; }
   .video-card { min-height: 380px; }
   .chat-bubble { max-width: 88%; }
