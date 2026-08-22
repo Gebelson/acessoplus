@@ -12,8 +12,8 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'Acesso+ | 18 meses de Google AI Pro',
-  description: 'Acesso ao Google AI Pro por 18 meses, com pagamento único, ativação assistida e suporte.',
+  title: 'Acesso+ | 18 meses de Gemini PRO',
+  description: 'Acesso ao Gemini PRO por 18 meses, com pagamento único, ativação assistida e suporte.',
   openGraph: {
     title: 'Acesso+ | 18 meses de IA avançada',
     description: 'Pagamento único, ativação assistida e uma experiência de compra simples pelo chat.',

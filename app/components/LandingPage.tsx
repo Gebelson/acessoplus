@@ -36,7 +36,7 @@ const faqs = [
   ['Como recebo meu acesso?', 'Depois da confirmação do pagamento, nossa equipe prepara o acesso e envia o link diretamente na conversa exclusiva do seu pedido.'],
   ['Quanto tempo demora?', 'Durante o horário de atendimento, a preparação começa logo após a confirmação. Se a equipe estiver em modo fila, mostramos o horário previsto antes do pagamento.'],
   ['Preciso fornecer minha senha?', 'Não solicitamos sua senha no checkout. Caso qualquer etapa adicional seja necessária, ela será explicada com clareza pela equipe de ativação.'],
-  ['Funciona no celular e no computador?', 'Sim. Você pode acompanhar o pedido e usar o serviço em dispositivos compatíveis com o Google AI Pro.'],
+  ['Funciona no celular e no computador?', 'Sim. Você pode acompanhar o pedido e usar o serviço em dispositivos compatíveis com o Gemini PRO.'],
   ['Existe suporte?', 'Sim. Você pode continuar respondendo na própria conversa do pedido e pedir atendimento humano quando precisar.'],
   ['Como funciona o reembolso?', 'Os critérios de reembolso são apresentados antes da compra e avaliados pelo suporte conforme o estágio da ativação e a legislação aplicável.'],
 ];
@@ -97,7 +97,7 @@ export function LandingPage() {
             IA avançada sem pagar uma fortuna.
           </h1>
           <p className="mt-7 max-w-[625px] text-lg leading-8 text-[#596581] sm:text-xl">
-            Tenha acesso ao Google AI Pro por 18 meses e use IA para trabalhar, estudar, criar, pesquisar e programar com mais produtividade.
+            Tenha acesso ao Gemini PRO por 18 meses e use IA para trabalhar, estudar, criar, pesquisar e programar com mais produtividade.
           </p>
           <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
             <CTA>Quero garantir meu acesso</CTA>
@@ -133,7 +133,7 @@ export function LandingPage() {
                 <span className="mb-1 rounded-xl bg-white px-3 py-2 text-xs font-bold text-[#586480] shadow-sm">sem mensalidade</span>
               </div>
             </div>
-            <div className="mt-5 flex items-center justify-between text-xs text-[#6d7790]"><span>Google AI Pro</span><span>Ativação assistida</span></div>
+            <div className="mt-5 flex items-center justify-between text-xs text-[#6d7790]"><span>Gemini PRO</span><span>Ativação assistida</span></div>
           </div>
         </div>
       </section>
@@ -219,7 +219,7 @@ export function LandingPage() {
             </div>
           </div>
           <div className="price-box">
-            <p className="text-sm font-semibold text-[#717b93]">Google AI Pro · 18 meses</p>
+            <p className="text-sm font-semibold text-[#717b93]">Gemini PRO · 18 meses</p>
             <p className="mt-5 text-sm text-[#717b93]">Pagamento único de</p>
             <p className="mt-1 text-5xl font-semibold tracking-[-.065em]">R$ 149,90</p>
             <CTA className="mt-7 w-full">Quero meu acesso</CTA>
