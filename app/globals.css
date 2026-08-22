@@ -668,10 +668,7 @@ a { text-decoration: none; }
 .faq-item[open] { padding-left: .7rem; }
 .faq-item[open] summary { color: #5b4fd0; }
 
-.trust-strip svg { animation: orb-float 4.5s ease-in-out infinite; }
-.trust-strip > div > div:nth-child(2) svg { animation-delay: -.8s; }
-.trust-strip > div > div:nth-child(3) svg { animation-delay: -1.6s; }
-.trust-strip > div > div:nth-child(4) svg { animation-delay: -2.4s; }
+.trust-strip svg { animation: none; transform: none; }
 
 .kinetic-cta { isolation: isolate; transform-style: preserve-3d; }
 .kinetic-cta::before, .kinetic-cta::after { position: absolute; z-index: -1; border-radius: 50%; content: ''; filter: blur(2px); }
