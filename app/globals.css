@@ -71,6 +71,16 @@ a { text-decoration: none; }
   50% { transform: translate3d(8px, -16px, 30px) rotate(12deg); }
 }
 
+@keyframes foil-sweep {
+  0%, 18% { transform: translate3d(-125%, 0, 0) skewX(-18deg); }
+  58%, 100% { transform: translate3d(185%, 0, 0) skewX(-18deg); }
+}
+
+@keyframes holo-shift {
+  0%, 100% { filter: hue-rotate(0deg) saturate(1.15); }
+  50% { filter: hue-rotate(34deg) saturate(1.45); }
+}
+
 .motion-ready [data-reveal] {
   opacity: 0;
   translate: 0 28px;
@@ -190,6 +200,89 @@ a { text-decoration: none; }
   pointer-events: none;
 }
 
+.gift-card {
+  position: relative;
+  display: flex;
+  aspect-ratio: 1.52 / 1;
+  min-height: 0;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.92);
+  border-radius: 27px;
+  background:
+    linear-gradient(112deg, rgba(255,255,255,.96) 0%, rgba(228,233,246,.96) 27%, rgba(255,255,255,.92) 48%, rgba(215,224,243,.94) 72%, rgba(249,251,255,.98) 100%);
+  padding: clamp(1.15rem, 3.2vw, 1.75rem);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.95),
+    inset 0 -1px 0 rgba(111,126,165,.16),
+    0 38px 85px rgba(33,44,79,.2),
+    0 4px 12px rgba(33,44,79,.08);
+  color: #172241;
+}
+
+.gift-card::before {
+  position: absolute;
+  z-index: 3;
+  top: -35%;
+  bottom: -35%;
+  left: 0;
+  width: 34%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), rgba(255,255,255,.78), rgba(161,241,232,.24), transparent);
+  content: '';
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: foil-sweep 6.8s cubic-bezier(.22,1,.36,1) infinite;
+}
+
+.gift-card::after {
+  z-index: 1;
+  background:
+    radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(255,255,255,.92), rgba(188,225,255,.24) 17%, transparent 35%),
+    linear-gradient(135deg, transparent 10%, rgba(136,117,255,.1) 37%, rgba(45,212,191,.1) 58%, transparent 82%);
+  opacity: .85;
+  mix-blend-mode: screen;
+}
+
+.gift-card > :not(.gift-card-foil) { position: relative; z-index: 2; }
+
+.gift-card-foil {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background:
+    repeating-linear-gradient(118deg, transparent 0 18px, rgba(100,84,221,.035) 19px 20px, transparent 21px 38px),
+    conic-gradient(from 205deg at 72% 38%, rgba(91,72,211,.1), rgba(0,190,165,.12), rgba(95,180,255,.12), rgba(217,108,255,.08), rgba(91,72,211,.1));
+  mask-image: linear-gradient(120deg, transparent 8%, #000 45%, rgba(0,0,0,.55) 80%, transparent 100%);
+  pointer-events: none;
+}
+
+.gift-card-top, .gift-card-bottom, .gift-card-serial { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+
+.gift-card-brand { display: flex; align-items: center; gap: .75rem; }
+.gift-card-logo { width: 108px; height: auto; filter: drop-shadow(0 1px 0 rgba(255,255,255,.7)); }
+.gift-card-brand > span { border-left: 1px solid rgba(53,66,104,.2); padding-left: .75rem; color: #6c7690; font-size: .58rem; font-weight: 850; letter-spacing: .17em; }
+
+.gift-card-status { display: flex; align-items: center; gap: .45rem; color: #267a6d; font-size: .58rem; font-weight: 850; letter-spacing: .11em; }
+.gift-card-status > span { width: 7px; height: 7px; border-radius: 50%; background: #00bea5; box-shadow: 0 0 0 4px rgba(0,190,165,.1), 0 0 15px rgba(0,190,165,.55); }
+
+.gift-card-main { display: flex; min-height: 0; flex: 1; align-items: center; justify-content: space-between; gap: 1rem; }
+.gift-card-copy { min-width: 0; }
+.gift-card-overline { color: #6256cf; font-size: .58rem; font-weight: 900; letter-spacing: .18em; }
+.gift-card-duration { display: flex; align-items: flex-end; gap: .65rem; margin-top: .2rem; }
+.gift-card-duration strong { font-size: clamp(4.5rem, 10vw, 6.85rem); font-weight: 590; line-height: .82; letter-spacing: -.09em; text-shadow: 0 1px 0 white; }
+.gift-card-duration span { margin-bottom: .55rem; color: #59647e; font-size: .72rem; font-weight: 900; letter-spacing: .16em; writing-mode: vertical-rl; transform: rotate(180deg); }
+.gift-card-product { margin-top: .55rem; font-size: 1.05rem; font-weight: 850; letter-spacing: .06em; text-transform: uppercase; }
+
+.gift-card-bottom { border-top: 1px solid rgba(72,86,124,.13); padding-top: .75rem; }
+.gift-card-price { display: flex; align-items: baseline; gap: .65rem; }
+.gift-card-price span { color: #7a849d; font-size: .55rem; font-weight: 850; letter-spacing: .13em; }
+.gift-card-price strong { font-size: clamp(1.45rem, 4vw, 2rem); font-weight: 720; letter-spacing: -.045em; }
+.gift-card-seal { display: flex; align-items: center; gap: .5rem; border: 1px solid rgba(77,87,126,.13); border-radius: 11px; background: rgba(255,255,255,.42); padding: .45rem .6rem; color: #59647e; box-shadow: inset 0 1px 0 rgba(255,255,255,.72); }
+.gift-card-seal svg { color: #6256cf; }
+.gift-card-seal span { font-size: .48rem; font-weight: 850; letter-spacing: .1em; line-height: 1.35; }
+
+.gift-card-serial { margin-top: .55rem; color: #8b94aa; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: .44rem; font-weight: 700; letter-spacing: .14em; }
+
 .hero-scene { isolation: isolate; }
 
 .hero-depth-grid {
@@ -263,19 +356,19 @@ a { text-decoration: none; }
 .access-core-shell {
   position: relative;
   display: grid;
-  width: 112px;
-  height: 112px;
+  width: 126px;
+  height: 126px;
   flex: none;
   place-items: center;
-  perspective: 700px;
-  transform: translateZ(34px);
+  perspective: 820px;
+  transform: translateZ(42px);
 }
 
 .access-core-shell::before {
   position: absolute;
   inset: 22%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,190,165,.32), rgba(101,87,223,.08) 58%, transparent 72%);
+  background: radial-gradient(circle, rgba(149,116,255,.36), rgba(0,190,165,.18) 46%, transparent 72%);
   content: '';
   filter: blur(7px);
   animation: pulse-ring 3.4s ease-in-out infinite;
@@ -283,10 +376,10 @@ a { text-decoration: none; }
 
 .access-cube {
   position: relative;
-  width: 46px;
-  height: 46px;
+  width: 58px;
+  height: 58px;
   transform-style: preserve-3d;
-  animation: cube-spin 12s linear infinite;
+  animation: cube-spin 13s linear infinite, holo-shift 7s ease-in-out infinite;
 }
 
 .cube-face {
@@ -294,23 +387,34 @@ a { text-decoration: none; }
   inset: 0;
   display: grid;
   place-items: center;
-  border: 1px solid rgba(255,255,255,.74);
-  border-radius: 12px;
-  background: linear-gradient(145deg, rgba(101,87,223,.92), rgba(0,190,165,.8));
-  color: white;
-  font-size: 1.75rem;
-  font-weight: 500;
-  line-height: 1;
-  box-shadow: inset 0 0 18px rgba(255,255,255,.16);
+  border: 1px solid rgba(255,255,255,.76);
+  border-radius: 17px;
+  background:
+    radial-gradient(circle at 30% 18%, rgba(255,255,255,.82), transparent 26%),
+    linear-gradient(145deg, rgba(122,92,239,.9), rgba(68,143,225,.82) 48%, rgba(0,190,165,.76));
+  box-shadow: inset 0 0 24px rgba(255,255,255,.25), 0 0 18px rgba(95,88,232,.18);
   backface-visibility: visible;
+  backdrop-filter: blur(6px);
 }
 
-.cube-front { transform: translateZ(23px); }
-.cube-back { transform: rotateY(180deg) translateZ(23px); }
-.cube-right { transform: rotateY(90deg) translateZ(23px); }
-.cube-left { transform: rotateY(-90deg) translateZ(23px); }
-.cube-top { transform: rotateX(90deg) translateZ(23px); }
-.cube-bottom { transform: rotateX(-90deg) translateZ(23px); }
+.cube-front { transform: translateZ(29px); }
+.cube-back { transform: rotateY(180deg) translateZ(29px); }
+.cube-right { transform: rotateY(90deg) translateZ(29px); }
+.cube-left { transform: rotateY(-90deg) translateZ(29px); }
+.cube-top { transform: rotateX(90deg) translateZ(29px); }
+.cube-bottom { transform: rotateX(-90deg) translateZ(29px); }
+
+.gemini-glyph {
+  display: block;
+  width: 25px;
+  height: 25px;
+  background: linear-gradient(135deg, #82f6e2 4%, #b9d7ff 38%, #f5a8ff 70%, #fff 100%);
+  clip-path: polygon(50% 0, 61% 35%, 100% 50%, 61% 65%, 50% 100%, 39% 65%, 0 50%, 39% 35%);
+  filter: drop-shadow(0 0 7px rgba(255,255,255,.76));
+}
+
+.holo-cube-shadow { position: absolute; bottom: 13px; left: 50%; width: 65px; height: 18px; border-radius: 50%; background: rgba(82,74,208,.32); filter: blur(10px); transform: translateX(-50%) rotateX(70deg); }
+.holo-core-label { position: absolute; right: 0; bottom: 4px; left: 0; color: rgba(61,68,109,.7); font-size: .42rem; font-weight: 900; letter-spacing: .24em; text-align: center; }
 
 .core-orbit {
   position: absolute;
@@ -322,8 +426,8 @@ a { text-decoration: none; }
   border-radius: 50%;
 }
 
-.core-orbit-one { transform: translate(-50%, -50%) rotateX(68deg); animation: orbit-spin 8s linear infinite; }
-.core-orbit-two { width: 86px; height: 86px; border-color: rgba(0,190,165,.28); transform: translate(-50%, -50%) rotateY(70deg); animation: orbit-spin-reverse 10s linear infinite; }
+.core-orbit-one { transform: translate(-50%, -50%) rotateX(68deg); animation: orbit-spin 8s linear infinite; box-shadow: 0 0 9px rgba(101,87,223,.1); }
+.core-orbit-two { width: 94px; height: 94px; border-color: rgba(0,190,165,.32); transform: translate(-50%, -50%) rotateY(70deg); animation: orbit-spin-reverse 10s linear infinite; }
 
 .core-satellite { position: absolute; width: 9px; height: 9px; border-radius: 50%; box-shadow: 0 0 14px currentColor; }
 .core-satellite-one { top: 13px; right: 25px; background: #00bea5; color: #00bea5; animation: orb-float 3.8s ease-in-out infinite; }
@@ -644,7 +748,14 @@ a { text-decoration: none; }
   .primary-button { width: 100%; }
   .secondary-button { min-height: 44px; padding: 0 .8rem; font-size: .74rem; }
   .banana-mark { width: 68px; height: 68px; font-size: 2.25rem; }
-  .access-core-shell { width: 88px; height: 88px; transform: scale(.86) translateZ(22px); }
+  .gift-card { aspect-ratio: 1.38 / 1; border-radius: 22px; padding: 1rem; }
+  .gift-card-logo { width: 88px; }
+  .gift-card-brand > span { font-size: .46rem; }
+  .gift-card-duration strong { font-size: 4.5rem; }
+  .gift-card-product { font-size: .88rem; }
+  .gift-card-price { gap: .4rem; }
+  .gift-card-seal { padding: .35rem .45rem; }
+  .access-core-shell { width: 94px; height: 94px; transform: scale(.78) translateZ(22px); transform-origin: center; }
   .floating-chip { display: none; }
   .hero-depth-grid { inset: 10% -60% 0; opacity: .36; }
   .section-shell { padding: 5rem 1.25rem; }

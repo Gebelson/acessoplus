@@ -110,9 +110,13 @@ function AccessCore3D() {
       <span className="core-orbit core-orbit-two" />
       <span className="core-satellite core-satellite-one" />
       <span className="core-satellite core-satellite-two" />
+      <span className="holo-cube-shadow" />
       <div className="access-cube">
-        {['front', 'back', 'right', 'left', 'top', 'bottom'].map((face) => <span key={face} className={`cube-face cube-${face}`}>+</span>)}
+        {['front', 'back', 'right', 'left', 'top', 'bottom'].map((face) => (
+          <span key={face} className={`cube-face cube-${face}`}><span className="gemini-glyph" /></span>
+        ))}
       </div>
+      <span className="holo-core-label">GEMINI</span>
     </div>
   );
 }
@@ -188,25 +192,28 @@ export function LandingPage() {
           <div className="hero-glow" aria-hidden="true" />
           <span className="floating-chip floating-chip-one" aria-hidden="true"><Sparkles size={13} /> IA premium</span>
           <span className="floating-chip floating-chip-two" aria-hidden="true"><ShieldCheck size={13} /> Ativação guiada</span>
-          <div className="offer-card relative z-10" data-reveal>
-            <div className="flex items-center justify-between gap-3">
-              <span className="rounded-full bg-[#eef1ff] px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[.12em] text-[#6557df]">Oferta Acesso+</span>
-              <span className="flex items-center gap-2 text-xs font-bold text-[#217769]"><span className="h-2 w-2 rounded-full bg-[#00bea5]" /> Disponível</span>
+          <div className="offer-card gift-card relative z-10" data-reveal>
+            <div className="gift-card-foil" aria-hidden="true" />
+            <div className="gift-card-top">
+              <div className="gift-card-brand">
+                <Image src="/logo-acesso.svg" alt="Acesso+" width={748} height={109} className="gift-card-logo" />
+                <span>GIFT CARD</span>
+              </div>
+              <span className="gift-card-status"><span /> DISPONÍVEL</span>
             </div>
-            <div className="mt-9 flex items-end justify-between gap-5">
-              <div>
-                <div className="text-[5.7rem] font-semibold leading-[.8] tracking-[-.09em] text-[#192444] sm:text-[7.5rem]">18</div>
-                <div className="mt-3 text-2xl font-semibold tracking-[-.04em]">meses de acesso</div>
+            <div className="gift-card-main">
+              <div className="gift-card-copy">
+                <p className="gift-card-overline">ACESSO PREMIUM</p>
+                <div className="gift-card-duration"><strong>18</strong><span>MESES</span></div>
+                <p className="gift-card-product">Gemini PRO</p>
               </div>
               <AccessCore3D />
             </div>
-            <div className="mt-9 rounded-[22px] border border-[#e3e7f0] bg-[#f8f9fd] p-5">
-              <div className="flex items-end justify-between gap-4">
-                <div><p className="text-sm text-[#6b7590]">Pagamento único</p><p className="mt-1 text-4xl font-semibold tracking-[-.055em]">R$ 67,90</p></div>
-                <span className="mb-1 rounded-xl bg-white px-3 py-2 text-xs font-bold text-[#586480] shadow-sm">sem mensalidade</span>
-              </div>
+            <div className="gift-card-bottom">
+              <div className="gift-card-price"><span>VALOR ÚNICO</span><strong>R$ 67,90</strong></div>
+              <div className="gift-card-seal"><ShieldCheck size={16} /><span>ATIVAÇÃO<br />ASSISTIDA</span></div>
             </div>
-            <div className="mt-5 flex items-center justify-between text-xs text-[#6d7790]"><span>Gemini PRO</span><span>Ativação assistida</span></div>
+            <div className="gift-card-serial"><span>ACESSO+ PREMIUM</span><span>18M · GEMINI PRO</span></div>
           </div>
         </TiltSurface>
       </section>
