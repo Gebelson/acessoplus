@@ -110,13 +110,14 @@ function AccessCore3D() {
       <span className="core-orbit core-orbit-two" />
       <span className="core-satellite core-satellite-one" />
       <span className="core-satellite core-satellite-two" />
-      <span className="holo-cube-shadow" />
-      <div className="access-cube">
-        {['front', 'back', 'right', 'left', 'top', 'bottom'].map((face) => (
-          <span key={face} className={`cube-face cube-${face}`}>
-            <Image className="gemini-glyph" src="/gemini-star-3d.png" alt="" width={72} height={72} />
-          </span>
-        ))}
+      <span className="holo-model-shadow" />
+      <div className="gemini-tile">
+        <span className="gemini-tile-back" />
+        <span className="gemini-tile-depth" />
+        <span className="gemini-tile-face">
+          <span className="gemini-tile-sheen" />
+          <Image className="gemini-glyph" src="/gemini-star-3d.png" alt="" width={96} height={96} />
+        </span>
       </div>
       <span className="holo-core-label">GEMINI</span>
     </div>

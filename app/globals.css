@@ -38,12 +38,14 @@ a { text-decoration: none; }
   50% { transform: translate3d(0, -10px, 58px) rotate(2deg); }
 }
 
-@keyframes cube-spin {
-  0% { transform: rotateX(-18deg) rotateY(0deg) rotateZ(-4deg); }
-  25% { transform: rotateX(12deg) rotateY(90deg) rotateZ(-4deg); }
-  50% { transform: rotateX(-10deg) rotateY(180deg) rotateZ(-4deg); }
-  75% { transform: rotateX(14deg) rotateY(270deg) rotateZ(-4deg); }
-  100% { transform: rotateX(-18deg) rotateY(360deg) rotateZ(-4deg); }
+@keyframes tile-hover {
+  0%, 100% { transform: translate3d(0, 0, 0) rotateX(-12deg) rotateY(-17deg) rotateZ(-5deg); }
+  50% { transform: translate3d(0, -5px, 0) rotateX(8deg) rotateY(18deg) rotateZ(4deg); }
+}
+
+@keyframes tile-sheen {
+  0%, 100% { opacity: .22; transform: translate3d(-42%, -38%, 12px) rotate(-16deg); }
+  50% { opacity: .76; transform: translate3d(40%, 34%, 12px) rotate(-16deg); }
 }
 
 @keyframes orbit-spin {
@@ -384,81 +386,88 @@ a { text-decoration: none; }
   animation: pulse-ring 3.4s ease-in-out infinite;
 }
 
-.access-cube {
+.gemini-tile {
   position: relative;
-  width: 64px;
-  height: 64px;
+  width: 78px;
+  height: 78px;
   transform-origin: center;
   transform-style: preserve-3d;
   will-change: transform, filter;
-  animation: cube-spin 16s linear infinite, holo-shift 8s ease-in-out infinite;
+  animation: tile-hover 8.5s cubic-bezier(.45,0,.55,1) infinite, holo-shift 8s ease-in-out infinite;
 }
 
-.cube-face {
+.gemini-tile-back,
+.gemini-tile-depth,
+.gemini-tile-face {
   position: absolute;
   inset: 0;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(255,255,255,.76);
-  overflow: hidden;
-  border-radius: 18px;
-  background:
-    radial-gradient(circle at 30% 18%, rgba(255,255,255,.82), transparent 26%),
-    linear-gradient(145deg, rgba(122,92,239,.9), rgba(68,143,225,.82) 48%, rgba(0,190,165,.76));
-  box-shadow:
-    inset 0 0 26px rgba(255,255,255,.26),
-    inset -7px -9px 16px rgba(23,35,94,.2),
-    0 0 20px rgba(95,88,232,.2);
+  border-radius: 22px;
   backface-visibility: visible;
-  backdrop-filter: blur(6px);
   transform-style: preserve-3d;
 }
 
-.cube-face::after {
+.gemini-tile-back {
+  background: linear-gradient(145deg, #2748a8, #1f3c91 72%, #172f79);
+  box-shadow: 0 15px 24px rgba(35,57,131,.34), 0 0 22px rgba(76,113,224,.22);
+  transform: translateZ(-11px) scale(.985);
+}
+
+.gemini-tile-depth {
+  border: 1px solid rgba(108,151,255,.48);
+  background: linear-gradient(145deg, #4a72d8, #3058be 64%, #24479f);
+  box-shadow: inset 5px 5px 8px rgba(179,205,255,.16), inset -7px -8px 11px rgba(20,42,112,.26);
+  transform: translateZ(-4px) scale(.994);
+}
+
+.gemini-tile-face {
+  display: grid;
+  overflow: hidden;
+  place-items: center;
+  border: 1px solid rgba(203,220,255,.72);
+  background:
+    radial-gradient(circle at 26% 15%, rgba(255,255,255,.36), transparent 25%),
+    linear-gradient(145deg, rgba(106,143,231,.98), rgba(77,116,215,.98) 52%, rgba(54,91,190,.98));
+  box-shadow:
+    inset 5px 5px 11px rgba(218,230,255,.34),
+    inset -7px -9px 14px rgba(23,50,126,.3),
+    0 3px 9px rgba(23,45,113,.2);
+  transform: translateZ(5px);
+}
+
+.gemini-tile-face::after {
   position: absolute;
-  inset: 3px;
-  border: 1px solid rgba(255,255,255,.34);
-  border-radius: 15px;
-  box-shadow: inset 4px 4px 9px rgba(255,255,255,.2), inset -5px -6px 11px rgba(23,35,94,.16);
+  inset: 5px;
+  border: 1px solid rgba(216,230,255,.2);
+  border-radius: 17px;
+  box-shadow: inset 3px 3px 7px rgba(255,255,255,.14), inset -4px -5px 8px rgba(26,50,122,.18);
   content: '';
   pointer-events: none;
 }
 
-.cube-front {
-  background: radial-gradient(circle at 28% 17%, rgba(255,255,255,.94), transparent 27%), linear-gradient(145deg, rgba(132,102,247,.96), rgba(67,151,233,.88) 50%, rgba(0,197,170,.82));
-  transform: translateZ(32px);
-}
-.cube-back {
-  background: linear-gradient(145deg, rgba(80,61,190,.92), rgba(40,105,186,.86) 52%, rgba(0,137,132,.82));
-  transform: rotateY(180deg) translateZ(32px);
-}
-.cube-right {
-  background: linear-gradient(155deg, rgba(74,186,230,.9), rgba(38,113,196,.91) 48%, rgba(49,40,147,.9));
-  transform: rotateY(90deg) translateZ(32px);
-}
-.cube-left {
-  background: linear-gradient(145deg, rgba(84,66,205,.92), rgba(57,80,177,.9) 48%, rgba(0,149,146,.84));
-  transform: rotateY(-90deg) translateZ(32px);
-}
-.cube-top {
-  background: linear-gradient(145deg, rgba(200,188,255,.96), rgba(105,177,244,.9) 50%, rgba(68,224,202,.88));
-  transform: rotateX(90deg) translateZ(32px);
-}
-.cube-bottom {
-  background: linear-gradient(145deg, rgba(72,52,171,.92), rgba(34,82,159,.92) 50%, rgba(0,115,112,.88));
-  transform: rotateX(-90deg) translateZ(32px);
+.gemini-tile-sheen {
+  position: absolute;
+  z-index: 1;
+  width: 58%;
+  height: 150%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.38), rgba(169,204,255,.14), transparent);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: tile-sheen 8.5s cubic-bezier(.45,0,.55,1) infinite;
 }
 
 .gemini-glyph {
+  position: relative;
+  z-index: 2;
   display: block;
-  width: 38px;
-  height: 38px;
+  width: 47px;
+  height: 47px;
   object-fit: contain;
-  filter: drop-shadow(0 4px 4px rgba(19,31,83,.28)) drop-shadow(0 0 7px rgba(255,255,255,.58));
-  transform: translateZ(5px);
+  filter: drop-shadow(-3px 6px 3px rgba(18,31,80,.34)) drop-shadow(0 0 6px rgba(255,255,255,.52));
+  transform: translateZ(9px);
 }
 
-.holo-cube-shadow { position: absolute; bottom: 13px; left: 50%; width: 65px; height: 18px; border-radius: 50%; background: rgba(82,74,208,.32); filter: blur(10px); transform: translateX(-50%) rotateX(70deg); }
+.holo-model-shadow { position: absolute; bottom: 11px; left: 50%; width: 76px; height: 20px; border-radius: 50%; background: rgba(46,70,161,.34); filter: blur(10px); transform: translateX(-50%) rotateX(70deg); }
 .holo-core-label { position: absolute; right: 0; bottom: 4px; left: 0; color: rgba(61,68,109,.7); font-size: .42rem; font-weight: 900; letter-spacing: .24em; text-align: center; }
 
 .core-orbit {
