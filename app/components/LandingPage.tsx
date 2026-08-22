@@ -106,11 +106,6 @@ function TiltSurface({ children, className = '' }: { children: ReactNode; classN
 function AccessCore3D() {
   return (
     <div className="access-core-shell" aria-hidden="true">
-      <span className="core-orbit core-orbit-one" />
-      <span className="core-orbit core-orbit-two" />
-      <span className="core-satellite core-satellite-one" />
-      <span className="core-satellite core-satellite-two" />
-      <span className="holo-model-shadow" />
       <div className="gemini-tile">
         <span className="gemini-tile-back" />
         <span className="gemini-tile-depth" />
@@ -119,7 +114,6 @@ function AccessCore3D() {
           <Image className="gemini-glyph" src="/gemini-star-3d.png" alt="" width={96} height={96} />
         </span>
       </div>
-      <span className="holo-core-label">GEMINI</span>
     </div>
   );
 }
