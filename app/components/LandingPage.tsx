@@ -123,8 +123,8 @@ export function LandingPage() {
   useRevealMotion();
 
   return (
-    <main className="site-motion overflow-hidden bg-[#f7f9fc] text-[#15203e]">
-      <header className="sticky top-0 z-50 border-b border-[#e5e9f1]/80 bg-[#f7f9fc]/88 backdrop-blur-xl">
+    <main className="site-motion overflow-hidden bg-[#f7f9fc] pt-[74px] text-[#15203e]">
+      <header className="glass-header fixed inset-x-0 top-0 z-50">
         <nav className="mx-auto flex h-[74px] w-full max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-7" aria-label="Navegação principal">
           <Link href="#inicio" aria-label="Acesso+ — início">
             <Image src="/logo-acesso.svg" alt="Acesso+" width={748} height={109} priority className="h-auto w-[136px] sm:w-[152px]" />
@@ -147,7 +147,7 @@ export function LandingPage() {
           </button>
         </nav>
         {menuOpen && (
-          <div className="border-t border-[#e5e9f1] bg-white px-4 py-5 sm:hidden">
+          <div className="glass-mobile-menu border-t border-white/60 px-4 py-5 sm:hidden">
             <div className="flex flex-col gap-4 text-sm font-semibold text-[#596581]">
               <Link onClick={() => setMenuOpen(false)} href="#beneficios">Benefícios</Link>
               <Link onClick={() => setMenuOpen(false)} href="#como-funciona">Como funciona</Link>
