@@ -32,7 +32,7 @@ const benefits = [
 
 const faqs = [
   ['É realmente por 18 meses?', 'Sim. O produto anunciado nesta oferta corresponde a 18 meses de acesso. As condições do pedido ficam registradas na conversa antes do pagamento.'],
-  ['Preciso pagar todo mês?', 'Não. O valor de R$ 149,90 é um pagamento único para esta oferta. Não há mensalidade recorrente da Acesso+.'],
+  ['Preciso pagar todo mês?', 'Não. O valor de R$ 67,90 é um pagamento único para esta oferta. Não há mensalidade recorrente da Acesso+.'],
   ['Como recebo meu acesso?', 'Depois da confirmação do pagamento, nossa equipe prepara o acesso e envia o link diretamente na conversa exclusiva do seu pedido.'],
   ['Quanto tempo demora?', 'Durante o horário de atendimento, a preparação começa logo após a confirmação. Se a equipe estiver em modo fila, mostramos o horário previsto antes do pagamento.'],
   ['Preciso fornecer minha senha?', 'Não solicitamos sua senha no checkout. Caso qualquer etapa adicional seja necessária, ela será explicada com clareza pela equipe de ativação.'],
@@ -202,7 +202,7 @@ export function LandingPage() {
             </div>
             <div className="mt-9 rounded-[22px] border border-[#e3e7f0] bg-[#f8f9fd] p-5">
               <div className="flex items-end justify-between gap-4">
-                <div><p className="text-sm text-[#6b7590]">Pagamento único</p><p className="mt-1 text-4xl font-semibold tracking-[-.055em]">R$ 149,90</p></div>
+                <div><p className="text-sm text-[#6b7590]">Pagamento único</p><p className="mt-1 text-4xl font-semibold tracking-[-.055em]">R$ 67,90</p></div>
                 <span className="mb-1 rounded-xl bg-white px-3 py-2 text-xs font-bold text-[#586480] shadow-sm">sem mensalidade</span>
               </div>
             </div>
@@ -297,7 +297,7 @@ export function LandingPage() {
           <div className="price-box interactive-price-box">
             <p className="text-sm font-semibold text-[#717b93]">Gemini PRO · 18 meses</p>
             <p className="mt-5 text-sm text-[#717b93]">Pagamento único de</p>
-            <p className="mt-1 text-5xl font-semibold tracking-[-.065em]">R$ 149,90</p>
+            <p className="mt-1 text-5xl font-semibold tracking-[-.065em]">R$ 67,90</p>
             <CTA className="mt-7 w-full">Quero meu acesso</CTA>
             <p className="mt-4 text-center text-xs leading-5 text-[#7c8599]">Você confere todo o pedido na conversa antes de pagar.</p>
           </div>

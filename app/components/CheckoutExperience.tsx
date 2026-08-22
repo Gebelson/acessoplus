@@ -23,7 +23,7 @@ type Step = 'confirm' | 'name' | 'email' | 'phone' | 'payment' | 'preparing' | '
 
 const initialMessages: Message[] = [
   { id: 'welcome', sender: 'assistant', content: 'Olá! Sou o Assistente de Ativação da Acesso+. Estou aqui para ajudar você a garantir seus 18 meses de acesso.' },
-  { id: 'summary', sender: 'assistant', content: 'Antes de continuar, confira seu pedido: Gemini PRO, 18 meses de acesso, R$ 149,90 em pagamento único. Está tudo certo?' },
+  { id: 'summary', sender: 'assistant', content: 'Antes de continuar, confira seu pedido: Gemini PRO, 18 meses de acesso, R$ 67,90 em pagamento único. Está tudo certo?' },
 ];
 
 function createToken() {
@@ -150,7 +150,7 @@ export function CheckoutExperience({ initialConversationId }: { initialConversat
   const placeholder = step === 'name' ? 'Digite seu nome' : step === 'email' ? 'voce@exemplo.com' : step === 'phone' ? '(11) 99999-9999' : 'Digite sua mensagem';
   const timelineStep = step === 'confirm' || step === 'name' || step === 'email' || step === 'phone' ? 1 : step === 'payment' ? 2 : step === 'preparing' ? 3 : 4;
   const firstName = name.split(' ')[0] || 'Você';
-  const pixCode = '00020101021226870014br.gov.bcb.pix2565checkout-demo.acessoplus.com.br/pix/nao-real5204000053039865406149.905802BR5920ACESSO MAIS DEMO6009SAO PAULO62070503***6304DEMO';
+  const pixCode = '00020101021226870014br.gov.bcb.pix2565checkout-demo.acessoplus.com.br/pix/nao-real520400005303986540567.905802BR5920ACESSO MAIS DEMO6009SAO PAULO62070503***6304DEMO';
 
   const timeline = useMemo(() => [
     ['Pedido criado', timelineStep >= 1],
@@ -199,7 +199,7 @@ export function CheckoutExperience({ initialConversationId }: { initialConversat
               {step === 'payment' && (
                 <div className="ml-auto max-w-[510px] rounded-[22px] border border-[#dce2ec] bg-[#f8f9fc] p-5 shadow-sm">
                   <div className="flex items-start justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-[.1em] text-[#68738d]">Pedido {orderId}</p><h2 className="mt-2 text-lg font-extrabold">Gemini PRO · 18 meses</h2></div><span className="rounded-full bg-[#fff1c8] px-3 py-1 text-[10px] font-extrabold text-[#8b6418]">AGUARDANDO PAGAMENTO</span></div>
-                  <div className="mt-5 flex items-end justify-between border-t border-[#e0e5ed] pt-5"><span className="text-sm text-[#68738d]">Total</span><strong className="text-2xl tracking-[-.04em]">R$ 149,90</strong></div>
+                  <div className="mt-5 flex items-end justify-between border-t border-[#e0e5ed] pt-5"><span className="text-sm text-[#68738d]">Total</span><strong className="text-2xl tracking-[-.04em]">R$ 67,90</strong></div>
                   <div className="mt-4 rounded-xl border border-[#eadfbd] bg-[#fffaf0] p-3 text-xs leading-5 text-[#766744]"><strong>Ambiente demonstrativo:</strong> o gateway real ainda não está configurado. O botão abaixo apenas mostra o fluxo, sem cobrar.</div>
                   <button onClick={simulatePayment} className="quick-reply mt-4 w-full justify-center">Simular confirmação segura <ChevronRight size={16} /></button>
                   <button onClick={() => { navigator.clipboard.writeText(pixCode); setCopied(true); }} className="mt-3 flex w-full items-center justify-center gap-2 text-xs font-bold text-[#65708a]"><Copy size={14} /> {copied ? 'Código demo copiado' : 'Copiar código Pix demonstrativo'}</button>
@@ -231,7 +231,7 @@ export function CheckoutExperience({ initialConversationId }: { initialConversat
           <div className="rounded-[22px] border border-[#dfe4ed] bg-white p-5 shadow-sm">
             <p className="text-xs font-extrabold uppercase tracking-[.1em] text-[#6f7890]">Seu pedido</p>
             <h2 className="mt-3 font-extrabold">Gemini PRO</h2>
-            <div className="mt-1 flex justify-between text-sm text-[#6d7790]"><span>18 meses de acesso</span><span>R$ 149,90</span></div>
+            <div className="mt-1 flex justify-between text-sm text-[#6d7790]"><span>18 meses de acesso</span><span>R$ 67,90</span></div>
             {orderId && <p className="mt-4 rounded-xl bg-[#f4f6fa] px-3 py-2 text-xs font-bold text-[#56617a]">Pedido {orderId}</p>}
           </div>
 

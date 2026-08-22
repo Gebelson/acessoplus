@@ -31,10 +31,10 @@ import { useState } from 'react';
 type OperationMode = 'ONLINE' | 'FILA' | 'PAUSADO';
 
 const orders = [
-  { id: 'AP-7K2M-XP4A', name: 'Marina Lima', email: 'marina@email.com', value: 'R$ 149,90', time: '12:48', status: 'Aguardando entrega', tone: 'amber' },
-  { id: 'AP-4Q8N-CL7R', name: 'Rafael Souza', email: 'rafael@email.com', value: 'R$ 149,90', time: '12:21', status: 'Entregue', tone: 'mint' },
-  { id: 'AP-3A1K-ZV6E', name: 'Ana Paula', email: 'ana@email.com', value: 'R$ 149,90', time: '11:54', status: 'Aguardando pagamento', tone: 'gray' },
-  { id: 'AP-9J5T-HB2D', name: 'Diego Alves', email: 'diego@email.com', value: 'R$ 149,90', time: '11:32', status: 'Revisão necessária', tone: 'red' },
+  { id: 'AP-7K2M-XP4A', name: 'Marina Lima', email: 'marina@email.com', value: 'R$ 67,90', time: '12:48', status: 'Aguardando entrega', tone: 'amber' },
+  { id: 'AP-4Q8N-CL7R', name: 'Rafael Souza', email: 'rafael@email.com', value: 'R$ 67,90', time: '12:21', status: 'Entregue', tone: 'mint' },
+  { id: 'AP-3A1K-ZV6E', name: 'Ana Paula', email: 'ana@email.com', value: 'R$ 67,90', time: '11:54', status: 'Aguardando pagamento', tone: 'gray' },
+  { id: 'AP-9J5T-HB2D', name: 'Diego Alves', email: 'diego@email.com', value: 'R$ 67,90', time: '11:32', status: 'Revisão necessária', tone: 'red' },
 ];
 
 const nav = [
