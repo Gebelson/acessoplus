@@ -20,7 +20,7 @@ import {
   X,
   Zap,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState, type CSSProperties, type PointerEvent, type ReactNode } from 'react';
 
 const benefits = [
   { icon: BriefcaseBusiness, title: 'Para trabalhar', text: 'Produza textos, analise informações e organize sua rotina com muito mais agilidade.', color: 'violet' },
@@ -41,7 +41,7 @@ const faqs = [
   ['Como funciona o reembolso?', 'Os critérios de reembolso são apresentados antes da compra e avaliados pelo suporte conforme o estágio da ativação e a legislação aplicável.'],
 ];
 
-function CTA({ className = '', children = 'Quero meu acesso' }: { className?: string; children?: React.ReactNode }) {
+function CTA({ className = '', children = 'Quero meu acesso' }: { className?: string; children?: ReactNode }) {
   return (
     <Link className={`primary-button ${className}`} href="/checkout/novo">
       {children}
@@ -50,11 +50,79 @@ function CTA({ className = '', children = 'Quero meu acesso' }: { className?: st
   );
 }
 
+function useRevealMotion() {
+  useEffect(() => {
+    const root = document.documentElement;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const elements = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
+
+    root.classList.add('motion-ready');
+
+    if (reducedMotion || !('IntersectionObserver' in window)) {
+      elements.forEach((element) => element.classList.add('is-visible'));
+      return () => root.classList.remove('motion-ready');
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.16, rootMargin: '0px 0px -7% 0px' });
+
+    elements.forEach((element) => observer.observe(element));
+
+    return () => {
+      observer.disconnect();
+      root.classList.remove('motion-ready');
+    };
+  }, []);
+}
+
+function TiltSurface({ children, className = '' }: { children: ReactNode; className?: string }) {
+  const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType !== 'mouse') return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width;
+    const y = (event.clientY - bounds.top) / bounds.height;
+
+    event.currentTarget.style.setProperty('--tilt-x', `${(0.5 - y) * 10}deg`);
+    event.currentTarget.style.setProperty('--tilt-y', `${(x - 0.5) * 12}deg`);
+    event.currentTarget.style.setProperty('--shine-x', `${x * 100}%`);
+    event.currentTarget.style.setProperty('--shine-y', `${y * 100}%`);
+  };
+
+  const resetTilt = (event: PointerEvent<HTMLDivElement>) => {
+    event.currentTarget.style.setProperty('--tilt-x', '0deg');
+    event.currentTarget.style.setProperty('--tilt-y', '0deg');
+    event.currentTarget.style.setProperty('--shine-x', '50%');
+    event.currentTarget.style.setProperty('--shine-y', '50%');
+  };
+
+  return <div className={`tilt-surface ${className}`} onPointerMove={handlePointerMove} onPointerLeave={resetTilt}>{children}</div>;
+}
+
+function AccessCore3D() {
+  return (
+    <div className="access-core-shell" aria-hidden="true">
+      <span className="core-orbit core-orbit-one" />
+      <span className="core-orbit core-orbit-two" />
+      <span className="core-satellite core-satellite-one" />
+      <span className="core-satellite core-satellite-two" />
+      <div className="access-cube">
+        {['front', 'back', 'right', 'left', 'top', 'bottom'].map((face) => <span key={face} className={`cube-face cube-${face}`}>+</span>)}
+      </div>
+    </div>
+  );
+}
+
 export function LandingPage() {
   const [menuOpen, setMenuOpen] = useState(false);
+  useRevealMotion();
 
   return (
-    <main className="overflow-hidden bg-[#f7f9fc] text-[#15203e]">
+    <main className="site-motion overflow-hidden bg-[#f7f9fc] text-[#15203e]">
       <header className="sticky top-0 z-50 border-b border-[#e5e9f1]/80 bg-[#f7f9fc]/88 backdrop-blur-xl">
         <nav className="mx-auto flex h-[74px] w-full max-w-[1240px] items-center justify-between px-5 sm:px-8 lg:px-10" aria-label="Navegação principal">
           <Link href="#inicio" aria-label="Acesso+ — início">
@@ -90,8 +158,11 @@ export function LandingPage() {
         )}
       </header>
 
-      <section id="inicio" className="relative mx-auto grid min-h-[calc(100svh-74px)] w-full max-w-[1240px] scroll-mt-20 items-center gap-12 px-5 pb-20 pt-14 sm:px-8 lg:grid-cols-[1.05fr_.95fr] lg:px-10 lg:py-24">
-        <div className="relative z-10 max-w-[690px]">
+      <section id="inicio" className="hero-scene relative mx-auto grid min-h-[calc(100svh-74px)] w-full max-w-[1240px] scroll-mt-20 items-center gap-12 px-5 pb-20 pt-14 sm:px-8 lg:grid-cols-[1.05fr_.95fr] lg:px-10 lg:py-24">
+        <div className="hero-depth-grid" aria-hidden="true" />
+        <span className="hero-orb hero-orb-one" aria-hidden="true" />
+        <span className="hero-orb hero-orb-two" aria-hidden="true" />
+        <div className="relative z-10 max-w-[690px]" data-reveal>
           <div className="eyebrow"><Sparkles size={14} /> ACESSO PREMIUM · 18 MESES</div>
           <h1 className="mt-6 text-[clamp(2.85rem,6vw,5.35rem)] font-semibold leading-[.96] tracking-[-.06em] text-[#15203e]">
             IA avançada sem pagar uma fortuna.
@@ -113,9 +184,11 @@ export function LandingPage() {
           </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-[520px] lg:justify-self-end">
+        <TiltSurface className="hero-card-stage relative mx-auto w-full max-w-[520px] lg:justify-self-end">
           <div className="hero-glow" aria-hidden="true" />
-          <div className="offer-card relative z-10">
+          <span className="floating-chip floating-chip-one" aria-hidden="true"><Sparkles size={13} /> IA premium</span>
+          <span className="floating-chip floating-chip-two" aria-hidden="true"><ShieldCheck size={13} /> Ativação guiada</span>
+          <div className="offer-card relative z-10" data-reveal>
             <div className="flex items-center justify-between gap-3">
               <span className="rounded-full bg-[#eef1ff] px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[.12em] text-[#6557df]">Oferta Acesso+</span>
               <span className="flex items-center gap-2 text-xs font-bold text-[#217769]"><span className="h-2 w-2 rounded-full bg-[#00bea5]" /> Disponível</span>
@@ -125,7 +198,7 @@ export function LandingPage() {
                 <div className="text-[5.7rem] font-semibold leading-[.8] tracking-[-.09em] text-[#192444] sm:text-[7.5rem]">18</div>
                 <div className="mt-3 text-2xl font-semibold tracking-[-.04em]">meses de acesso</div>
               </div>
-              <div className="banana-mark" aria-label="Preço de banana">🍌</div>
+              <AccessCore3D />
             </div>
             <div className="mt-9 rounded-[22px] border border-[#e3e7f0] bg-[#f8f9fd] p-5">
               <div className="flex items-end justify-between gap-4">
@@ -135,10 +208,10 @@ export function LandingPage() {
             </div>
             <div className="mt-5 flex items-center justify-between text-xs text-[#6d7790]"><span>Gemini PRO</span><span>Ativação assistida</span></div>
           </div>
-        </div>
+        </TiltSurface>
       </section>
 
-      <section className="border-y border-[#e2e7ef] bg-white/70">
+      <section className="trust-strip border-y border-[#e2e7ef] bg-white/70" data-reveal>
         <div className="mx-auto grid max-w-[1240px] grid-cols-2 gap-6 px-5 py-7 sm:grid-cols-4 sm:px-8 lg:px-10">
           {[
             [ShieldCheck, 'Compra transparente', 'Tudo registrado no chat'],
@@ -153,14 +226,14 @@ export function LandingPage() {
       </section>
 
       <section id="beneficios" className="section-shell scroll-mt-24">
-        <div className="section-heading">
+        <div className="section-heading" data-reveal>
           <span className="section-kicker">UM ACESSO, MUITAS POSSIBILIDADES</span>
           <h2>Mais IA. Mais possibilidades. Mais resultados.</h2>
           <p>Uma ferramenta para acompanhar os seus próximos 18 meses — do primeiro rascunho ao projeto final.</p>
         </div>
         <div className="mt-12 grid gap-4 md:grid-cols-6">
           {benefits.map(({ icon: Icon, title, text, color }, index) => (
-            <article key={title} className={`benefit-card benefit-${color} ${index < 2 ? 'md:col-span-3' : 'md:col-span-2'}`}>
+            <article key={title} className={`benefit-card benefit-${color} ${index < 2 ? 'md:col-span-3' : 'md:col-span-2'}`} data-reveal style={{ '--reveal-delay': `${index * 70}ms` } as CSSProperties}>
               <div className="benefit-icon"><Icon size={23} /></div>
               <h3>{title}</h3>
               <p>{text}</p>
@@ -172,7 +245,7 @@ export function LandingPage() {
       <section id="como-funciona" className="bg-[#192444] text-white scroll-mt-20">
         <div className="section-shell">
           <div className="grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
-            <div className="section-heading !mx-0 !text-left">
+            <div className="section-heading !mx-0 !text-left" data-reveal>
               <span className="section-kicker !text-[#55ddc7]">PROCESSO CLARO DO INÍCIO AO FIM</span>
               <h2 className="!text-white">Seu acesso em quatro passos simples.</h2>
               <p className="!text-[#aeb8d1]">Você acompanha cada atualização pela mesma conversa e pode voltar quando quiser pelo link exclusivo.</p>
@@ -183,8 +256,8 @@ export function LandingPage() {
                 ['02', 'Realize o pagamento', 'Use o método disponível com segurança.'],
                 ['03', 'Acesso em preparação', 'A equipe inicia a ativação após a confirmação.'],
                 ['04', 'Receba seu acesso', 'O link chega na própria conversa.'],
-              ].map(([number, title, text]) => (
-                <div key={number} className="rounded-[22px] border border-white/10 bg-white/[.055] p-5">
+              ].map(([number, title, text], index) => (
+                <div key={number} className="process-step rounded-[22px] border border-white/10 bg-white/[.055] p-5" data-reveal style={{ '--reveal-delay': `${index * 80}ms` } as CSSProperties}>
                   <span className="text-xs font-extrabold tracking-[.15em] text-[#55ddc7]">{number}</span>
                   <h3 className="mt-6 text-lg font-bold">{title}</h3>
                   <p className="mt-2 text-sm leading-6 text-[#aeb8d1]">{text}</p>
@@ -196,19 +269,22 @@ export function LandingPage() {
       </section>
 
       <section className="section-shell">
-        <div className="video-card">
+        <div className="video-card" data-reveal>
           <div className="max-w-[540px]">
             <span className="section-kicker">VEJA EXATAMENTE COMO FUNCIONA</span>
             <h2 className="mt-4 text-3xl font-semibold tracking-[-.045em] sm:text-4xl">Entenda a ativação antes de comprar.</h2>
             <p className="mt-4 max-w-[500px] leading-7 text-[#68738d]">Um passo a passo simples para mostrar o que você recebe, como acompanhar o pedido e identificar quando o acesso estiver ativo.</p>
             <p className="mt-5 text-xs font-semibold uppercase tracking-[.1em] text-[#8a93a8]">Vídeo demonstrativo em breve</p>
           </div>
-          <button className="play-button" aria-label="Reproduzir vídeo explicativo" disabled title="Vídeo em breve"><Play size={26} fill="currentColor" /></button>
+          <div className="play-stage">
+            <div className="play-orbit" aria-hidden="true"><span /><span /></div>
+            <button className="play-button" aria-label="Reproduzir vídeo explicativo" disabled title="Vídeo em breve"><Play size={26} fill="currentColor" /></button>
+          </div>
         </div>
       </section>
 
       <section id="oferta" className="section-shell scroll-mt-24 !pt-4">
-        <div className="pricing-wrap">
+        <div className="pricing-wrap" data-reveal>
           <div className="max-w-[560px]">
             <span className="section-kicker">UMA OFERTA SIMPLES E TRANSPARENTE</span>
             <h2 className="mt-4 text-[clamp(2.2rem,5vw,4.25rem)] font-semibold leading-[1.02] tracking-[-.055em]">18 meses para fazer mais com IA.</h2>
@@ -218,7 +294,7 @@ export function LandingPage() {
               ))}
             </div>
           </div>
-          <div className="price-box">
+          <div className="price-box interactive-price-box">
             <p className="text-sm font-semibold text-[#717b93]">Gemini PRO · 18 meses</p>
             <p className="mt-5 text-sm text-[#717b93]">Pagamento único de</p>
             <p className="mt-1 text-5xl font-semibold tracking-[-.065em]">R$ 149,90</p>
@@ -230,12 +306,12 @@ export function LandingPage() {
 
       <section id="faq" className="section-shell scroll-mt-24">
         <div className="grid gap-12 lg:grid-cols-[.7fr_1.3fr]">
-          <div className="section-heading !mx-0 !text-left">
+          <div className="section-heading !mx-0 !text-left" data-reveal>
             <span className="section-kicker">DÚVIDAS FREQUENTES</span>
             <h2>Antes de continuar, tire suas dúvidas.</h2>
             <p>Se ainda precisar, inicie uma conversa e peça para falar com a equipe.</p>
           </div>
-          <div className="divide-y divide-[#e1e6ef] border-y border-[#e1e6ef]">
+          <div className="divide-y divide-[#e1e6ef] border-y border-[#e1e6ef]" data-reveal>
             {faqs.map(([question, answer]) => (
               <details key={question} className="faq-item group">
                 <summary><span>{question}</span><ChevronDown size={19} className="faq-chevron" /></summary>
@@ -247,7 +323,10 @@ export function LandingPage() {
       </section>
 
       <section className="px-5 pb-6 sm:px-8 lg:px-10">
-        <div className="mx-auto flex max-w-[1160px] flex-col items-center rounded-[32px] bg-[#5e50d7] px-6 py-14 text-center text-white sm:px-12 sm:py-18">
+        <div className="kinetic-cta relative mx-auto flex max-w-[1160px] flex-col items-center overflow-hidden rounded-[32px] bg-[#5e50d7] px-6 py-14 text-center text-white sm:px-12 sm:py-18" data-reveal>
+          <span className="kinetic-plus kinetic-plus-one" aria-hidden="true">+</span>
+          <span className="kinetic-plus kinetic-plus-two" aria-hidden="true">+</span>
+          <span className="kinetic-plus kinetic-plus-three" aria-hidden="true">+</span>
           <span className="text-xs font-extrabold tracking-[.14em] text-[#d5d0ff]">PRONTO PARA COMEÇAR?</span>
           <h2 className="mt-4 max-w-[720px] text-3xl font-semibold tracking-[-.045em] sm:text-5xl">Seu próximo projeto pode começar com uma conversa.</h2>
           <CTA className="mt-8 !bg-white !text-[#4035aa] !shadow-none">Garantir 18 meses de acesso</CTA>
