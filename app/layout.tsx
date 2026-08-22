@@ -19,13 +19,13 @@ export const metadata: Metadata = {
     description: 'Pagamento único, ativação assistida e uma experiência de compra simples pelo chat.',
     type: 'website',
     locale: 'pt_BR',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Acesso+ — 18 meses de IA avançada' }],
+    images: [{ url: '/og.jpg', width: 1200, height: 630, alt: 'Acesso+ — 18 meses de IA avançada' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Acesso+ | 18 meses de IA avançada',
     description: 'Pagamento único, ativação assistida e uma experiência de compra simples pelo chat.',
-    images: ['/og.png'],
+    images: ['/og.jpg'],
   },
 };
 
