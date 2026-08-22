@@ -41,6 +41,17 @@ const faqs = [
   ['Como funciona o reembolso?', 'Os critérios de reembolso são apresentados antes da compra e avaliados pelo suporte conforme o estágio da ativação e a legislação aplicável.'],
 ];
 
+const comparisonBenefits = [
+  'Gemini PRO e modelos avançados',
+  '2 TB de armazenamento',
+  'Google Flow e Flow Music',
+  'Pesquisa Google e Notebook',
+  'Gemini no Gmail, Docs, Vids e outros apps',
+  'Antigravity e Developer Program',
+  'Google AI Studio e Android Studio',
+  'YouTube Premium Lite e Google Health Premium',
+];
+
 function CTA({ className = '', children = 'Quero meu acesso' }: { className?: string; children?: ReactNode }) {
   return (
     <Link className={`primary-button ${className}`} href="/checkout/novo">
@@ -288,24 +299,81 @@ export function LandingPage() {
       </section>
 
       <section id="oferta" className="section-shell scroll-mt-24 !pt-4">
-        <div className="pricing-wrap" data-reveal>
-          <div className="max-w-[560px]">
-            <span className="section-kicker">UMA OFERTA SIMPLES E TRANSPARENTE</span>
-            <h2 className="mt-4 text-[clamp(2.2rem,5vw,4.25rem)] font-semibold leading-[1.02] tracking-[-.055em]">18 meses para fazer mais com IA.</h2>
-            <div className="mt-8 grid gap-3 sm:grid-cols-2">
-              {['Pagamento único', 'Sem cobrança mensal da Acesso+', 'Entrega na conversa', 'Suporte durante a ativação'].map((item) => (
-                <span key={item} className="flex items-center gap-3 text-sm font-semibold text-[#53607b]"><span className="grid h-6 w-6 place-items-center rounded-full bg-[#def8f3] text-[#008d7a]"><Check size={14} /></span>{item}</span>
-              ))}
+        <div className="offer-heading" data-reveal>
+          <span className="section-kicker">COMPARE E ESCOLHA</span>
+          <h2>Tudo do plano anual. Mais 6 meses por nossa conta.</h2>
+          <p>Na Acesso+, você recebe os mesmos benefícios apresentados na oferta original, mas leva 18 meses no total: 12 meses de acesso + 6 meses grátis.</p>
+        </div>
+
+        <div className="offer-comparison" data-reveal>
+          <div className="comparison-plans">
+            <article className="comparison-card comparison-card-original">
+              <div className="comparison-card-topline">
+                <span className="comparison-tag comparison-tag-neutral">OFERTA ORIGINAL DA REFERÊNCIA</span>
+                <span className="comparison-months">12 meses</span>
+              </div>
+              <p className="comparison-product">Google AI Pro</p>
+              <p className="comparison-caption">Plano anual apresentado</p>
+              <p className="comparison-old-price">R$ 1.163,88</p>
+              <div className="comparison-price-line">
+                <strong>R$ 869,90</strong>
+                <span>/ano</span>
+              </div>
+              <div className="comparison-summary comparison-summary-neutral">
+                <span>Tempo total</span>
+                <strong>1 ano</strong>
+              </div>
+            </article>
+
+            <article className="comparison-card comparison-card-access">
+              <span className="comparison-best-choice"><Sparkles size={14} aria-hidden="true" /> MELHOR ESCOLHA</span>
+              <div className="comparison-card-topline">
+                <span className="comparison-tag comparison-tag-access">OFERTA ACESSO+</span>
+                <span className="comparison-months comparison-months-access">18 meses</span>
+              </div>
+              <p className="comparison-product">Gemini PRO</p>
+              <div className="bonus-equation" aria-label="12 meses mais 6 meses grátis">
+                <span>12 meses</span>
+                <strong>+</strong>
+                <span className="bonus-pill">6 meses grátis</span>
+              </div>
+              <p className="comparison-payment-label">Pagamento único de</p>
+              <div className="comparison-price-line comparison-price-access">
+                <strong>R$ 67,90</strong>
+              </div>
+              <p className="comparison-saving">R$ 802,00 a menos que o valor anual da referência</p>
+              <CTA className="mt-6 w-full">Quero 18 meses de acesso</CTA>
+            </article>
+          </div>
+
+          <div className="comparison-benefits" aria-label="Comparação de benefícios">
+            <div className="comparison-benefit-row comparison-benefit-head">
+              <span>Benefícios incluídos</span>
+              <span>Original</span>
+              <span>Acesso+</span>
+            </div>
+            {comparisonBenefits.map((benefit) => (
+              <div className="comparison-benefit-row" key={benefit}>
+                <span>{benefit}</span>
+                <span className="comparison-check comparison-check-neutral" aria-label="Incluído na oferta original"><Check size={15} /></span>
+                <span className="comparison-check comparison-check-access" aria-label="Incluído na oferta Acesso+"><Check size={15} /></span>
+              </div>
+            ))}
+            <div className="comparison-benefit-row comparison-bonus-row">
+              <span><strong>6 meses adicionais grátis</strong></span>
+              <span className="comparison-not-included" aria-label="Não incluído na oferta original">—</span>
+              <span className="comparison-check comparison-check-access" aria-label="Incluído na oferta Acesso+"><Check size={15} /></span>
             </div>
           </div>
-          <div className="price-box interactive-price-box">
-            <p className="text-sm font-semibold text-[#717b93]">Gemini PRO · 18 meses</p>
-            <p className="mt-5 text-sm text-[#717b93]">Pagamento único de</p>
-            <p className="mt-1 text-5xl font-semibold tracking-[-.065em]">R$ 67,90</p>
-            <CTA className="mt-7 w-full">Quero meu acesso</CTA>
-            <p className="mt-4 text-center text-xs leading-5 text-[#7c8599]">Você confere todo o pedido na conversa antes de pagar.</p>
+
+          <div className="comparison-footer">
+            <div><Check size={17} /><span>Pagamento único</span></div>
+            <div><Check size={17} /><span>Sem mensalidade da Acesso+</span></div>
+            <div><Check size={17} /><span>Ativação assistida</span></div>
+            <div><Check size={17} /><span>Suporte humano</span></div>
           </div>
         </div>
+        <p className="comparison-disclaimer">Comparação baseada nos valores e benefícios visíveis na referência enviada. As condições da oferta original podem mudar no canal oficial.</p>
       </section>
 
       <section id="faq" className="section-shell scroll-mt-24">
