@@ -92,7 +92,7 @@ export function AdminDashboard() {
 
         <div className="min-w-0 flex-1 lg:ml-[244px]">
           <header className="sticky top-0 z-30 flex h-[72px] items-center justify-between border-b border-[#e1e5ed] bg-white/90 px-4 backdrop-blur-xl sm:px-7">
-            <div className="flex items-center gap-3"><button className="icon-button !h-10 !w-10 lg:hidden" onClick={() => setSidebar(true)} aria-label="Abrir menu"><Menu size={19} /></button><div><p className="text-lg font-extrabold tracking-[-.03em]">{activeView}</p><p className="hidden text-xs text-[#7a8499] sm:block">Operação Acesso+ em tempo real</p></div></div>
+            <div className="flex items-center gap-3"><button className="icon-button grid !h-10 !w-10 lg:hidden" onClick={() => setSidebar(true)} aria-label="Abrir menu"><Menu size={19} /></button><div><p className="text-lg font-extrabold tracking-[-.03em]">{activeView}</p><p className="hidden text-xs text-[#7a8499] sm:block">Operação Acesso+ em tempo real</p></div></div>
             <div className="flex items-center gap-3">
               <div className="relative hidden sm:block"><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8a93a6]" size={15} /><input className="h-10 w-[210px] rounded-xl border border-[#dde2eb] bg-[#f7f8fb] pl-9 pr-3 text-xs outline-none focus:border-[#6658d8]" placeholder="Buscar pedido..." /></div>
               <button className="flex h-10 items-center gap-2 rounded-xl border border-[#dce2eb] bg-white px-3 text-xs font-extrabold"><span className={`h-2 w-2 rounded-full ${mode === 'ONLINE' ? 'bg-[#00bea5]' : mode === 'FILA' ? 'bg-[#e4a72f]' : 'bg-[#df5c6b]'}`} /> {mode}<ChevronDown size={14} /></button>

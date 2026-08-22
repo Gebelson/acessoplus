@@ -73,7 +73,7 @@ export function LandingPage() {
             </span>
             <CTA className="!min-h-[44px] !rounded-xl !px-4 !text-sm">Começar agora</CTA>
           </div>
-          <button className="icon-button sm:hidden" onClick={() => setMenuOpen((value) => !value)} aria-expanded={menuOpen} aria-label="Abrir menu">
+          <button className="icon-button grid sm:hidden" onClick={() => setMenuOpen((value) => !value)} aria-expanded={menuOpen} aria-label="Abrir menu">
             {menuOpen ? <X size={21} /> : <Menu size={21} />}
           </button>
         </nav>
