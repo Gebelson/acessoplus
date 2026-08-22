@@ -313,7 +313,7 @@ export function LandingPage() {
           </div>
           <div className="divide-y divide-[#e1e6ef] border-y border-[#e1e6ef]" data-reveal>
             {faqs.map(([question, answer]) => (
-              <details key={question} className="faq-item group">
+              <details key={question} name="acessoplus-faq" className="faq-item group">
                 <summary><span>{question}</span><ChevronDown size={19} className="faq-chevron" /></summary>
                 <p>{answer}</p>
               </details>
