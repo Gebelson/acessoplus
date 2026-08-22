@@ -113,7 +113,9 @@ function AccessCore3D() {
       <span className="holo-cube-shadow" />
       <div className="access-cube">
         {['front', 'back', 'right', 'left', 'top', 'bottom'].map((face) => (
-          <span key={face} className={`cube-face cube-${face}`}><span className="gemini-glyph" /></span>
+          <span key={face} className={`cube-face cube-${face}`}>
+            <Image className="gemini-glyph" src="/gemini-star-3d.png" alt="" width={72} height={72} />
+          </span>
         ))}
       </div>
       <span className="holo-core-label">GEMINI</span>

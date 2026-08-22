@@ -411,6 +411,7 @@ a { text-decoration: none; }
     0 0 20px rgba(95,88,232,.2);
   backface-visibility: visible;
   backdrop-filter: blur(6px);
+  transform-style: preserve-3d;
 }
 
 .cube-face::after {
@@ -450,11 +451,11 @@ a { text-decoration: none; }
 
 .gemini-glyph {
   display: block;
-  width: 25px;
-  height: 25px;
-  background: linear-gradient(135deg, #82f6e2 4%, #b9d7ff 38%, #f5a8ff 70%, #fff 100%);
-  clip-path: polygon(50% 0, 61% 35%, 100% 50%, 61% 65%, 50% 100%, 39% 65%, 0 50%, 39% 35%);
-  filter: drop-shadow(0 0 7px rgba(255,255,255,.76));
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 4px rgba(19,31,83,.28)) drop-shadow(0 0 7px rgba(255,255,255,.58));
+  transform: translateZ(5px);
 }
 
 .holo-cube-shadow { position: absolute; bottom: 13px; left: 50%; width: 65px; height: 18px; border-radius: 50%; background: rgba(82,74,208,.32); filter: blur(10px); transform: translateX(-50%) rotateX(70deg); }
