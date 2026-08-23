@@ -13,7 +13,6 @@ import {
   Lightbulb,
   Menu,
   MessageCircle,
-  Play,
   Search,
   ShieldCheck,
   Sparkles,
@@ -289,11 +288,20 @@ export function LandingPage() {
             <span className="section-kicker">VEJA EXATAMENTE COMO FUNCIONA</span>
             <h2 className="mt-4 text-3xl font-semibold tracking-[-.045em] sm:text-4xl">Entenda a ativação antes de comprar.</h2>
             <p className="mt-4 max-w-[500px] leading-7 text-[#68738d]">Um passo a passo simples para mostrar o que você recebe, como acompanhar o pedido e identificar quando o acesso estiver ativo.</p>
-            <p className="mt-5 text-xs font-semibold uppercase tracking-[.1em] text-[#8a93a8]">Vídeo demonstrativo em breve</p>
+            <p className="mt-5 text-xs font-semibold uppercase tracking-[.1em] text-[#8a93a8]">Demonstração completa · 43 segundos</p>
           </div>
-          <div className="play-stage">
-            <div className="play-orbit" aria-hidden="true"><span /><span /></div>
-            <button className="play-button" aria-label="Reproduzir vídeo explicativo" disabled title="Vídeo em breve"><Play size={26} fill="currentColor" /></button>
+          <div className="video-stage">
+            <video
+              className="video-player"
+              controls
+              playsInline
+              preload="metadata"
+              poster="/acesso-poster.jpg"
+              aria-label="Vídeo demonstrativo da ativação do acesso"
+            >
+              <source src="/acesso.mp4" type="video/mp4" />
+              Seu navegador não suporta a reprodução deste vídeo.
+            </video>
           </div>
         </div>
       </section>
