@@ -667,7 +667,8 @@ a { text-decoration: none; }
 .faq-item[open] { padding-left: .7rem; }
 .faq-item[open] summary { color: #5b4fd0; }
 
-.trust-strip svg { animation: none; transform: none; }
+.trust-item { display: flex; min-height: 58px; align-items: center; justify-content: center; gap: 1rem; }
+.trust-item svg { width: 28px; height: 28px; animation: none; transform: none; }
 
 .kinetic-cta { isolation: isolate; transform-style: preserve-3d; }
 .kinetic-cta::before, .kinetic-cta::after { position: absolute; z-index: -1; border-radius: 50%; content: ''; filter: blur(2px); }

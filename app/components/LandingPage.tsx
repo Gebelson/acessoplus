@@ -234,7 +234,7 @@ export function LandingPage() {
             [MessageCircle, 'Sem checkout confuso', 'Conversa simples e guiada'],
           ].map(([Icon, title, text]) => {
             const ItemIcon = Icon as typeof ShieldCheck;
-            return <div key={String(title)} className="flex gap-3"><ItemIcon className="mt-0.5 shrink-0 text-[#6557df]" size={20} /><div><p className="text-sm font-bold">{String(title)}</p><p className="mt-1 text-xs leading-5 text-[#727c94]">{String(text)}</p></div></div>;
+            return <div key={String(title)} className="trust-item"><ItemIcon className="shrink-0 text-[#6557df]" size={28} strokeWidth={1.9} /><div><p className="text-sm font-bold">{String(title)}</p><p className="mt-1 text-xs leading-5 text-[#727c94]">{String(text)}</p></div></div>;
           })}
         </div>
       </section>
