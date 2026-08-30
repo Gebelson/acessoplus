@@ -19,7 +19,7 @@ import {
   X,
   Zap,
 } from 'lucide-react';
-import { useEffect, useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type CSSProperties, type MouseEvent, type PointerEvent, type ReactNode } from 'react';
 
 const benefits = [
   { icon: BriefcaseBusiness, title: 'Para trabalhar', text: 'Produza textos, analise informações e organize sua rotina com muito mais agilidade.', color: 'violet' },
@@ -187,18 +187,41 @@ export function LandingPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   useRevealMotion();
 
+  const scrollToSection = (sectionId: string, closeMenu = false) => (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    if (closeMenu) {
+      setMenuOpen(false);
+      window.setTimeout(() => {
+        const section = document.getElementById(sectionId);
+        if (!section) return;
+        const headerHeight = document.querySelector('header')?.getBoundingClientRect().height ?? 0;
+        const sectionTop = window.scrollY + section.getBoundingClientRect().top - headerHeight;
+        window.scrollTo({ top: Math.max(0, sectionTop), behavior: 'auto' });
+      }, 0);
+      return;
+    }
+
+    const section = document.getElementById(sectionId);
+    if (!section) return;
+    const headerHeight = document.querySelector('header')?.getBoundingClientRect().height ?? 0;
+    const sectionTop = window.scrollY + section.getBoundingClientRect().top - headerHeight;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: Math.max(0, sectionTop), behavior: reducedMotion ? 'auto' : 'smooth' });
+  };
+
   return (
-    <main className="site-motion overflow-hidden bg-[#f7f9fc] pt-[74px] text-[#15203e]">
+    <main className="site-motion overflow-x-clip bg-[#f7f9fc] pt-[74px] text-[#15203e]">
       <header className="glass-header fixed inset-x-0 top-0 z-50">
         <nav className="mx-auto flex h-[74px] w-full max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-7" aria-label="Navegação principal">
-          <Link href="#inicio" aria-label="Acesso+ — início">
+          <button type="button" className="header-section-button" onClick={scrollToSection('inicio')} aria-label="Acesso+ — início">
             <Image src="/logo-acesso.svg" alt="Acesso+" width={748} height={109} priority className="h-auto w-[136px] sm:w-[152px]" />
-          </Link>
+          </button>
           <div className="hidden items-center gap-7 text-sm font-semibold text-[#596581] lg:flex">
-            <Link href="#beneficios">Benefícios</Link>
-            <Link href="#como-funciona">Como funciona</Link>
-            <Link href="#oferta">Oferta</Link>
-            <Link href="#faq">Dúvidas</Link>
+            <button type="button" className="header-section-button" onClick={scrollToSection('beneficios')}>Benefícios</button>
+            <button type="button" className="header-section-button" onClick={scrollToSection('como-funciona')}>Como funciona</button>
+            <button type="button" className="header-section-button" onClick={scrollToSection('oferta')}>Oferta</button>
+            <button type="button" className="header-section-button" onClick={scrollToSection('faq')}>Dúvidas</button>
           </div>
           <div className="hidden items-center gap-4 sm:flex">
             <span className="flex items-center gap-2 text-xs font-semibold text-[#52617b]">
@@ -214,10 +237,10 @@ export function LandingPage() {
         {menuOpen && (
           <div className="glass-mobile-menu border-t border-white/60 px-4 py-5 sm:hidden">
             <div className="flex flex-col gap-4 text-sm font-semibold text-[#596581]">
-              <Link onClick={() => setMenuOpen(false)} href="#beneficios">Benefícios</Link>
-              <Link onClick={() => setMenuOpen(false)} href="#como-funciona">Como funciona</Link>
-              <Link onClick={() => setMenuOpen(false)} href="#oferta">Oferta</Link>
-              <Link onClick={() => setMenuOpen(false)} href="#faq">Dúvidas</Link>
+              <button type="button" className="header-section-button" onClick={scrollToSection('beneficios', true)}>Benefícios</button>
+              <button type="button" className="header-section-button" onClick={scrollToSection('como-funciona', true)}>Como funciona</button>
+              <button type="button" className="header-section-button" onClick={scrollToSection('oferta', true)}>Oferta</button>
+              <button type="button" className="header-section-button" onClick={scrollToSection('faq', true)}>Dúvidas</button>
               <CTA className="mt-2">Começar conversa</CTA>
             </div>
           </div>
