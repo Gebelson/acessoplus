@@ -272,7 +272,6 @@ a { text-decoration: none; }
 .gift-card::after {
   z-index: 1;
   background:
-    radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(255,255,255,.92), rgba(188,225,255,.24) 17%, transparent 35%),
     linear-gradient(135deg, transparent 10%, rgba(136,117,255,.1) 37%, rgba(45,212,191,.1) 58%, transparent 82%);
   opacity: .85;
   mix-blend-mode: screen;
@@ -332,17 +331,6 @@ a { text-decoration: none; }
   transform: perspective(700px) rotateX(63deg) translateY(23%);
   transform-origin: bottom;
   animation: grid-drift 12s linear infinite;
-}
-
-.tilt-surface {
-  --tilt-x: 0deg;
-  --tilt-y: 0deg;
-  --shine-x: 50%;
-  --shine-y: 50%;
-  transform: perspective(1200px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
-  transform-style: preserve-3d;
-  transition: transform .14s ease-out;
-  will-change: transform;
 }
 
 .hero-card-stage .offer-card { transform: translateZ(12px); }
@@ -827,5 +815,4 @@ a { text-decoration: none; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .motion-ready [data-reveal], .motion-ready [data-reveal].is-visible { opacity: 1 !important; translate: none !important; scale: 1 !important; filter: none !important; }
-  .tilt-surface { transform: none !important; }
 }
