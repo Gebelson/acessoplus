@@ -19,7 +19,7 @@ import {
   X,
   Zap,
 } from 'lucide-react';
-import { useEffect, useState, type CSSProperties, type PointerEvent, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from 'react';
 
 const benefits = [
   { icon: BriefcaseBusiness, title: 'Para trabalhar', text: 'Produza textos, analise informações e organize sua rotina com muito mais agilidade.', color: 'violet' },
@@ -91,6 +91,46 @@ function useRevealMotion() {
 }
 
 function TiltSurface({ children, className = '' }: { children: ReactNode; className?: string }) {
+  const surfaceRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const surface = surfaceRef.current;
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!surface || !isTouchDevice || reducedMotion || !('DeviceOrientationEvent' in window)) return;
+
+    let baselineBeta: number | null = null;
+    let baselineGamma: number | null = null;
+
+    const handleOrientation = (event: DeviceOrientationEvent) => {
+      if (event.beta === null || event.gamma === null) return;
+      baselineBeta ??= event.beta;
+      baselineGamma ??= event.gamma;
+
+      const tiltX = Math.max(-1, Math.min(1, (event.beta - baselineBeta) / 28));
+      const tiltY = Math.max(-1, Math.min(1, (event.gamma - baselineGamma) / 22));
+      surface.style.setProperty('--tilt-x', `${tiltX * -8}deg`);
+      surface.style.setProperty('--tilt-y', `${tiltY * 10}deg`);
+      surface.style.setProperty('--shine-x', `${50 + tiltY * 45}%`);
+      surface.style.setProperty('--shine-y', `${50 + tiltX * 45}%`);
+    };
+
+    const orientationApi = window.DeviceOrientationEvent as typeof DeviceOrientationEvent & {
+      requestPermission?: () => Promise<string>;
+    };
+    const requestPermission = () => {
+      orientationApi.requestPermission?.().catch(() => undefined);
+    };
+
+    window.addEventListener('deviceorientation', handleOrientation, { passive: true });
+    if (orientationApi.requestPermission) window.addEventListener('pointerdown', requestPermission, { once: true, passive: true });
+
+    return () => {
+      window.removeEventListener('deviceorientation', handleOrientation);
+      if (orientationApi.requestPermission) window.removeEventListener('pointerdown', requestPermission);
+    };
+  }, []);
+
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
     if (event.pointerType !== 'mouse') return;
     const bounds = event.currentTarget.getBoundingClientRect();
@@ -110,7 +150,7 @@ function TiltSurface({ children, className = '' }: { children: ReactNode; classN
     event.currentTarget.style.setProperty('--shine-y', '50%');
   };
 
-  return <div className={`tilt-surface ${className}`} onPointerMove={handlePointerMove} onPointerLeave={resetTilt}>{children}</div>;
+  return <div ref={surfaceRef} className={`tilt-surface ${className}`} onPointerMove={handlePointerMove} onPointerLeave={resetTilt}>{children}</div>;
 }
 
 function AccessCore3D() {
