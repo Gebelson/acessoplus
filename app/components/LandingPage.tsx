@@ -292,7 +292,7 @@ export function LandingPage() {
       <section id="oferta" className="section-shell scroll-mt-24 !pt-4">
         <div className="offer-heading" data-reveal>
           <span className="section-kicker">COMPARE E ESCOLHA</span>
-          <h2>Tudo do plano anual. Mais 6 meses por nossa conta.</h2>
+          <h2><span>Tudo do plano anual.</span><span>Mais 6 meses <strong>GRÁTIS.</strong></span></h2>
           <p>Na Acesso+, você recebe os mesmos benefícios apresentados na oferta original, mas leva 18 meses no total: 12 meses de acesso + 6 meses grátis.</p>
         </div>
 

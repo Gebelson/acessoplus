@@ -575,6 +575,8 @@ a { text-decoration: none; }
 
 .offer-heading { max-width: 860px; margin: 0 auto 2.7rem; text-align: center; }
 .offer-heading h2 { margin-top: 1rem; font-size: clamp(2.2rem,5vw,4.25rem); font-weight: 650; letter-spacing: -.055em; line-height: 1.02; }
+.offer-heading h2 span { display: block; white-space: nowrap; }
+.offer-heading h2 strong { font-weight: 750; }
 .offer-heading p { max-width: 760px; margin: 1.25rem auto 0; color: #68738d; font-size: clamp(.96rem,2vw,1.08rem); line-height: 1.75; }
 
 .offer-comparison { overflow: hidden; border: 1px solid #dce2eb; border-radius: 32px; background: white; padding: clamp(1rem,3vw,2rem); box-shadow: 0 28px 80px rgba(25,36,68,.08); }
