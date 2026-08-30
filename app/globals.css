@@ -624,7 +624,7 @@ a { text-decoration: none; }
 .comparison-bonus-row { background: linear-gradient(90deg,#faf9ff,#f0efff); color: #463ba5; }
 .comparison-not-included { color: #9ba3b4; font-weight: 700; }
 .comparison-footer { display: grid; gap: .75rem; margin-top: 1rem; border-radius: 19px; background: #192444; padding: 1rem 1.15rem; color: white; }
-.comparison-footer > div { display: flex; align-items: center; gap: .55rem; font-size: .75rem; font-weight: 700; }
+.comparison-footer > div { display: flex; align-items: center; justify-content: center; gap: .55rem; font-size: .75rem; font-weight: 700; text-align: center; }
 .comparison-footer svg { flex: none; color: #55ddc7; }
 .comparison-disclaimer { max-width: 900px; margin: 1rem auto 0; color: #8a93a7; font-size: .68rem; line-height: 1.6; text-align: center; }
 
