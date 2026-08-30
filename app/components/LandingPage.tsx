@@ -195,7 +195,7 @@ export function LandingPage() {
               <div className="gift-card-copy">
                 <p className="gift-card-overline">ACESSO PREMIUM</p>
                 <div className="gift-card-duration"><strong>18</strong><span>MESES</span></div>
-                <p className="gift-card-product">Gemini PRO</p>
+                <p className="gift-card-product">GEMINI PRO</p>
               </div>
               <AccessCore3D />
             </div>
