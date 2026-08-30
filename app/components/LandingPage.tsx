@@ -29,6 +29,13 @@ const benefits = [
   { icon: Search, title: 'Para o dia a dia', text: 'Pesquise, compare opções e planeje decisões pessoais com mais contexto.', color: 'amber' },
 ];
 
+const trustItems = [
+  [ShieldCheck, 'Compra transparente', 'Tudo registrado no chat'],
+  [Zap, 'Entrega digital', 'Acompanhe em tempo real'],
+  [Headphones, 'Suporte de verdade', 'Atendimento humano'],
+  [MessageCircle, 'Sem checkout confuso', 'Conversa simples e guiada'],
+];
+
 const faqs = [
   ['É realmente por 18 meses?', 'Sim. O produto anunciado nesta oferta corresponde a 18 meses de acesso. As condições do pedido ficam registradas na conversa antes do pagamento.'],
   ['Preciso pagar todo mês?', 'Não. O valor de R$ 67,90 é um pagamento único para esta oferta. Não há mensalidade recorrente da Acesso+.'],
@@ -271,17 +278,16 @@ export function LandingPage() {
         </TiltSurface>
       </section>
 
-      <section className="trust-strip border-y border-[#e2e7ef] bg-white/70" data-reveal>
-        <div className="mx-auto grid max-w-[1440px] grid-cols-2 gap-6 px-4 py-7 sm:grid-cols-4 sm:px-6 lg:px-7">
-          {[
-            [ShieldCheck, 'Compra transparente', 'Tudo registrado no chat'],
-            [Zap, 'Entrega digital', 'Acompanhe em tempo real'],
-            [Headphones, 'Suporte de verdade', 'Atendimento humano'],
-            [MessageCircle, 'Sem checkout confuso', 'Conversa simples e guiada'],
-          ].map(([Icon, title, text]) => {
-            const ItemIcon = Icon as typeof ShieldCheck;
-            return <div key={String(title)} className="trust-item"><ItemIcon className="shrink-0 text-[#6557df]" size={28} strokeWidth={1.9} /><div><p className="text-sm font-bold">{String(title)}</p><p className="mt-1 text-xs leading-5 text-[#727c94]">{String(text)}</p></div></div>;
-          })}
+      <section className="trust-strip border-y border-[#e2e7ef] bg-white/70" data-reveal aria-label="Vantagens da Acesso+">
+        <div className="trust-marquee">
+          {[false, true].map((isDuplicate) => (
+            <div className="trust-group" aria-hidden={isDuplicate || undefined} key={isDuplicate ? 'duplicate' : 'primary'}>
+              {trustItems.map(([Icon, title, text]) => {
+                const ItemIcon = Icon as typeof ShieldCheck;
+                return <div key={`${isDuplicate ? 'duplicate' : 'primary'}-${String(title)}`} className="trust-item"><ItemIcon className="shrink-0 text-[#6557df]" size={28} strokeWidth={1.9} /><div><p className="text-sm font-bold">{String(title)}</p><p className="mt-1 text-xs leading-5 text-[#727c94]">{String(text)}</p></div></div>;
+              })}
+            </div>
+          ))}
         </div>
       </section>
 
