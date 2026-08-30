@@ -212,7 +212,7 @@ export function LandingPage() {
       <section id="inicio" className="hero-scene relative mx-auto grid min-h-[calc(100svh-74px)] w-full max-w-[1440px] scroll-mt-20 items-center gap-12 px-4 pb-20 pt-14 sm:px-6 lg:grid-cols-[1.05fr_.95fr] lg:px-7 lg:py-24">
         <div className="hero-depth-grid" aria-hidden="true" />
         <div className="relative z-10 order-2 max-w-[690px] lg:order-1" data-reveal>
-          <div className="eyebrow"><Sparkles size={14} /> ACESSO PREMIUM · 18 MESES</div>
+          <div className="eyebrow hidden sm:inline-flex"><Sparkles size={14} /> ACESSO PREMIUM · 18 MESES</div>
           <h1 className="mt-6 text-[clamp(2.85rem,6vw,5.35rem)] font-semibold leading-[.96] tracking-[-.06em] text-[#15203e]">
             IA avançada sem pagar uma fortuna.
           </h1>
@@ -226,7 +226,7 @@ export function LandingPage() {
               Compra assistida pelo chat
             </div>
           </div>
-          <div className="mt-10 grid grid-cols-2 gap-x-5 gap-y-4 border-t border-[#dce2ed] pt-7 sm:flex sm:flex-wrap sm:gap-6">
+          <div className="mt-10 hidden grid-cols-2 gap-x-5 gap-y-4 border-t border-[#dce2ed] pt-7 sm:flex sm:flex-wrap sm:gap-6">
             {['Pagamento único', 'Entrega digital', 'Ativação assistida', 'Suporte humano'].map((item) => (
               <span key={item} className="flex items-center gap-2 text-sm font-semibold text-[#53607b]"><Check size={15} className="text-[#00a891]" />{item}</span>
             ))}
