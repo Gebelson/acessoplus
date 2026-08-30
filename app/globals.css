@@ -346,6 +346,8 @@ a { text-decoration: none; }
 }
 
 .hero-card-stage .offer-card { transform: translateZ(12px); }
+.hero-title { font-size: clamp(1.95rem, 8vw, 5.35rem); }
+.hero-title span { display: block; white-space: nowrap; }
 
 .floating-chip {
   position: absolute;

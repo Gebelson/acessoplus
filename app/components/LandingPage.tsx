@@ -213,8 +213,9 @@ export function LandingPage() {
         <div className="hero-depth-grid" aria-hidden="true" />
         <div className="relative z-10 order-2 max-w-[690px] lg:order-1" data-reveal>
           <div className="eyebrow hidden sm:inline-flex"><Sparkles size={14} /> ACESSO PREMIUM · 18 MESES</div>
-          <h1 className="mt-6 text-[clamp(2.85rem,6vw,5.35rem)] font-semibold leading-[.96] tracking-[-.06em] text-[#15203e]">
-            IA avançada sem pagar uma fortuna.
+          <h1 className="hero-title mt-6 font-semibold leading-[.96] tracking-[-.06em] text-[#15203e]">
+            <span>IA avançada sem</span>
+            <span>pagar uma fortuna.</span>
           </h1>
           <p className="mt-7 max-w-[625px] text-lg leading-8 text-[#596581] sm:text-xl">
             Tenha acesso ao Gemini PRO por 18 meses e use IA para trabalhar, estudar, criar, pesquisar e programar com mais produtividade.
