@@ -544,6 +544,11 @@ a { text-decoration: none; }
 .benefit-card h3 { margin-top: 2.8rem; font-size: 1.25rem; font-weight: 750; letter-spacing: -.03em; }
 .benefit-card p { margin-top: .65rem; color: #68738d; font-size: .92rem; line-height: 1.65; }
 
+@media (max-width: 639px) {
+  .benefit-card.is-centered { border-color: #d4d0f8; box-shadow: 0 21px 46px rgba(45,56,92,.095); transform: perspective(1000px) translate3d(0, -5px, 0) scale(1.006); }
+  .benefit-card.is-centered .benefit-icon { transform: translate3d(0, -2px, 18px) rotate(-2deg) scale(1.045); }
+}
+
 .benefit-icon {
   display: grid;
   width: 48px;
@@ -639,6 +644,11 @@ a { text-decoration: none; }
 .process-step::after { position: absolute; right: 100%; bottom: 0; left: 0; height: 2px; background: linear-gradient(90deg, #55ddc7, #8174ef); content: ''; transition: right .45s cubic-bezier(.22,1,.36,1); }
 .process-step:hover { border-color: rgba(85,221,199,.38); background: rgba(255,255,255,.085); transform: translateY(-4px); }
 .process-step:hover::after { right: 0; }
+
+@media (max-width: 639px) {
+  .process-step.is-centered { border-color: rgba(85,221,199,.38); background: rgba(255,255,255,.085); transform: translateY(-4px); }
+  .process-step.is-centered::after { right: 0; }
+}
 
 .faq-item summary {
   display: flex;

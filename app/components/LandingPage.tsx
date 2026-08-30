@@ -65,6 +65,7 @@ function useRevealMotion() {
     const root = document.documentElement;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const elements = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
+    const centerActivatedElements = Array.from(document.querySelectorAll<HTMLElement>('[data-center-activate]'));
 
     root.classList.add('motion-ready');
 
@@ -83,8 +84,15 @@ function useRevealMotion() {
 
     elements.forEach((element) => observer.observe(element));
 
+    const centerObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => entry.target.classList.toggle('is-centered', entry.isIntersecting));
+    }, { threshold: 0.01, rootMargin: '-38% 0px -38% 0px' });
+
+    centerActivatedElements.forEach((element) => centerObserver.observe(element));
+
     return () => {
       observer.disconnect();
+      centerObserver.disconnect();
       root.classList.remove('motion-ready');
     };
   }, []);
@@ -286,7 +294,7 @@ export function LandingPage() {
         </div>
         <div className="mt-12 grid gap-4 md:grid-cols-6">
           {benefits.map(({ icon: Icon, title, text, color }, index) => (
-            <article key={title} className={`benefit-card benefit-${color} ${index < 2 ? 'md:col-span-3' : 'md:col-span-2'}`} data-reveal style={{ '--reveal-delay': `${index * 70}ms` } as CSSProperties}>
+            <article key={title} className={`benefit-card benefit-${color} ${index < 2 ? 'md:col-span-3' : 'md:col-span-2'}`} data-reveal data-center-activate style={{ '--reveal-delay': `${index * 70}ms` } as CSSProperties}>
               <div className="benefit-icon"><Icon size={23} /></div>
               <h3>{title}</h3>
               <p>{text}</p>
@@ -310,7 +318,7 @@ export function LandingPage() {
                 ['03', 'Acesso em preparação', 'A equipe inicia a ativação após a confirmação.'],
                 ['04', 'Receba seu acesso', 'O link chega na própria conversa.'],
               ].map(([number, title, text], index) => (
-                <div key={number} className="process-step rounded-[22px] border border-white/10 bg-white/[.055] p-5" data-reveal style={{ '--reveal-delay': `${index * 80}ms` } as CSSProperties}>
+                <div key={number} className="process-step rounded-[22px] border border-white/10 bg-white/[.055] p-5" data-reveal data-center-activate style={{ '--reveal-delay': `${index * 80}ms` } as CSSProperties}>
                   <span className="text-xs font-extrabold tracking-[.15em] text-[#55ddc7]">{number}</span>
                   <h3 className="mt-6 text-lg font-bold">{title}</h3>
                   <p className="mt-2 text-sm leading-6 text-[#aeb8d1]">{text}</p>
