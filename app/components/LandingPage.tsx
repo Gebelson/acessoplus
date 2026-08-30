@@ -171,8 +171,6 @@ export function LandingPage() {
 
       <section id="inicio" className="hero-scene relative mx-auto grid min-h-[calc(100svh-74px)] w-full max-w-[1440px] scroll-mt-20 items-center gap-12 px-4 pb-20 pt-14 sm:px-6 lg:grid-cols-[1.05fr_.95fr] lg:px-7 lg:py-24">
         <div className="hero-depth-grid" aria-hidden="true" />
-        <span className="hero-orb hero-orb-one" aria-hidden="true" />
-        <span className="hero-orb hero-orb-two" aria-hidden="true" />
         <div className="relative z-10 max-w-[690px]" data-reveal>
           <div className="eyebrow"><Sparkles size={14} /> ACESSO PREMIUM · 18 MESES</div>
           <h1 className="mt-6 text-[clamp(2.85rem,6vw,5.35rem)] font-semibold leading-[.96] tracking-[-.06em] text-[#15203e]">

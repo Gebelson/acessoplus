@@ -334,18 +334,6 @@ a { text-decoration: none; }
   animation: grid-drift 12s linear infinite;
 }
 
-.hero-orb {
-  position: absolute;
-  z-index: -1;
-  border-radius: 50%;
-  filter: blur(1px);
-  pointer-events: none;
-  animation: orb-float 7s ease-in-out infinite;
-}
-
-.hero-orb-one { top: 14%; right: 37%; width: 62px; height: 62px; background: rgba(0,190,165,.1); box-shadow: 0 0 70px rgba(0,190,165,.25); }
-.hero-orb-two { right: 2%; bottom: 10%; width: 28px; height: 28px; background: rgba(101,87,223,.2); animation-delay: -2.4s; }
-
 .tilt-surface {
   --tilt-x: 0deg;
   --tilt-y: 0deg;
