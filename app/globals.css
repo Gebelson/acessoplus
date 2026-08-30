@@ -623,7 +623,8 @@ a { text-decoration: none; }
 .comparison-check-access { background: #d7f7ef; color: #008d7a; }
 .comparison-bonus-row { min-height: 62px; border-top-color: #d9d3ff; background: linear-gradient(90deg,#f0edff 0%,#e9fbf6 100%); color: #4035aa; font-size: .82rem; box-shadow: inset 4px 0 0 #6557df; }
 .comparison-bonus-row strong { font-weight: 850; letter-spacing: -.01em; }
-.comparison-bonus-row .comparison-check-access { width: 31px; height: 31px; background: #c9f4e9; box-shadow: 0 7px 18px rgba(0,141,122,.16); }
+.comparison-bonus-row .comparison-check-access { width: 40px; height: 40px; background: #00a891; color: #fff; box-shadow: 0 9px 22px rgba(0,141,122,.28); }
+.comparison-bonus-row .comparison-check-access svg { width: 20px; height: 20px; stroke-width: 2.5; }
 .comparison-not-included { color: #9ba3b4; font-weight: 700; }
 .comparison-footer { display: grid; gap: .75rem; margin-top: 1rem; border-radius: 19px; background: #192444; padding: 1rem 1.15rem; color: white; }
 .comparison-footer > div { display: flex; align-items: center; justify-content: center; gap: .55rem; font-size: .75rem; font-weight: 700; text-align: center; }
