@@ -858,6 +858,7 @@ a { text-decoration: none; }
   .comparison-card-topline { align-items: flex-start; flex-direction: column; gap: .6rem; }
   .comparison-benefit-row { grid-template-columns: minmax(0,1fr) 48px 52px; padding: .65rem .7rem; font-size: .72rem; }
   .comparison-benefit-head { font-size: .56rem; }
+  .comparison-footer { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
