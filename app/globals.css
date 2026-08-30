@@ -815,7 +815,10 @@ a { text-decoration: none; }
   .primary-button { width: 100%; }
   .secondary-button { min-height: 44px; padding: 0 .8rem; font-size: .74rem; }
   .banana-mark { width: 68px; height: 68px; font-size: 2.25rem; }
-  .gift-card { aspect-ratio: 1.42 / 1; border-radius: 22px; padding: 1rem; }
+  .hero-scene { gap: 1.75rem; padding: 2.85rem .5rem 5rem; }
+  .hero-scene > .relative.z-10 { padding-inline: .375rem; }
+  .hero-title { font-size: clamp(2.3rem, 10.8vw, 3.1rem); }
+  .gift-card { aspect-ratio: 1.45 / 1; border-radius: 22px; padding: 1rem; }
   .gift-card-logo { width: 96px; }
   .gift-card-brand > span { font-size: .46rem; }
   .gift-card-duration strong { font-size: 4.5rem; }
