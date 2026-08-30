@@ -817,6 +817,7 @@ a { text-decoration: none; }
   .banana-mark { width: 68px; height: 68px; font-size: 2.25rem; }
   .hero-scene { gap: 1.75rem; padding: 2.85rem .5rem 5rem; }
   .hero-scene > .relative.z-10 { padding-inline: .375rem; }
+  .hero-scene .eyebrow { display: none; }
   .hero-title { font-size: clamp(2.3rem, 10.8vw, 3.1rem); }
   .hero-card-stage { width: calc(100% - .75rem); }
   .gift-card { aspect-ratio: 1.45 / 1; border-radius: 22px; padding: 1rem; }
