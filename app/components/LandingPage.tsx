@@ -171,7 +171,7 @@ export function LandingPage() {
 
       <section id="inicio" className="hero-scene relative mx-auto grid min-h-[calc(100svh-74px)] w-full max-w-[1440px] scroll-mt-20 items-center gap-12 px-4 pb-20 pt-14 sm:px-6 lg:grid-cols-[1.05fr_.95fr] lg:px-7 lg:py-24">
         <div className="hero-depth-grid" aria-hidden="true" />
-        <div className="relative z-10 max-w-[690px]" data-reveal>
+        <div className="relative z-10 order-2 max-w-[690px] lg:order-1" data-reveal>
           <div className="eyebrow"><Sparkles size={14} /> ACESSO PREMIUM · 18 MESES</div>
           <h1 className="mt-6 text-[clamp(2.85rem,6vw,5.35rem)] font-semibold leading-[.96] tracking-[-.06em] text-[#15203e]">
             IA avançada sem pagar uma fortuna.
@@ -193,7 +193,7 @@ export function LandingPage() {
           </div>
         </div>
 
-        <TiltSurface className="hero-card-stage relative mx-auto w-full max-w-[520px] lg:justify-self-end">
+        <TiltSurface className="hero-card-stage relative order-1 mx-auto w-full max-w-[520px] lg:order-2 lg:justify-self-end">
           <div className="hero-glow" aria-hidden="true" />
           <span className="floating-chip floating-chip-one" aria-hidden="true"><Sparkles size={13} /> IA premium</span>
           <span className="floating-chip floating-chip-two" aria-hidden="true"><ShieldCheck size={13} /> Ativação guiada</span>
