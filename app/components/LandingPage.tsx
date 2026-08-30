@@ -19,7 +19,7 @@ import {
   X,
   Zap,
 } from 'lucide-react';
-import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from 'react';
 
 const benefits = [
   { icon: BriefcaseBusiness, title: 'Para trabalhar', text: 'Produza textos, analise informações e organize sua rotina com muito mais agilidade.', color: 'violet' },
@@ -96,6 +96,69 @@ function useRevealMotion() {
       root.classList.remove('motion-ready');
     };
   }, []);
+}
+
+function TiltSurface({ children, className = '' }: { children: ReactNode; className?: string }) {
+  const surfaceRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const surface = surfaceRef.current;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0;
+    if (!surface || reducedMotion || !isTouchDevice || !('DeviceOrientationEvent' in window)) return;
+
+    let baselineBeta: number | null = null;
+    let baselineGamma: number | null = null;
+
+    const handleOrientation = (event: DeviceOrientationEvent) => {
+      if (event.beta === null || event.gamma === null) return;
+      baselineBeta ??= event.beta;
+      baselineGamma ??= event.gamma;
+
+      const tiltX = Math.max(-1, Math.min(1, (event.beta - baselineBeta) / 28));
+      const tiltY = Math.max(-1, Math.min(1, (event.gamma - baselineGamma) / 22));
+      surface.style.setProperty('--tilt-x', `${tiltX * -7}deg`);
+      surface.style.setProperty('--tilt-y', `${tiltY * 9}deg`);
+      surface.style.setProperty('--shine-x', `${50 + tiltY * 45}%`);
+      surface.style.setProperty('--shine-y', `${50 + tiltX * 45}%`);
+    };
+
+    const orientationApi = window.DeviceOrientationEvent as typeof DeviceOrientationEvent & {
+      requestPermission?: () => Promise<string>;
+    };
+    const requestPermission = () => {
+      orientationApi.requestPermission?.().catch(() => undefined);
+    };
+
+    window.addEventListener('deviceorientation', handleOrientation, { passive: true });
+    if (orientationApi.requestPermission) window.addEventListener('pointerdown', requestPermission, { once: true, passive: true });
+
+    return () => {
+      window.removeEventListener('deviceorientation', handleOrientation);
+      if (orientationApi.requestPermission) window.removeEventListener('pointerdown', requestPermission);
+    };
+  }, []);
+
+  const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType !== 'mouse') return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width;
+    const y = (event.clientY - bounds.top) / bounds.height;
+
+    event.currentTarget.style.setProperty('--tilt-x', `${(0.5 - y) * 10}deg`);
+    event.currentTarget.style.setProperty('--tilt-y', `${(x - 0.5) * 12}deg`);
+    event.currentTarget.style.setProperty('--shine-x', `${x * 100}%`);
+    event.currentTarget.style.setProperty('--shine-y', `${y * 100}%`);
+  };
+
+  const resetTilt = (event: PointerEvent<HTMLDivElement>) => {
+    event.currentTarget.style.setProperty('--tilt-x', '0deg');
+    event.currentTarget.style.setProperty('--tilt-y', '0deg');
+    event.currentTarget.style.setProperty('--shine-x', '50%');
+    event.currentTarget.style.setProperty('--shine-y', '50%');
+  };
+
+  return <div ref={surfaceRef} className={`tilt-surface ${className}`} onPointerMove={handlePointerMove} onPointerLeave={resetTilt}>{children}</div>;
 }
 
 function AccessCore3D() {
@@ -179,7 +242,7 @@ export function LandingPage() {
           </div>
         </div>
 
-        <div className="hero-card-stage relative order-1 mx-auto w-full max-w-[520px] lg:order-2 lg:justify-self-end">
+        <TiltSurface className="hero-card-stage relative order-1 mx-auto w-full max-w-[520px] lg:order-2 lg:justify-self-end">
           <span className="floating-chip floating-chip-one" aria-hidden="true"><Sparkles size={13} /> IA premium</span>
           <span className="floating-chip floating-chip-two" aria-hidden="true"><ShieldCheck size={13} /> Ativação guiada</span>
           <div className="offer-card gift-card relative z-10" data-reveal>
@@ -205,7 +268,7 @@ export function LandingPage() {
             </div>
             <div className="gift-card-serial"><span>ACESSO+ PREMIUM</span><span>18M · GEMINI PRO</span></div>
           </div>
-        </div>
+        </TiltSurface>
       </section>
 
       <section className="trust-strip border-y border-[#e2e7ef] bg-white/70" data-reveal>

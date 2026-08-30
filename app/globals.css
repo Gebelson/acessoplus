@@ -344,6 +344,18 @@ a { text-decoration: none; }
   will-change: transform;
   animation: gift-card-float 8s ease-in-out infinite;
 }
+
+.tilt-surface {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --shine-x: 50%;
+  --shine-y: 50%;
+  perspective: 1200px;
+  transform: perspective(1200px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  transform-style: preserve-3d;
+  transition: transform .22s cubic-bezier(.22,1,.36,1);
+  will-change: transform;
+}
 .hero-title { font-size: clamp(1.95rem, 8vw, 5.35rem); }
 .hero-title span { display: block; white-space: nowrap; }
 
@@ -827,4 +839,5 @@ a { text-decoration: none; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .motion-ready [data-reveal], .motion-ready [data-reveal].is-visible { opacity: 1 !important; translate: none !important; scale: 1 !important; filter: none !important; }
+  .tilt-surface { transform: none !important; }
 }
