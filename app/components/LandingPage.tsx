@@ -332,9 +332,11 @@ export function LandingPage() {
             </article>
 
             <article className="comparison-card comparison-card-access">
-              <span className="comparison-best-choice"><Sparkles size={14} aria-hidden="true" /> MELHOR ESCOLHA</span>
               <div className="comparison-card-topline">
-                <span className="comparison-tag comparison-tag-access">OFERTA ACESSO+</span>
+                <div className="comparison-card-badges">
+                  <span className="comparison-best-choice"><Sparkles size={14} aria-hidden="true" /> MELHOR ESCOLHA</span>
+                  <span className="comparison-tag comparison-tag-access">OFERTA ACESSO+</span>
+                </div>
                 <span className="comparison-months comparison-months-access">18 meses</span>
               </div>
               <p className="comparison-product">Gemini PRO</p>

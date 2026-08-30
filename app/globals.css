@@ -589,10 +589,10 @@ a { text-decoration: none; }
 .comparison-card-access { border-color: rgba(94,80,215,.36); background: radial-gradient(circle at 90% 0,rgba(85,221,199,.2),transparent 35%),linear-gradient(145deg,#f9f8ff,#f0efff); box-shadow: 0 18px 45px rgba(94,80,215,.13); }
 .comparison-card-access::after { position: absolute; top: -70%; left: -50%; width: 36%; height: 230%; background: linear-gradient(90deg,transparent,rgba(255,255,255,.72),transparent); content: ''; rotate: 20deg; animation: offer-sheen 7s cubic-bezier(.22,1,.36,1) infinite; pointer-events: none; }
 .comparison-card > * { position: relative; z-index: 1; }
-.comparison-best-choice { display: inline-flex; align-items: center; gap: .4rem; border-radius: 999px; background: #192444; padding: .48rem .7rem; color: white; font-size: .64rem; font-weight: 850; letter-spacing: .1em; }
-.comparison-card-topline { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.1rem; }
-.comparison-card-original .comparison-card-topline { margin-top: 0; }
-.comparison-tag { display: inline-flex; width: fit-content; border-radius: 999px; padding: .45rem .62rem; font-size: .61rem; font-weight: 850; letter-spacing: .09em; }
+.comparison-best-choice { display: inline-flex; min-height: 32px; align-items: center; gap: .4rem; border-radius: 999px; background: #192444; padding: .48rem .7rem; color: white; font-size: .64rem; font-weight: 850; letter-spacing: .1em; }
+.comparison-card-topline { display: flex; min-height: 32px; align-items: center; justify-content: space-between; gap: 1rem; }
+.comparison-card-badges { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem; }
+.comparison-tag { display: inline-flex; min-height: 32px; width: fit-content; align-items: center; border-radius: 999px; padding: .45rem .62rem; font-size: .61rem; font-weight: 850; letter-spacing: .09em; }
 .comparison-tag-neutral { background: #e8ecf2; color: #5f6980; }
 .comparison-tag-access { background: #e5e1ff; color: #594cc8; }
 .comparison-months { color: #707b91; font-size: .74rem; font-weight: 800; text-transform: uppercase; }
