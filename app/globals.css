@@ -522,6 +522,8 @@ a { text-decoration: none; }
   line-height: 1.05;
 }
 
+.section-heading h2 span { display: block; }
+
 .section-heading p {
   max-width: 620px;
   margin: 1.25rem auto 0;

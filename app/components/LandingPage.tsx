@@ -288,7 +288,7 @@ export function LandingPage() {
       <section id="beneficios" className="section-shell scroll-mt-24">
         <div className="section-heading" data-reveal>
           <span className="section-kicker">UM ACESSO, MUITAS POSSIBILIDADES</span>
-          <h2>Mais IA. Mais possibilidades. Mais resultados.</h2>
+          <h2><span>Mais IA.</span><span>Mais possibilidades.</span><span>Mais resultados.</span></h2>
           <p>Uma ferramenta para acompanhar os seus próximos 18 meses — do primeiro rascunho ao projeto final.</p>
         </div>
         <div className="mt-12 grid gap-4 md:grid-cols-6">
