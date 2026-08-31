@@ -10,6 +10,7 @@ import {
   ChevronDown,
   Code2,
   Headphones,
+  LayoutGrid,
   Lightbulb,
   Menu,
   MessageCircle,
@@ -22,40 +23,45 @@ import {
 import { useEffect, useRef, useState, type CSSProperties, type MouseEvent, type PointerEvent, type ReactNode } from 'react';
 
 const benefits = [
-  { icon: BriefcaseBusiness, title: 'Para trabalhar', text: 'Produza textos, analise informações e organize sua rotina com muito mais agilidade.', color: 'violet' },
-  { icon: BookOpen, title: 'Para estudar', text: 'Crie resumos, entenda temas complexos e revise conteúdos no seu ritmo.', color: 'mint' },
-  { icon: Lightbulb, title: 'Para criar', text: 'Transforme ideias em roteiros, imagens, conteúdos e novas possibilidades.', color: 'blue' },
-  { icon: Code2, title: 'Para programar', text: 'Escreva código, encontre bugs e acelere projetos com explicações claras.', color: 'navy' },
-  { icon: Search, title: 'Para o dia a dia', text: 'Pesquise, compare opções e planeje decisões pessoais com mais contexto.', color: 'amber' },
+  { icon: BriefcaseBusiness, title: 'Trabalho', text: 'Escreva, revise, organize informações e acelere tarefas do dia a dia.', color: 'violet' },
+  { icon: BookOpen, title: 'Estudos', text: 'Resuma conteúdos, entenda assuntos complexos e aprofunde suas pesquisas.', color: 'mint' },
+  { icon: Lightbulb, title: 'Criação', text: 'Transforme ideias em textos, conceitos, imagens, vídeos e novos conteúdos.', color: 'blue' },
+  { icon: Code2, title: 'Programação', text: 'Receba ajuda para escrever, analisar e corrigir código.', color: 'navy' },
+  { icon: Search, title: 'Pesquisa', text: 'Explore assuntos em profundidade com os recursos avançados do Gemini.', color: 'amber' },
+  { icon: LayoutGrid, title: 'Ecossistema Google', text: 'Use os recursos de IA disponíveis nos produtos Google compatíveis.', color: 'violet' },
 ];
 
 const trustItems = [
-  [ShieldCheck, 'Compra transparente', 'Tudo registrado no chat'],
-  [Zap, 'Entrega digital', 'Acompanhe em tempo real'],
-  [Headphones, 'Suporte de verdade', 'Atendimento humano'],
-  [MessageCircle, 'Sem checkout confuso', 'Conversa simples e guiada'],
+  [ShieldCheck, 'Pedido registrado', 'Acompanhe todas as etapas'],
+  [Zap, 'Ativação assistida', 'Receba orientação no processo'],
+  [Headphones, 'Suporte humano', 'Fale diretamente com a equipe'],
+  [MessageCircle, 'Entrega digital', 'Receba tudo online'],
 ];
 
 const faqs = [
-  ['É realmente por 18 meses?', 'Sim. O produto anunciado nesta oferta corresponde a 18 meses de acesso. As condições do pedido ficam registradas na conversa antes do pagamento.'],
-  ['Preciso pagar todo mês?', 'Não. O valor de R$ 67,90 é um pagamento único para esta oferta. Não há mensalidade recorrente da Acesso+.'],
-  ['Como recebo meu acesso?', 'Depois da confirmação do pagamento, nossa equipe prepara o acesso e envia o link diretamente na conversa exclusiva do seu pedido.'],
-  ['Quanto tempo demora?', 'Durante o horário de atendimento, a preparação começa logo após a confirmação. Se a equipe estiver em modo fila, mostramos o horário previsto antes do pagamento.'],
-  ['Preciso fornecer minha senha?', 'Não solicitamos sua senha no checkout. Caso qualquer etapa adicional seja necessária, ela será explicada com clareza pela equipe de ativação.'],
-  ['Funciona no celular e no computador?', 'Sim. Você pode acompanhar o pedido e usar o serviço em dispositivos compatíveis com o Gemini PRO.'],
-  ['Existe suporte?', 'Sim. Você pode continuar respondendo na própria conversa do pedido e pedir atendimento humano quando precisar.'],
-  ['Como funciona o reembolso?', 'Os critérios de reembolso são apresentados antes da compra e avaliados pelo suporte conforme o estágio da ativação e a legislação aplicável.'],
+  ['O valor de R$ 67,90 é mensal?', 'Não. R$ 67,90 corresponde à oferta completa de 18 meses. Não há mensalidade recorrente cobrada pela Acesso+ nesse pedido.'],
+  ['O acesso dura realmente 18 meses?', 'Sim. O período desta oferta é de 18 meses e essa informação aparece novamente para você conferir antes da conclusão do pagamento.'],
+  ['O plano possui quanto de armazenamento?', 'O plano oferece até 5 TB de armazenamento, conforme as condições e a disponibilidade da conta ativada.'],
+  ['Como recebo minha ativação?', 'Após a confirmação do pagamento, iniciamos o processo e enviamos as orientações necessárias pelo atendimento do seu pedido.'],
+  ['Preciso enviar minha senha?', 'Não. Nunca envie senhas, códigos de autenticação ou códigos de verificação diretamente pelo chat.'],
+  ['Posso usar no computador e no celular?', 'Sim. Você pode usar os serviços nos dispositivos e plataformas compatíveis com sua conta Google e com os recursos do plano.'],
+  ['O que acontece se eu precisar de ajuda?', 'Retorne à conversa do seu pedido e solicite suporte. Nossa equipe poderá acompanhar o histórico e orientar você durante o processo.'],
+  ['A Acesso+ é do Google?', 'Não. A Acesso+ é uma empresa independente e não possui vínculo, representação, afiliação ou parceria oficial com o Google.'],
 ];
 
 const comparisonBenefits = [
-  'Gemini PRO e modelos avançados',
-  '2 TB de armazenamento',
-  'Google Flow e Flow Music',
-  'Pesquisa Google e Notebook',
-  'Gemini no Gmail, Docs, Vids e outros apps',
-  'Antigravity e Developer Program',
-  'Google AI Studio e Android Studio',
-  'YouTube Premium Lite e Google Health Premium',
+  'Acesso ampliado aos modelos avançados do Gemini',
+  'Gemini com limites superiores',
+  'Deep Research',
+  'Recursos avançados de geração e criação',
+  'Google Flow',
+  'NotebookLM com recursos e limites ampliados',
+  'Gemini integrado aos aplicativos Google compatíveis',
+  'Google AI Studio',
+  'Google Antigravity',
+  'Google Developer Program Premium',
+  '5 TB de armazenamento',
+  'Outros recursos disponibilizados pelo Google para contas elegíveis',
 ];
 
 function CTA({ className = '', children = 'Quero meu acesso' }: { className?: string; children?: ReactNode }) {
@@ -250,26 +256,22 @@ export function LandingPage() {
       <section id="inicio" className="hero-scene relative mx-auto grid min-h-[calc(100svh-74px)] w-full max-w-[1440px] scroll-mt-20 items-center gap-12 px-4 pb-20 pt-14 sm:px-6 lg:grid-cols-[1.05fr_.95fr] lg:px-7 lg:py-24">
         <div className="hero-depth-grid" aria-hidden="true" />
         <div className="relative z-10 order-2 max-w-[690px] lg:order-1" data-reveal>
-          <div className="eyebrow hidden sm:inline-flex"><Sparkles size={14} /> ACESSO PREMIUM · 18 MESES</div>
+          <div className="eyebrow hidden sm:inline-flex"><Sparkles size={14} /> 18 MESES · PAGAMENTO ÚNICO</div>
           <h1 className="hero-title mt-6 font-semibold leading-[.96] tracking-[-.06em] text-[#15203e]">
-            <span>IA avançada sem</span>
-            <span>pagar uma fortuna.</span>
+            <span>Gemini Pro por 18 meses.</span>
+            <span>Pague uma única vez.</span>
           </h1>
           <p className="mt-7 max-w-[625px] text-lg leading-8 text-[#596581] sm:text-xl">
-            Tenha acesso ao Gemini PRO por 18 meses e use IA para trabalhar, estudar, criar, pesquisar e programar com mais produtividade.
+            Tenha acesso aos recursos avançados de IA do Google para trabalhar, estudar, pesquisar, criar conteúdo e desenvolver projetos.
           </p>
-          <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
-            <CTA>Quero garantir meu acesso</CTA>
-            <div className="flex items-center gap-3 px-1 text-sm text-[#65708a]">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-sm"><MessageCircle size={17} /></span>
-              Compra assistida pelo chat
-            </div>
+          <div className="hero-offer-price mt-7">
+            <strong>R$ 67,90</strong>
+            <span>18 meses · pagamento único</span>
           </div>
-          <div className="mt-10 hidden grid-cols-2 gap-x-5 gap-y-4 border-t border-[#dce2ed] pt-7 sm:flex sm:flex-wrap sm:gap-6">
-            {['Pagamento único', 'Entrega digital', 'Ativação assistida', 'Suporte humano'].map((item) => (
-              <span key={item} className="flex items-center gap-2 text-sm font-semibold text-[#53607b]"><Check size={15} className="text-[#00a891]" />{item}</span>
-            ))}
+          <div className="mt-7 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <CTA>Quero meus 18 meses</CTA>
           </div>
+          <p className="hero-microcopy mt-4">Você confere todos os detalhes antes de pagar · Ativação digital · Suporte durante o processo</p>
         </div>
 
         <TiltSurface className="hero-card-stage relative order-1 mx-auto w-full max-w-[520px] lg:order-2 lg:justify-self-end">
@@ -288,7 +290,7 @@ export function LandingPage() {
               <div className="gift-card-copy">
                 <p className="gift-card-overline">ACESSO PREMIUM</p>
                 <div className="gift-card-duration"><strong>18</strong><span>MESES</span></div>
-                <p className="gift-card-product">GEMINI PRO</p>
+                <p className="gift-card-product">Gemini Pro</p>
               </div>
               <AccessCore3D />
             </div>
@@ -296,7 +298,7 @@ export function LandingPage() {
               <div className="gift-card-price"><span>VALOR ÚNICO</span><strong>R$ 67,90</strong></div>
               <div className="gift-card-seal"><ShieldCheck size={16} /><span>ATIVAÇÃO<br />ASSISTIDA</span></div>
             </div>
-            <div className="gift-card-serial"><span>ACESSO+ PREMIUM</span><span>18M · GEMINI PRO</span></div>
+            <div className="gift-card-serial"><span>ACESSO+ PREMIUM</span><span>18M · Gemini Pro</span></div>
           </div>
         </TiltSurface>
       </section>
@@ -316,13 +318,13 @@ export function LandingPage() {
 
       <section id="beneficios" className="section-shell scroll-mt-24">
         <div className="section-heading" data-reveal>
-          <span className="section-kicker">UM ACESSO, MUITAS POSSIBILIDADES</span>
-          <h2><span>Mais IA.</span><span>Mais possibilidades.</span><span>Mais resultados.</span></h2>
-          <p>Uma ferramenta para acompanhar os seus próximos 18 meses — do primeiro rascunho ao projeto final.</p>
+          <span className="section-kicker">18 MESES PARA FAZER MAIS</span>
+          <h2>18 meses para fazer muito mais com IA.</h2>
+          <p>Use o Gemini para acelerar tarefas, criar conteúdos, pesquisar, estudar, programar e trabalhar com mais produtividade.</p>
         </div>
         <div className="mt-12 grid gap-4 md:grid-cols-6">
           {benefits.map(({ icon: Icon, title, text, color }, index) => (
-            <article key={title} className={`benefit-card benefit-${color} ${index < 2 ? 'md:col-span-3' : 'md:col-span-2'}`} data-reveal data-center-activate style={{ '--reveal-delay': `${index * 70}ms` } as CSSProperties}>
+            <article key={title} className={`benefit-card benefit-${color} md:col-span-2`} data-reveal data-center-activate style={{ '--reveal-delay': `${index * 70}ms` } as CSSProperties}>
               <div className="benefit-icon"><Icon size={23} /></div>
               <h3>{title}</h3>
               <p>{text}</p>
@@ -335,16 +337,16 @@ export function LandingPage() {
         <div className="section-shell">
           <div className="grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
             <div className="section-heading !mx-0 !text-left" data-reveal>
-              <span className="section-kicker !text-[#55ddc7]">PROCESSO CLARO DO INÍCIO AO FIM</span>
-              <h2 className="!text-white">Seu acesso em quatro passos simples.</h2>
-              <p className="!text-[#aeb8d1]">Você acompanha cada atualização pela mesma conversa e pode voltar quando quiser pelo link exclusivo.</p>
+              <span className="section-kicker !text-[#55ddc7]">SIMPLES DO PEDIDO À ATIVAÇÃO</span>
+              <h2 className="!text-white">Seu acesso em poucos passos.</h2>
+              <p className="!text-[#aeb8d1]">Confira a oferta, faça seu pedido e acompanhe a ativação pela mesma conversa.</p>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
               {[
-                ['01', 'Faça seu pedido', 'Inicie a conversa e confirme a oferta.'],
-                ['02', 'Realize o pagamento', 'Use o método disponível com segurança.'],
-                ['03', 'Acesso em preparação', 'A equipe inicia a ativação após a confirmação.'],
-                ['04', 'Receba seu acesso', 'O link chega na própria conversa.'],
+                ['01', 'Faça seu pedido', 'Confira os detalhes da oferta e inicie sua ativação.'],
+                ['02', 'Realize o pagamento', 'Revise todas as informações antes de concluir.'],
+                ['03', 'A ativação é preparada', 'Após a confirmação do pagamento, o processo de ativação é iniciado.'],
+                ['04', 'Receba seu acesso', 'As instruções e o acesso são enviados pelo atendimento.'],
               ].map(([number, title, text], index) => (
                 <div key={number} className="process-step rounded-[22px] border border-white/10 bg-white/[.055] p-5" data-reveal data-center-activate style={{ '--reveal-delay': `${index * 80}ms` } as CSSProperties}>
                   <span className="text-xs font-extrabold tracking-[.15em] text-[#55ddc7]">{number}</span>
@@ -360,9 +362,9 @@ export function LandingPage() {
       <section className="section-shell">
         <div className="video-card" data-reveal>
           <div className="max-w-[540px]">
-            <span className="section-kicker">VEJA EXATAMENTE COMO FUNCIONA</span>
-            <h2 className="mt-4 text-3xl font-semibold tracking-[-.045em] sm:text-4xl">Entenda a ativação antes de comprar.</h2>
-            <p className="mt-4 max-w-[500px] leading-7 text-[#68738d]">Um passo a passo simples para mostrar o que você recebe, como acompanhar o pedido e identificar quando o acesso estiver ativo.</p>
+            <span className="section-kicker">VEJA COMO FUNCIONA</span>
+            <h2 className="mt-4 text-3xl font-semibold tracking-[-.045em] sm:text-4xl">Entenda o processo antes de comprar.</h2>
+            <p className="mt-4 max-w-[500px] leading-7 text-[#68738d]">Veja como funciona o pedido, a ativação e o recebimento do seu acesso.</p>
           </div>
           <div className="video-stage">
             <video
@@ -381,29 +383,46 @@ export function LandingPage() {
       </section>
 
       <section id="oferta" className="section-shell scroll-mt-24 !pt-4">
+        <div className="offer-summary" data-reveal>
+          <div className="offer-summary-copy">
+            <span className="section-kicker">18 MESES · UMA ÚNICA COMPRA</span>
+            <h2>Você paga uma vez. E pronto.</h2>
+            <p>Garanta todo o período anunciado em um único pagamento, sem mensalidades recorrentes cobradas pela Acesso+.</p>
+            <CTA className="mt-7">Quero garantir meus 18 meses</CTA>
+          </div>
+          <div className="offer-metrics" aria-label="Resumo da oferta">
+            <div><strong>18 meses</strong><span>de acesso</span></div>
+            <div><strong>R$ 67,90</strong><span>pagamento único</span></div>
+            <div><strong>5 TB</strong><span>de armazenamento</span></div>
+            <div><strong>Ativação digital</strong><span>com acompanhamento</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="comparacao" className="section-shell scroll-mt-24 !pt-4">
         <div className="offer-heading" data-reveal>
-          <span className="section-kicker">COMPARE E ESCOLHA</span>
-          <h2><span>Tudo do plano anual.</span><span>Mais 6 meses <strong>GRÁTIS.</strong></span></h2>
-          <p>Na Acesso+, você recebe os mesmos benefícios apresentados na oferta original, mas leva 18 meses no total: 12 meses de acesso + 6 meses grátis.</p>
+          <span className="section-kicker">COMPARE</span>
+          <h2>A diferença no preço fala por si.</h2>
+          <p>Compare o preço anual de referência com a oferta de 18 meses da Acesso+.</p>
         </div>
 
         <div className="offer-comparison" data-reveal>
           <div className="comparison-plans">
             <article className="comparison-card comparison-card-original">
               <div className="comparison-card-topline">
-                <span className="comparison-tag comparison-tag-neutral">OFERTA ORIGINAL DA REFERÊNCIA</span>
+                <span className="comparison-tag comparison-tag-neutral">PREÇO CONVENCIONAL</span>
                 <span className="comparison-months">12 meses</span>
               </div>
               <p className="comparison-product">Google AI Pro</p>
-              <p className="comparison-caption">Plano anual apresentado</p>
+              <p className="comparison-caption">Plano anual de referência</p>
               <p className="comparison-old-price">R$ 1.163,88</p>
               <div className="comparison-price-line">
                 <strong>R$ 869,90</strong>
                 <span>/ano</span>
               </div>
               <div className="comparison-summary comparison-summary-neutral">
-                <span>Tempo total</span>
-                <strong>1 ano</strong>
+                <span>Período</span>
+                <strong>12 meses</strong>
               </div>
             </article>
 
@@ -415,7 +434,7 @@ export function LandingPage() {
                 </div>
                 <span className="comparison-months comparison-months-access">18 meses</span>
               </div>
-              <p className="comparison-product">Gemini PRO</p>
+              <p className="comparison-product">Gemini Pro</p>
               <div className="bonus-equation" aria-label="12 meses mais 6 meses grátis">
                 <span>12 meses</span>
                 <strong>+</strong>
@@ -425,11 +444,16 @@ export function LandingPage() {
               <div className="comparison-price-line comparison-price-access">
                 <strong>R$ 67,90</strong>
               </div>
-              <p className="comparison-saving">R$ 802,00 a menos que o valor anual da referência</p>
-              <CTA className="mt-6 w-full">Quero 18 meses de acesso</CTA>
+              <p className="comparison-saving">Economize R$ 802,00 em relação ao preço anual de referência — e receba 6 meses a mais.</p>
+              <CTA className="mt-6 w-full">Quero meus 18 meses</CTA>
             </article>
           </div>
 
+          <div className="included-heading">
+            <span className="section-kicker">TUDO QUE VOCÊ DESBLOQUEIA</span>
+            <h3>Muito mais que um chatbot.</h3>
+            <p>A oferta da Acesso+ reúne os benefícios apresentados no plano de referência, com 18 meses de acesso.</p>
+          </div>
           <div className="comparison-benefits" aria-label="Comparação de benefícios">
             <div className="comparison-benefit-row comparison-benefit-head">
               <span>Benefícios incluídos</span>
@@ -450,6 +474,8 @@ export function LandingPage() {
             </div>
           </div>
 
+          <p className="included-note">Gemini Pro é oferecido por meio dos benefícios associados ao plano Google AI Pro. Recursos, limites e disponibilidade podem variar conforme região, conta e atualizações realizadas pelo Google.</p>
+
           <div className="comparison-footer">
             <div><Check size={17} /><span>Pagamento único</span></div>
             <div><Check size={17} /><span>Sem mensalidade da Acesso+</span></div>
@@ -457,7 +483,7 @@ export function LandingPage() {
             <div><Check size={17} /><span>Suporte humano</span></div>
           </div>
         </div>
-        <p className="comparison-disclaimer">Comparação baseada nos valores e benefícios visíveis na referência enviada. As condições da oferta original podem mudar no canal oficial.</p>
+        <p className="comparison-disclaimer">Comparação baseada no preço anual de R$ 869,90 apresentado na referência. Valores e condições do plano convencional podem mudar no canal oficial.</p>
       </section>
 
       <section id="faq" className="section-shell scroll-mt-24">
@@ -484,8 +510,11 @@ export function LandingPage() {
           <span className="kinetic-plus kinetic-plus-two" aria-hidden="true">+</span>
           <span className="kinetic-plus kinetic-plus-three" aria-hidden="true">+</span>
           <span className="text-xs font-extrabold tracking-[.14em] text-[#d5d0ff]">PRONTO PARA COMEÇAR?</span>
-          <h2 className="mt-4 max-w-[720px] text-3xl font-semibold tracking-[-.045em] sm:text-5xl">Seu próximo projeto pode começar com uma conversa.</h2>
-          <CTA className="mt-8 !bg-white !text-[#4035aa] !shadow-none">Garantir 18 meses de acesso</CTA>
+          <h2 className="mt-4 max-w-[820px] text-3xl font-semibold tracking-[-.045em] sm:text-5xl">Garanta seus próximos 18 meses de Gemini Pro.</h2>
+          <p className="mt-5 max-w-[680px] text-sm leading-7 text-[#e1ddff] sm:text-base">Faça seu pedido, confira todos os detalhes e acompanhe sua ativação em um único lugar.</p>
+          <div className="final-price mt-6"><strong>R$ 67,90</strong><span>18 meses · pagamento único</span></div>
+          <CTA className="mt-8 !bg-white !text-[#4035aa] !shadow-none">Quero ativar agora</CTA>
+          <p className="mt-5 text-xs font-semibold text-[#d5d0ff]">5 TB de armazenamento · Ativação digital · Suporte durante o processo</p>
         </div>
       </section>
 
@@ -493,9 +522,9 @@ export function LandingPage() {
         <div className="mx-auto grid max-w-[1440px] gap-8 px-4 py-10 sm:px-6 md:grid-cols-[1fr_auto] lg:px-7">
           <div>
             <Image src="/logo-acesso.svg" alt="Acesso+" width={748} height={109} className="h-auto w-[130px]" />
-            <p className="mt-4 max-w-[560px] text-xs leading-5 text-[#7a849b]">A Acesso+ comercializa acesso digital com ativação assistida. Não somos parceiros, representantes ou afiliados oficiais do Google. Todas as marcas citadas pertencem aos seus respectivos proprietários.</p>
+            <p className="mt-4 max-w-[620px] text-xs leading-5 text-[#7a849b]">A Acesso+ é uma empresa independente e não possui vínculo, representação, afiliação ou parceria oficial com o Google. Todas as marcas citadas pertencem aos seus respectivos proprietários.</p>
           </div>
-          <div className="flex gap-6 text-xs font-semibold text-[#66718a]"><Link href="/checkout/novo">Comprar</Link><Link href="/admin">Painel demo</Link><a href="mailto:suporte@acessoplus.com.br">Suporte</a></div>
+          <div className="flex gap-6 text-xs font-semibold text-[#66718a]"><Link href="/checkout/novo">Comprar</Link><Link href="/admin">Painel demonstrativo</Link><a href="mailto:suporte@acessoplus.com.br">Suporte</a></div>
         </div>
       </footer>
     </main>

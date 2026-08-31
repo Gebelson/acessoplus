@@ -362,8 +362,12 @@ a { text-decoration: none; }
   transition: transform .22s cubic-bezier(.22,1,.36,1);
   will-change: transform;
 }
-.hero-title { font-size: clamp(1.95rem, 8vw, 5.35rem); }
+.hero-title { font-size: clamp(2.5rem, 4.25vw, 4.15rem); }
 .hero-title span { display: block; white-space: nowrap; }
+.hero-offer-price { display: flex; flex-wrap: wrap; align-items: baseline; gap: .55rem 1rem; }
+.hero-offer-price strong { color: #192444; font-size: clamp(2.4rem,4.5vw,3.75rem); font-weight: 700; letter-spacing: -.065em; line-height: 1; }
+.hero-offer-price span { color: #5d6881; font-size: .88rem; font-weight: 750; }
+.hero-microcopy { max-width: 610px; color: #788298; font-size: .72rem; font-weight: 650; line-height: 1.65; }
 
 .floating-chip {
   position: absolute;
@@ -603,6 +607,23 @@ a { text-decoration: none; }
 .video-player { display: block; width: 100%; height: 100%; object-fit: cover; }
 .video-player:focus-visible { outline: 3px solid #55ddc7; outline-offset: -3px; }
 
+.offer-summary {
+  display: grid;
+  gap: 2.5rem;
+  overflow: hidden;
+  border: 1px solid #dcd8ff;
+  border-radius: 32px;
+  background: radial-gradient(circle at 92% 8%,rgba(85,221,199,.22),transparent 30%),linear-gradient(145deg,#f9f8ff,#efedff);
+  padding: clamp(1.5rem,4vw,3.5rem);
+  box-shadow: 0 24px 65px rgba(66,52,170,.09);
+}
+.offer-summary-copy h2 { max-width: 680px; margin-top: 1rem; font-size: clamp(2.15rem,4.4vw,4rem); font-weight: 650; letter-spacing: -.055em; line-height: 1.03; }
+.offer-summary-copy p { max-width: 620px; margin-top: 1.15rem; color: #68738d; font-size: 1rem; line-height: 1.75; }
+.offer-metrics { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .75rem; }
+.offer-metrics > div { display: flex; min-height: 125px; flex-direction: column; justify-content: space-between; border: 1px solid rgba(94,80,215,.14); border-radius: 20px; background: rgba(255,255,255,.72); padding: 1.2rem; }
+.offer-metrics strong { color: #192444; font-size: clamp(1.35rem,2.5vw,2rem); font-weight: 750; letter-spacing: -.04em; }
+.offer-metrics span { color: #717c93; font-size: .75rem; font-weight: 700; }
+
 .offer-heading { max-width: 860px; margin: 0 auto 2.7rem; text-align: center; }
 .offer-heading h2 { margin-top: 1rem; font-size: clamp(2.2rem,5vw,4.25rem); font-weight: 650; letter-spacing: -.055em; line-height: 1.02; }
 .offer-heading h2 span { display: block; white-space: nowrap; }
@@ -639,6 +660,11 @@ a { text-decoration: none; }
 .comparison-payment-label { margin-top: 1.6rem; color: #737d93; font-size: .8rem; }
 .comparison-price-access { margin-top: .35rem; color: #192444; }
 .comparison-saving { width: fit-content; margin-top: .85rem; border-radius: 999px; background: #fff0bf; padding: .45rem .65rem; color: #82601a; font-size: .69rem; font-weight: 800; }
+
+.included-heading { max-width: 760px; margin: 4.5rem auto 1.75rem; text-align: center; }
+.included-heading h3 { margin-top: 1rem; color: #192444; font-size: clamp(2rem,4vw,3.5rem); font-weight: 650; letter-spacing: -.05em; line-height: 1.05; }
+.included-heading p { max-width: 650px; margin: 1rem auto 0; color: #68738d; font-size: .92rem; line-height: 1.7; }
+.included-note { max-width: 920px; margin: 1rem auto 0; color: #848da1; font-size: .68rem; line-height: 1.65; text-align: center; }
 
 .comparison-benefits { overflow: hidden; margin-top: 1rem; border: 1px solid #e0e5ed; border-radius: 22px; }
 .comparison-benefit-row { display: grid; grid-template-columns: minmax(0,1fr) 72px 72px; min-height: 52px; align-items: center; gap: .5rem; border-top: 1px solid #e7ebf1; padding: .65rem 1rem; color: #59657e; font-size: .78rem; }
@@ -701,6 +727,9 @@ a { text-decoration: none; }
 .kinetic-cta::before { top: -55%; right: -5%; width: 410px; height: 410px; background: rgba(0,190,165,.2); animation: orb-float 8s ease-in-out infinite; }
 .kinetic-cta::after { bottom: -80%; left: -8%; width: 430px; height: 430px; background: rgba(25,36,68,.28); animation: orb-float 9s ease-in-out -3s infinite; }
 .kinetic-cta > :not(.kinetic-plus) { position: relative; z-index: 2; }
+.final-price { display: flex; flex-direction: column; align-items: center; }
+.final-price strong { font-size: clamp(2.5rem,5vw,4rem); font-weight: 720; letter-spacing: -.06em; line-height: 1; }
+.final-price span { margin-top: .6rem; color: #ded9ff; font-size: .82rem; font-weight: 750; }
 .kinetic-plus { position: absolute; z-index: 1; color: rgba(255,255,255,.18); font-weight: 300; line-height: 1; text-shadow: 0 12px 35px rgba(25,36,68,.18); animation: plus-drift 6s ease-in-out infinite; }
 .kinetic-plus-one { top: 10%; left: 8%; font-size: 6rem; transform: translateZ(20px); }
 .kinetic-plus-two { right: 9%; bottom: 6%; font-size: 8rem; animation-delay: -2s; }
@@ -818,6 +847,7 @@ a { text-decoration: none; }
 
 @media (min-width: 800px) {
   .video-card { grid-template-columns: .82fr 1.18fr; }
+  .offer-summary { grid-template-columns: minmax(0,1fr) minmax(420px,.82fr); align-items: center; }
   .comparison-plans { grid-template-columns: 1fr 1fr; }
   .comparison-footer { grid-template-columns: repeat(4,1fr); }
 }
@@ -829,7 +859,7 @@ a { text-decoration: none; }
   .hero-scene { gap: 1.75rem; padding: 2.85rem .5rem 5rem; }
   .hero-scene > .relative.z-10 { padding-inline: .375rem; }
   .hero-scene .eyebrow { display: none; }
-  .hero-title { font-size: clamp(2.3rem, 10.8vw, 3.1rem); }
+  .hero-title { font-size: clamp(1.82rem, 8.55vw, 2.45rem); }
   .hero-card-stage { width: calc(100% - .75rem); }
   .gift-card { aspect-ratio: 1.45 / 1; border-radius: 22px; padding: 1rem; }
   .trust-strip {
@@ -863,6 +893,10 @@ a { text-decoration: none; }
   .section-shell { padding: 5rem 1rem; }
   .benefit-card { min-height: 210px; }
   .video-card { min-height: 0; padding: 1.25rem; }
+  .offer-summary { border-radius: 24px; padding: 1.35rem; }
+  .offer-metrics { grid-template-columns: 1fr 1fr; }
+  .offer-metrics > div { min-height: 104px; padding: 1rem; }
+  .included-heading { margin-top: 3.5rem; }
   .chat-bubble { max-width: 88%; }
   .offer-comparison { border-radius: 24px; padding: .75rem; }
   .comparison-card { border-radius: 20px; }

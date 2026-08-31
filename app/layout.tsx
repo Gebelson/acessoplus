@@ -12,19 +12,19 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'Acesso+ | 18 meses de Gemini PRO',
-  description: 'Acesso ao Gemini PRO por 18 meses, com pagamento único, ativação assistida e suporte.',
+  title: 'Acesso+ | Gemini Pro por 18 meses',
+  description: 'Gemini Pro por 18 meses por R$ 67,90 em pagamento único, com 5 TB de armazenamento, ativação digital e suporte.',
   openGraph: {
-    title: 'Acesso+ | 18 meses de IA avançada',
-    description: 'Pagamento único, ativação assistida e uma experiência de compra simples pelo chat.',
+    title: 'Acesso+ | Gemini Pro por 18 meses',
+    description: '18 meses de Gemini Pro por R$ 67,90 em pagamento único, com ativação digital acompanhada.',
     type: 'website',
     locale: 'pt_BR',
-    images: [{ url: '/og.jpg', width: 1200, height: 630, alt: 'Acesso+ — 18 meses de IA avançada' }],
+    images: [{ url: '/og.jpg', width: 1200, height: 630, alt: 'Acesso+ — Gemini Pro por 18 meses' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Acesso+ | 18 meses de IA avançada',
-    description: 'Pagamento único, ativação assistida e uma experiência de compra simples pelo chat.',
+    title: 'Acesso+ | Gemini Pro por 18 meses',
+    description: '18 meses de Gemini Pro por R$ 67,90 em pagamento único, com ativação digital acompanhada.',
     images: ['/og.jpg'],
   },
 };

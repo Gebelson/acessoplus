@@ -22,8 +22,8 @@ type Message = { id: string; sender: Sender; content: string; time?: string };
 type Step = 'confirm' | 'name' | 'email' | 'phone' | 'payment' | 'preparing' | 'delivered';
 
 const initialMessages: Message[] = [
-  { id: 'welcome', sender: 'assistant', content: 'Olá! Sou o Assistente de Ativação da Acesso+. Estou aqui para ajudar você a garantir seus 18 meses de acesso.' },
-  { id: 'summary', sender: 'assistant', content: 'Antes de continuar, confira seu pedido: Gemini PRO, 18 meses de acesso, R$ 67,90 em pagamento único. Está tudo certo?' },
+  { id: 'welcome', sender: 'assistant', content: 'Olá! 👋 Vou acompanhar você durante a ativação dos seus 18 meses de Gemini Pro.' },
+  { id: 'summary', sender: 'assistant', content: 'Antes de avançarmos, vou confirmar os detalhes do seu pedido. Está tudo correto?' },
 ];
 
 function createToken() {
@@ -136,7 +136,7 @@ export function CheckoutExperience({ initialConversationId }: { initialConversat
     addMessage('customer', 'Realizar pagamento');
     window.setTimeout(() => {
       addMessage('system', 'Demonstração: pagamento confirmado. Nenhuma cobrança real foi realizada.');
-      addMessage('assistant', 'Pagamento confirmado! Seu pedido já entrou em preparação. Assim que o acesso estiver pronto, enviaremos tudo aqui nesta conversa.');
+      addMessage('assistant', 'Pagamento confirmado! Sua ativação está em andamento. Assim que o acesso estiver pronto, enviaremos tudo aqui nesta conversa.');
       setStep('preparing');
     }, 500);
   };
@@ -147,16 +147,17 @@ export function CheckoutExperience({ initialConversationId }: { initialConversat
     setStep('delivered');
   };
 
-  const placeholder = step === 'name' ? 'Digite seu nome' : step === 'email' ? 'voce@exemplo.com' : step === 'phone' ? '(11) 99999-9999' : 'Digite sua mensagem';
-  const timelineStep = step === 'confirm' || step === 'name' || step === 'email' || step === 'phone' ? 1 : step === 'payment' ? 2 : step === 'preparing' ? 3 : 4;
+  const placeholder = 'Digite sua resposta...';
+  const timelineStep = step === 'confirm' || step === 'name' || step === 'email' || step === 'phone' ? 1 : step === 'payment' ? 2 : step === 'preparing' ? 4 : 5;
   const firstName = name.split(' ')[0] || 'Você';
   const pixCode = '00020101021226870014br.gov.bcb.pix2565checkout-demo.acessoplus.com.br/pix/nao-real520400005303986540567.905802BR5920ACESSO MAIS DEMO6009SAO PAULO62070503***6304DEMO';
 
   const timeline = useMemo(() => [
     ['Pedido criado', timelineStep >= 1],
+    ['Aguardando pagamento', timelineStep >= 2],
     ['Pagamento confirmado', timelineStep >= 3],
-    ['Preparando acesso', timelineStep >= 3],
-    ['Acesso entregue', timelineStep >= 4],
+    ['Ativação em andamento', timelineStep >= 4],
+    ['Acesso entregue', timelineStep >= 5],
   ] as const, [timelineStep]);
 
   return (
@@ -166,7 +167,7 @@ export function CheckoutExperience({ initialConversationId }: { initialConversat
           <div className="flex items-center gap-3">
             <Link href="/" className="icon-button grid !h-10 !w-10" aria-label="Voltar para o site"><ArrowLeft size={19} /></Link>
             <div className="bot-avatar"><MessageCircle size={20} /></div>
-            <div><p className="text-sm font-extrabold tracking-[-.02em]">Assistente de Ativação</p><p className="flex items-center gap-1.5 text-[11px] font-semibold text-[#168a76]"><span className="h-1.5 w-1.5 rounded-full bg-[#00bea5]" /> Assistente virtual · Online</p></div>
+            <div><p className="text-sm font-extrabold tracking-[-.02em]">Ativação Acesso+</p><p className="flex items-center gap-1.5 text-[11px] font-semibold text-[#168a76]"><span className="h-1.5 w-1.5 rounded-full bg-[#00bea5]" /> Atendimento online · Suporte disponível</p></div>
           </div>
           <Image src="/logo-acesso.svg" alt="Acesso+" width={748} height={109} className="hidden h-auto w-[105px] sm:block" />
         </div>
@@ -183,12 +184,21 @@ export function CheckoutExperience({ initialConversationId }: { initialConversat
                     <div className="system-message"><ShieldCheck size={14} /> {message.content}</div>
                   ) : (
                     <div className={`chat-bubble ${message.sender === 'customer' ? 'customer-bubble' : 'assistant-bubble'}`}>
-                      {message.sender === 'assistant' && <span className="mb-1.5 block text-[10px] font-extrabold uppercase tracking-[.08em] text-[#6457d3]">Assistente</span>}
+                      {message.sender === 'assistant' && <span className="mb-1.5 block text-[10px] font-extrabold uppercase tracking-[.08em] text-[#6457d3]">Ativação Acesso+</span>}
                       {message.content}
                     </div>
                   )}
                 </div>
               ))}
+
+              {step === 'confirm' && (
+                <div className="ml-auto max-w-[510px] rounded-[22px] border border-[#dce2ec] bg-[#f8f9fc] p-5 shadow-sm">
+                  <p className="text-xs font-bold uppercase tracking-[.1em] text-[#68738d]">Seu pedido</p>
+                  <h2 className="mt-2 text-lg font-extrabold">Gemini Pro</h2>
+                  <p className="mt-1 text-sm text-[#68738d]">18 meses de acesso</p>
+                  <div className="mt-5 flex items-end justify-between border-t border-[#e0e5ed] pt-5"><span className="text-sm text-[#68738d]">Pagamento único</span><strong className="text-2xl tracking-[-.04em]">R$ 67,90</strong></div>
+                </div>
+              )}
 
               {step === 'confirm' && (
                 <div className="flex flex-wrap justify-end gap-2 pt-1"><button onClick={askQuestion} className="quick-reply secondary">Tenho uma dúvida</button><button onClick={continueOrder} className="quick-reply">Sim, continuar <ChevronRight size={16} /></button></div>
@@ -198,7 +208,7 @@ export function CheckoutExperience({ initialConversationId }: { initialConversat
 
               {step === 'payment' && (
                 <div className="ml-auto max-w-[510px] rounded-[22px] border border-[#dce2ec] bg-[#f8f9fc] p-5 shadow-sm">
-                  <div className="flex items-start justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-[.1em] text-[#68738d]">Pedido {orderId}</p><h2 className="mt-2 text-lg font-extrabold">Gemini PRO · 18 meses</h2></div><span className="rounded-full bg-[#fff1c8] px-3 py-1 text-[10px] font-extrabold text-[#8b6418]">AGUARDANDO PAGAMENTO</span></div>
+                  <div className="flex items-start justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-[.1em] text-[#68738d]">Pedido {orderId}</p><h2 className="mt-2 text-lg font-extrabold">Gemini Pro · 18 meses</h2></div><span className="rounded-full bg-[#fff1c8] px-3 py-1 text-[10px] font-extrabold text-[#8b6418]">AGUARDANDO PAGAMENTO</span></div>
                   <div className="mt-5 flex items-end justify-between border-t border-[#e0e5ed] pt-5"><span className="text-sm text-[#68738d]">Total</span><strong className="text-2xl tracking-[-.04em]">R$ 67,90</strong></div>
                   <div className="mt-4 rounded-xl border border-[#eadfbd] bg-[#fffaf0] p-3 text-xs leading-5 text-[#766744]"><strong>Ambiente demonstrativo:</strong> o gateway real ainda não está configurado. O botão abaixo apenas mostra o fluxo, sem cobrar.</div>
                   <button onClick={simulatePayment} className="quick-reply mt-4 w-full justify-center">Simular confirmação segura <ChevronRight size={16} /></button>
@@ -223,14 +233,14 @@ export function CheckoutExperience({ initialConversationId }: { initialConversat
               <input id="chat-input" value={input} onChange={(event) => setInput(event.target.value)} placeholder={placeholder} className="min-h-11 flex-1 bg-transparent px-2 text-sm outline-none placeholder:text-[#98a0b0]" autoComplete={step === 'email' ? 'email' : step === 'name' ? 'name' : 'off'} />
               <button className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[#192444] text-white disabled:opacity-40" disabled={!input.trim()} aria-label="Enviar mensagem"><Send size={18} /></button>
             </div>
-            <p className="mt-2 text-center text-[10px] text-[#99a1b1]">Nunca envie senhas ou informações financeiras pelo chat.</p>
+            <p className="mt-2 text-center text-[10px] text-[#99a1b1]">Nunca envie senhas, códigos de autenticação ou dados completos de cartão pelo chat.</p>
           </form>
         </section>
 
         <aside className="hidden overflow-y-auto bg-[#f7f9fc] p-6 lg:block">
           <div className="rounded-[22px] border border-[#dfe4ed] bg-white p-5 shadow-sm">
             <p className="text-xs font-extrabold uppercase tracking-[.1em] text-[#6f7890]">Seu pedido</p>
-            <h2 className="mt-3 font-extrabold">Gemini PRO</h2>
+            <h2 className="mt-3 font-extrabold">Gemini Pro</h2>
             <div className="mt-1 flex justify-between text-sm text-[#6d7790]"><span>18 meses de acesso</span><span>R$ 67,90</span></div>
             {orderId && <p className="mt-4 rounded-xl bg-[#f4f6fa] px-3 py-2 text-xs font-bold text-[#56617a]">Pedido {orderId}</p>}
           </div>
@@ -242,7 +252,7 @@ export function CheckoutExperience({ initialConversationId }: { initialConversat
                 <div key={label} className="relative flex min-h-14 gap-3">
                   {index < timeline.length - 1 && <span className={`absolute left-[11px] top-6 h-[calc(100%-2px)] w-px ${completed ? 'bg-[#7fd8c9]' : 'bg-[#dfe4ed]'}`} />}
                   <span className={`relative z-10 grid h-6 w-6 shrink-0 place-items-center rounded-full ${completed ? 'bg-[#00bea5] text-white' : 'border border-[#d4dae5] bg-white text-[#98a0b1]'}`}>{completed ? <Check size={13} /> : <span className="h-1.5 w-1.5 rounded-full bg-current" />}</span>
-                  <div><p className={`text-sm font-bold ${completed ? 'text-[#30405d]' : 'text-[#9098a9]'}`}>{label}</p>{index === 2 && step === 'preparing' && <p className="mt-1 text-xs text-[#788198]">Equipe preparando seu acesso</p>}</div>
+                  <div><p className={`text-sm font-bold ${completed ? 'text-[#30405d]' : 'text-[#9098a9]'}`}>{label}</p>{index === 3 && step === 'preparing' && <p className="mt-1 text-xs text-[#788198]">Equipe preparando seu acesso</p>}</div>
                 </div>
               ))}
             </div>
