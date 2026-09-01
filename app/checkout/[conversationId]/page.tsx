@@ -9,5 +9,5 @@ export const metadata: Metadata = {
 
 export default async function CheckoutPage({ params }: { params: Promise<{ conversationId: string }> }) {
   const { conversationId } = await params;
-  return <CheckoutExperience initialConversationId={conversationId} />;
+  return <CheckoutExperience key={conversationId} initialConversationId={conversationId} />;
 }

@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   ArrowLeft,
   Check,
@@ -17,7 +18,7 @@ import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from 're
 
 type Sender = 'assistant' | 'customer' | 'system';
 type Message = { id: string; sender: Sender; content: string; time?: string };
-type Step = 'confirm' | 'name' | 'email' | 'phone' | 'payment' | 'preparing' | 'delivered';
+type Step = 'confirm' | 'name' | 'email' | 'phone' | 'payment' | 'preparing' | 'delivered' | 'closed';
 type ServerOrder = {
   id: string;
   payment_status: string;
@@ -29,6 +30,7 @@ const initialMessages: Message[] = [
   { id: 'welcome', sender: 'assistant', content: 'Olá! 👋 Eu sou a Cessi e vou acompanhar você durante a ativação dos seus 18 meses de Gemini Pro.' },
   { id: 'summary', sender: 'assistant', content: 'Antes de avançarmos, vou confirmar os detalhes do seu pedido. Está tudo correto?' },
 ];
+const ACTIVE_CONVERSATION_KEY = 'acessoplus:active-conversation';
 
 function createToken() {
   if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) return crypto.randomUUID().replaceAll('-', '').slice(0, 18);
@@ -36,7 +38,8 @@ function createToken() {
 }
 
 export function CheckoutExperience({ initialConversationId }: { initialConversationId: string }) {
-  const [conversationId] = useState(() => initialConversationId === 'novo' ? createToken() : initialConversationId);
+  const router = useRouter();
+  const [conversationId, setConversationId] = useState(() => initialConversationId === 'novo' ? '' : initialConversationId);
   const [orderId, setOrderId] = useState('');
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [step, setStep] = useState<Step>('confirm');
@@ -47,12 +50,23 @@ export function CheckoutExperience({ initialConversationId }: { initialConversat
   const [serverOrder, setServerOrder] = useState<ServerOrder | null>(null);
   const [syncError, setSyncError] = useState('');
   const [creatingOrder, setCreatingOrder] = useState(false);
+  const [hydratedFor, setHydratedFor] = useState('');
   const messageEnd = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (initialConversationId !== 'novo') return;
-    window.history.replaceState({}, '', `/checkout/${conversationId}`);
-  }, [conversationId, initialConversationId]);
+    const timer = window.setTimeout(() => {
+      if (initialConversationId === 'novo') {
+        const saved = localStorage.getItem(ACTIVE_CONVERSATION_KEY)?.trim() ?? '';
+        const resolved = /^[a-zA-Z0-9_-]{12,100}$/.test(saved) ? saved : createToken();
+        localStorage.setItem(ACTIVE_CONVERSATION_KEY, resolved);
+        setConversationId(resolved);
+        router.replace(`/checkout/${resolved}`);
+        return;
+      }
+      localStorage.setItem(ACTIVE_CONVERSATION_KEY, initialConversationId);
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [initialConversationId, router]);
 
   useEffect(() => {
     messageEnd.current?.scrollIntoView({ behavior: 'smooth' });
@@ -61,20 +75,24 @@ export function CheckoutExperience({ initialConversationId }: { initialConversat
   useEffect(() => {
     if (!conversationId || conversationId === 'novo') return;
     const stored = localStorage.getItem(`acessoplus:${conversationId}`);
+    let data: { messages: Message[]; step: Step; orderId: string; name: string; email: string; phone: string } | null = null;
     if (stored) {
       try {
-        const data = JSON.parse(stored) as { messages: Message[]; step: Step; orderId: string; name: string; email: string; phone: string };
-        const restore = window.setTimeout(() => {
+        data = JSON.parse(stored) as { messages: Message[]; step: Step; orderId: string; name: string; email: string; phone: string };
+      } catch { /* corrupted local draft is safely ignored */ }
+    }
+    const restore = window.setTimeout(() => {
+      if (data) {
           setMessages(data.messages);
           setStep(data.step);
           setOrderId(data.orderId);
           setName(data.name);
           setEmail(data.email);
           setPhone(data.phone);
-        }, 0);
-        return () => window.clearTimeout(restore);
-      } catch { /* corrupted local draft is safely ignored */ }
-    }
+      }
+      setHydratedFor(conversationId);
+    }, 0);
+    return () => window.clearTimeout(restore);
   }, [conversationId]);
 
   const syncOrder = useCallback(async () => {
@@ -90,7 +108,7 @@ export function CheckoutExperience({ initialConversationId }: { initialConversat
       if (Array.isArray(payload.messages) && payload.messages.length) {
         setMessages(payload.messages.map((item: { id: string; sender: Sender; content: string }) => ({ id: item.id, sender: item.sender, content: item.content })));
       }
-      if (order.fulfillment_status === 'DELIVERED') setStep('delivered');
+      if (order.fulfillment_status === 'DELIVERED') setStep((current) => current === 'closed' ? 'closed' : 'delivered');
       else if (order.payment_status === 'PAYMENT_CONFIRMED') setStep('preparing');
       else setStep('payment');
       setSyncError('');
@@ -108,9 +126,9 @@ export function CheckoutExperience({ initialConversationId }: { initialConversat
   }, [syncOrder]);
 
   useEffect(() => {
-    if (!conversationId || conversationId === 'novo') return;
+    if (!conversationId || conversationId === 'novo' || hydratedFor !== conversationId) return;
     localStorage.setItem(`acessoplus:${conversationId}`, JSON.stringify({ messages, step, orderId, name, email, phone }));
-  }, [conversationId, email, messages, name, orderId, phone, step]);
+  }, [conversationId, email, hydratedFor, messages, name, orderId, phone, step]);
 
   const addMessage = (sender: Sender, content: string) => {
     const next = { id: createToken(), sender, content };
@@ -201,7 +219,22 @@ export function CheckoutExperience({ initialConversationId }: { initialConversat
     }, 250);
   };
 
-  const placeholder = 'Digite sua resposta...';
+  const startAnotherOrder = () => {
+    addMessage('customer', 'Quero adquirir mais um acesso');
+    const nextConversationId = createToken();
+    localStorage.setItem(ACTIVE_CONVERSATION_KEY, nextConversationId);
+    router.push(`/checkout/${nextConversationId}`);
+  };
+
+  const closeConversation = () => {
+    addMessage('customer', 'Encerrar por aqui');
+    addMessage('assistant', 'Tudo certo! Seu pedido permanece salvo neste link. Quando quiser iniciar uma nova compra, é só voltar ao site.');
+    localStorage.removeItem(ACTIVE_CONVERSATION_KEY);
+    setStep('closed');
+  };
+
+  const conversationClosed = step === 'closed';
+  const placeholder = conversationClosed ? 'Conversa finalizada' : 'Digite sua resposta...';
   const timelineStep = step === 'confirm' || step === 'name' || step === 'email' || step === 'phone' ? 1 : step === 'payment' ? 2 : step === 'preparing' ? 4 : 5;
   const firstName = name.split(' ')[0] || 'Você';
 
@@ -275,7 +308,19 @@ export function CheckoutExperience({ initialConversationId }: { initialConversat
               )}
 
               {step === 'delivered' && (
-                <div className="ml-auto max-w-[510px] rounded-[22px] border border-[#cce9e3] bg-[#f2fcf9] p-5"><div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-full bg-[#00bea5] text-white"><Check size={20} /></span><div><p className="font-extrabold">Acesso entregue</p><p className="text-xs text-[#648078]">Sua ativação foi concluída</p></div></div>{serverOrder?.delivery_url ? <a href={serverOrder.delivery_url} target="_blank" rel="noopener noreferrer" className="quick-reply mt-4 w-full justify-center">Acessar agora <ChevronRight size={16} /></a> : <p className="mt-4 text-xs text-[#648078]">O link de acesso foi enviado na conversa.</p>}</div>
+                <div className="ml-auto max-w-[510px] rounded-[22px] border border-[#cce9e3] bg-[#f2fcf9] p-5">
+                  <div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-full bg-[#00bea5] text-white"><Check size={20} /></span><div><p className="font-extrabold">Acesso entregue</p><p className="text-xs text-[#648078]">Sua ativação foi concluída</p></div></div>
+                  {serverOrder?.delivery_url ? <a href={serverOrder.delivery_url} target="_blank" rel="noopener noreferrer" className="quick-reply mt-4 w-full justify-center">Acessar agora <ChevronRight size={16} /></a> : <p className="mt-4 text-xs text-[#648078]">O link de acesso foi enviado na conversa.</p>}
+                  <div className="mt-5 border-t border-[#cce9e3] pt-5">
+                    <p className="text-sm font-extrabold text-[#304c47]">Deseja adquirir mais um acesso?</p>
+                    <p className="mt-1 text-xs leading-5 text-[#648078]">Você pode iniciar um novo pedido ou encerrar por aqui.</p>
+                    <div className="mt-4 flex flex-wrap gap-2"><button onClick={startAnotherOrder} className="quick-reply">Quero mais um acesso <ChevronRight size={16} /></button><button onClick={closeConversation} className="quick-reply secondary">Encerrar por aqui</button></div>
+                  </div>
+                </div>
+              )}
+
+              {step === 'closed' && (
+                <div className="ml-auto max-w-[510px] rounded-[22px] border border-[#dce2ec] bg-[#f8f9fc] p-5"><p className="font-extrabold">Conversa finalizada</p><p className="mt-2 text-sm leading-6 text-[#68738d]">Seu pedido e todo o histórico continuam disponíveis neste link.</p><Link href="/" className="quick-reply secondary mt-4 w-fit">Voltar para o site</Link></div>
               )}
               <div ref={messageEnd} />
             </div>
@@ -284,8 +329,8 @@ export function CheckoutExperience({ initialConversationId }: { initialConversat
           <form onSubmit={submitText} className="border-t border-[#e3e7ee] bg-white p-3 sm:p-4">
             <div className="mx-auto flex max-w-[720px] items-end gap-2 rounded-[17px] border border-[#d9dfe9] bg-[#f8f9fc] p-2 focus-within:border-[#7668df] focus-within:ring-4 focus-within:ring-[#7668df]/10">
               <label className="sr-only" htmlFor="chat-input">{placeholder}</label>
-              <input id="chat-input" value={input} onChange={(event) => setInput(event.target.value)} placeholder={placeholder} className="min-h-11 flex-1 bg-transparent px-2 text-sm outline-none placeholder:text-[#98a0b0]" autoComplete={step === 'email' ? 'email' : step === 'name' ? 'name' : 'off'} />
-              <button className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[#192444] text-white disabled:opacity-40" disabled={!input.trim()} aria-label="Enviar mensagem"><Send size={18} /></button>
+              <input id="chat-input" value={input} onChange={(event) => setInput(event.target.value)} placeholder={placeholder} disabled={conversationClosed} className="min-h-11 flex-1 bg-transparent px-2 text-sm outline-none placeholder:text-[#98a0b0] disabled:cursor-not-allowed" autoComplete={step === 'email' ? 'email' : step === 'name' ? 'name' : 'off'} />
+              <button className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[#192444] text-white disabled:opacity-40" disabled={conversationClosed || !input.trim()} aria-label="Enviar mensagem"><Send size={18} /></button>
             </div>
             <p className="mt-2 text-center text-[10px] text-[#99a1b1]">Nunca envie senhas, códigos de autenticação ou dados completos de cartão pelo chat.</p>
           </form>
