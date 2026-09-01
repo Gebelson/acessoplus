@@ -77,10 +77,10 @@ const includedTools = [
 
 function CTA({ className = '', children = 'Quero meu acesso' }: { className?: string; children?: ReactNode }) {
   return (
-    <a className={`primary-button ${className}`} href="/checkout/novo">
+    <Link className={`primary-button ${className}`} href="/checkout/novo">
       {children}
       <ArrowRight size={18} aria-hidden="true" />
-    </a>
+    </Link>
   );
 }
 
@@ -547,7 +547,7 @@ export function LandingPage() {
             <Image src="/logo-acesso.svg" alt="Acesso+" width={748} height={109} className="h-auto w-[130px]" />
             <p className="mt-4 max-w-[620px] text-xs leading-5 text-[#7a849b]">A Acesso+ é uma empresa independente e não possui vínculo, representação, afiliação ou parceria oficial com o Google. Todas as marcas citadas pertencem aos seus respectivos proprietários.</p>
           </div>
-          <div className="flex gap-6 text-xs font-semibold text-[#66718a]"><Link href="/checkout/novo">Comprar</Link><Link href="/admin">Painel demonstrativo</Link><a href="mailto:suporte@acessoplus.com.br">Suporte</a></div>
+          <div className="flex gap-6 text-xs font-semibold text-[#66718a]"><Link href="/checkout/novo">Comprar</Link><Link href="/admin">Painel administrativo</Link><a href="mailto:suporte@acessoplus.com.br">Suporte</a></div>
         </div>
       </footer>
     </main>

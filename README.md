@@ -1,21 +1,23 @@
 # Acesso+
 
-MVP web da Acesso+ com landing page de alta conversão, checkout conversacional, acompanhamento visual de pedido e painel operacional demonstrativo.
+Site da Acesso+ com landing page, checkout conversacional, acompanhamento de pedido e painel operacional conectado a dados persistentes.
 
 ## O que já funciona
 
 - Landing responsiva com oferta, benefícios, processo, vídeo, preço e FAQ.
-- Checkout em formato de chat com criação de sessão imprevisível no navegador.
+- Checkout em formato de chat com criação de sessão imprevisível e pedido persistido no PostgreSQL.
 - Coleta guiada de nome, e-mail e contato opcional.
-- Pedido demonstrativo, fluxo de pagamento seguro simulado e timeline de entrega.
-- Retorno à conversa no mesmo dispositivo via `localStorage`.
-- Painel demonstrativo com métricas, modos Online/Fila/Pausado, pedidos e entrega manual validada.
+- Pagamento na Cakto com correlação do pedido pelo parâmetro `sck`.
+- Atualização de pagamento por webhook autenticado e idempotente.
+- Retorno à conversa pelo link em qualquer dispositivo.
+- Painel autenticado com métricas reais, busca, conversa, atribuição, status, entrega e auditoria.
 - SEO, Open Graph, sitemap, robots e páginas privadas marcadas como `noindex`.
-- Interfaces desacopladas para fornecedor, pagamento cripto e orquestração de agentes.
 
 ## Importante
 
-O deploy público é um MVP demonstrativo. Pagamento, banco, autenticação, e-mail, webhooks e fulfillment real ficam bloqueados até que provedores e credenciais de produção sejam configurados. Nenhuma ação financeira é validada apenas pelo frontend.
+O deploy precisa das variáveis descritas em `.env.example`. O painel não gera dados fictícios: quando o banco ou uma integração não está configurada, a interface informa a indisponibilidade em vez de simular resultados.
+
+O schema PostgreSQL é criado de forma idempotente na primeira operação. Para receber eventos reais, cadastre na Cakto a URL `https://SEU_DOMINIO/api/webhooks/cakto` com os eventos de compra, cobrança, reembolso e chargeback e salve o segredo gerado em `CAKTO_WEBHOOK_SECRET`.
 
 ## Desenvolvimento
 
@@ -26,11 +28,10 @@ npm run dev
 
 O projeto também possui `npm run build:vercel` para o build Next.js usado pela Vercel.
 
-## Próximas integrações
+## Variáveis obrigatórias
 
-1. PostgreSQL/Supabase com autenticação administrativa e Row Level Security.
-2. Gateway Pix/cartão com webhook assinado e idempotente.
-3. Resend para notificações de pedido e entrega.
-4. Realtime via Supabase ou SSE.
-5. Fornecedor e Telegram por adaptadores implementando `SupplierProvider`.
-6. n8n e módulo orgânico por `AgentOrchestratorProvider`.
+- `DATABASE_URL`: conexão PostgreSQL compatível com Neon/Vercel.
+- `ADMIN_EMAIL`: e-mail autorizado no painel.
+- `ADMIN_PASSWORD`: senha administrativa forte e exclusiva.
+- `ADMIN_SESSION_SECRET`: segredo aleatório com pelo menos 32 bytes.
+- `CAKTO_WEBHOOK_SECRET`: segredo exibido ao criar o webhook na Cakto.
