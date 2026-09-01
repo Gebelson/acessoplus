@@ -27,43 +27,22 @@ body {
 button, a, input, textarea { font: inherit; }
 a { text-decoration: none; }
 
-.chat-morph-target { view-transition-name: chat-surface; }
-
-::view-transition-group(root) {
-  animation-duration: .58s;
-  animation-timing-function: cubic-bezier(.22, 1, .36, 1);
+::view-transition-group(root),
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
 }
 
-::view-transition-old(root) { animation: page-morph-out .42s ease both; }
-::view-transition-new(root) { animation: page-morph-in .58s cubic-bezier(.22, 1, .36, 1) both; }
-
-::view-transition-group(chat-surface) {
-  z-index: 1000;
-  animation-duration: .72s;
-  animation-timing-function: cubic-bezier(.22, 1, .36, 1);
+::view-transition-old(root),
+::view-transition-new(root) {
+  mix-blend-mode: normal;
 }
 
-::view-transition-image-pair(chat-surface) { isolation: auto; }
-::view-transition-old(chat-surface) { animation: chat-morph-out .72s cubic-bezier(.22, 1, .36, 1) both; }
-::view-transition-new(chat-surface) { animation: chat-morph-in .72s cubic-bezier(.22, 1, .36, 1) both; }
+html[data-circle-transition='forward']::view-transition-old(root),
+html[data-circle-transition='back']::view-transition-new(root) { z-index: 1; }
 
-@keyframes page-morph-out {
-  to { opacity: 0; transform: scale(.985); filter: blur(3px); }
-}
-
-@keyframes page-morph-in {
-  from { opacity: 0; transform: scale(1.012); filter: blur(3px); }
-}
-
-@keyframes chat-morph-out {
-  from { opacity: 1; }
-  to { opacity: .18; }
-}
-
-@keyframes chat-morph-in {
-  from { opacity: .18; }
-  to { opacity: 1; }
-}
+html[data-circle-transition='forward']::view-transition-new(root),
+html[data-circle-transition='back']::view-transition-old(root) { z-index: 2; }
 
 :focus-visible {
   outline: 3px solid rgba(0, 190, 165, .38);

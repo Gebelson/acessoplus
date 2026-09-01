@@ -10,6 +10,78 @@ const manrope = Manrope({
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
   ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'http://localhost:3000');
 
+const circularTransitionScript = `
+(() => {
+  const storageKey = 'acessoplus:circle-transition';
+
+  document.addEventListener('click', (event) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const target = event.target instanceof Element ? event.target.closest('a[href]') : null;
+    if (!target) return;
+
+    const destination = new URL(target.href, window.location.href);
+    if (destination.origin !== window.location.origin) return;
+
+    const currentPath = window.location.pathname;
+    const direction = currentPath === '/' && destination.pathname.startsWith('/checkout/')
+      ? 'forward'
+      : currentPath.startsWith('/checkout/') && destination.pathname === '/'
+        ? 'back'
+        : null;
+    if (!direction) return;
+
+    const bounds = target.getBoundingClientRect();
+    const keyboardClick = event.detail === 0;
+    const x = keyboardClick ? bounds.left + bounds.width / 2 : event.clientX;
+    const y = keyboardClick ? bounds.top + bounds.height / 2 : event.clientY;
+
+    try {
+      sessionStorage.setItem(storageKey, JSON.stringify({ x, y, direction, timestamp: Date.now() }));
+    } catch {}
+  }, true);
+
+  window.addEventListener('pagereveal', (event) => {
+    let state;
+    try {
+      state = JSON.parse(sessionStorage.getItem(storageKey) || 'null');
+      sessionStorage.removeItem(storageKey);
+    } catch {
+      state = null;
+    }
+
+    const transition = event.viewTransition;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!transition || !state || Date.now() - state.timestamp > 5000 || reducedMotion) return;
+
+    const root = document.documentElement;
+    root.dataset.circleTransition = state.direction;
+
+    transition.ready.then(() => {
+      const farthestX = Math.max(state.x, window.innerWidth - state.x);
+      const farthestY = Math.max(state.y, window.innerHeight - state.y);
+      const radius = Math.hypot(farthestX, farthestY);
+      const expanded = 'circle(' + radius + 'px at ' + state.x + 'px ' + state.y + 'px)';
+      const collapsed = 'circle(0px at ' + state.x + 'px ' + state.y + 'px)';
+      const isBack = state.direction === 'back';
+
+      root.animate(
+        { clipPath: isBack ? [expanded, collapsed] : [collapsed, expanded] },
+        {
+          duration: isBack ? 620 : 700,
+          easing: isBack ? 'cubic-bezier(.65, 0, .35, 1)' : 'cubic-bezier(.22, 1, .36, 1)',
+          fill: 'both',
+          pseudoElement: isBack ? '::view-transition-old(root)' : '::view-transition-new(root)',
+        },
+      );
+    }).catch(() => {});
+
+    transition.finished.finally(() => {
+      delete root.dataset.circleTransition;
+    });
+  });
+})();
+`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: 'Acesso+ | Gemini Pro por 18 meses',
@@ -32,6 +104,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="pt-BR">
+      <head><script dangerouslySetInnerHTML={{ __html: circularTransitionScript }} /></head>
       <body className={`${manrope.variable} antialiased`}>{children}</body>
     </html>
   );

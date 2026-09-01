@@ -160,7 +160,7 @@ export function CheckoutExperience({ initialConversationId }: { initialConversat
   ] as const, [timelineStep]);
 
   return (
-    <main className="checkout-shell chat-morph-target">
+    <main className="checkout-shell">
       <header className="checkout-header">
         <div className="mx-auto flex h-full max-w-[1180px] items-center justify-between px-4 sm:px-6">
           <div className="flex items-center gap-3">
