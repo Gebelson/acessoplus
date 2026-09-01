@@ -364,7 +364,7 @@ a { text-decoration: none; }
 }
 .hero-title { font-size: clamp(2.5rem, 4.25vw, 4.15rem); }
 .hero-title span { display: block; white-space: nowrap; }
-.hero-offer-price { display: flex; flex-wrap: wrap; align-items: baseline; gap: .55rem 1rem; }
+.hero-offer-price { display: flex; flex-direction: column; align-items: flex-start; gap: .55rem; }
 .hero-offer-price strong { color: #192444; font-size: clamp(2.4rem,4.5vw,3.75rem); font-weight: 700; letter-spacing: -.065em; line-height: 1; }
 .hero-offer-price span { color: #5d6881; font-size: .88rem; font-weight: 750; }
 .hero-microcopy { max-width: 610px; color: #788298; font-size: .72rem; font-weight: 650; line-height: 1.65; }

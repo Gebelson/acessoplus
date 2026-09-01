@@ -269,7 +269,7 @@ export function LandingPage() {
             <span>18 meses · pagamento único</span>
           </div>
           <div className="mt-7 flex flex-col gap-4 sm:flex-row sm:items-center">
-            <CTA>Quero meus 18 meses</CTA>
+            <CTA>Quero meu acesso</CTA>
           </div>
           <p className="hero-microcopy mt-4">Você confere todos os detalhes antes de pagar · Ativação digital · Suporte durante o processo</p>
         </div>
