@@ -383,23 +383,6 @@ export function LandingPage() {
       </section>
 
       <section id="oferta" className="section-shell scroll-mt-24 !pt-4">
-        <div className="offer-summary" data-reveal>
-          <div className="offer-summary-copy">
-            <span className="section-kicker">18 MESES · UMA ÚNICA COMPRA</span>
-            <h2>Você paga uma vez. E pronto.</h2>
-            <p>Garanta todo o período anunciado em um único pagamento, sem mensalidades recorrentes cobradas pela Acesso+.</p>
-            <CTA className="mt-7">Quero garantir meus 18 meses</CTA>
-          </div>
-          <div className="offer-metrics" aria-label="Resumo da oferta">
-            <div><strong>18 meses</strong><span>de acesso</span></div>
-            <div><strong>R$ 67,90</strong><span>pagamento único</span></div>
-            <div><strong>5 TB</strong><span>de armazenamento</span></div>
-            <div><strong>Ativação digital</strong><span>com acompanhamento</span></div>
-          </div>
-        </div>
-      </section>
-
-      <section id="comparacao" className="section-shell scroll-mt-24 !pt-4">
         <div className="offer-heading" data-reveal>
           <span className="section-kicker">COMPARE</span>
           <h2>A diferença no preço fala por si.</h2>
