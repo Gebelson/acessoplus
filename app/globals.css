@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+@view-transition {
+  navigation: auto;
+}
+
 :root {
   --ink: #192444;
   --mint: #00bea5;
@@ -22,6 +26,44 @@ body {
 
 button, a, input, textarea { font: inherit; }
 a { text-decoration: none; }
+
+.chat-morph-target { view-transition-name: chat-surface; }
+
+::view-transition-group(root) {
+  animation-duration: .58s;
+  animation-timing-function: cubic-bezier(.22, 1, .36, 1);
+}
+
+::view-transition-old(root) { animation: page-morph-out .42s ease both; }
+::view-transition-new(root) { animation: page-morph-in .58s cubic-bezier(.22, 1, .36, 1) both; }
+
+::view-transition-group(chat-surface) {
+  z-index: 1000;
+  animation-duration: .72s;
+  animation-timing-function: cubic-bezier(.22, 1, .36, 1);
+}
+
+::view-transition-image-pair(chat-surface) { isolation: auto; }
+::view-transition-old(chat-surface) { animation: chat-morph-out .72s cubic-bezier(.22, 1, .36, 1) both; }
+::view-transition-new(chat-surface) { animation: chat-morph-in .72s cubic-bezier(.22, 1, .36, 1) both; }
+
+@keyframes page-morph-out {
+  to { opacity: 0; transform: scale(.985); filter: blur(3px); }
+}
+
+@keyframes page-morph-in {
+  from { opacity: 0; transform: scale(1.012); filter: blur(3px); }
+}
+
+@keyframes chat-morph-out {
+  from { opacity: 1; }
+  to { opacity: .18; }
+}
+
+@keyframes chat-morph-in {
+  from { opacity: .18; }
+  to { opacity: 1; }
+}
 
 :focus-visible {
   outline: 3px solid rgba(0, 190, 165, .38);
@@ -913,6 +955,7 @@ a { text-decoration: none; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation-duration: .01ms !important; }
   .motion-ready [data-reveal], .motion-ready [data-reveal].is-visible { opacity: 1 !important; translate: none !important; scale: 1 !important; filter: none !important; }
   .tilt-surface { transform: none !important; }
   .announcement-bar, .trust-strip { overflow-x: auto; mask-image: none; }

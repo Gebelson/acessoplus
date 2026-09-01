@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import {
   ArrowLeft,
   Check,
@@ -161,11 +160,11 @@ export function CheckoutExperience({ initialConversationId }: { initialConversat
   ] as const, [timelineStep]);
 
   return (
-    <main className="checkout-shell">
+    <main className="checkout-shell chat-morph-target">
       <header className="checkout-header">
         <div className="mx-auto flex h-full max-w-[1180px] items-center justify-between px-4 sm:px-6">
           <div className="flex items-center gap-3">
-            <Link href="/" className="icon-button grid !h-10 !w-10" aria-label="Voltar para o site"><ArrowLeft size={19} /></Link>
+            <a href="/" className="icon-button grid !h-10 !w-10" aria-label="Voltar para o site"><ArrowLeft size={19} /></a>
             <div className="bot-avatar"><MessageCircle size={20} /></div>
             <div><p className="text-sm font-extrabold tracking-[-.02em]">Ativação Acesso+</p><p className="flex items-center gap-1.5 text-[11px] font-semibold text-[#168a76]"><span className="h-1.5 w-1.5 rounded-full bg-[#00bea5]" /> Atendimento online · Suporte disponível</p></div>
           </div>

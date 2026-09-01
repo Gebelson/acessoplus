@@ -75,12 +75,23 @@ const includedTools = [
   { name: 'Gmail', logo: 'https://api.iconify.design/logos/google-gmail.svg' },
 ];
 
-function CTA({ className = '', children = 'Quero meu acesso' }: { className?: string; children?: ReactNode }) {
+function CTA({ className = '', children = 'Quero meu acesso', morphTarget = false }: { className?: string; children?: ReactNode; morphTarget?: boolean }) {
+  const prepareMorphTransition = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    document.querySelectorAll<HTMLElement>('[data-chat-transition]').forEach((element) => element.classList.remove('chat-morph-target'));
+    event.currentTarget.classList.add('chat-morph-target');
+  };
+
   return (
-    <Link className={`primary-button ${className}`} href="/checkout/novo">
+    <a
+      className={`primary-button ${morphTarget ? 'chat-morph-target' : ''} ${className}`}
+      data-chat-transition
+      href="/checkout/novo"
+      onClick={prepareMorphTransition}
+    >
       {children}
       <ArrowRight size={18} aria-hidden="true" />
-    </Link>
+    </a>
   );
 }
 
@@ -287,7 +298,7 @@ export function LandingPage() {
             Tenha acesso a todas as ferramentas do Google IA para trabalhar, estudar, pesquisar, criar conteúdos e desenvolver projetos a preço de banana!
           </p>
           <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
-            <CTA>Quero garantir meu acesso</CTA>
+            <CTA morphTarget>Quero garantir meu acesso</CTA>
             <div className="flex items-center gap-3 px-1 text-sm text-[#65708a]">
               <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-sm"><MessageCircle size={17} /></span>
               Compra assistida pelo chat
