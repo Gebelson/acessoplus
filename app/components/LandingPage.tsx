@@ -280,7 +280,7 @@ export function LandingPage() {
         <div className="relative z-10 order-2 max-w-[690px] lg:order-1" data-reveal>
           <div className="eyebrow hidden sm:inline-flex"><Sparkles size={14} /> 18 MESES · PAGAMENTO ÚNICO</div>
           <h1 className="hero-title mt-6 font-semibold leading-[.96] tracking-[-.06em] text-[#15203e]">
-            <span>Gemini Pro por 18 meses.</span>
+            <span>Gemini Pro por 18 meses</span>
             <span>pagando uma única vez.</span>
           </h1>
           <p className="mt-7 max-w-[625px] text-lg leading-8 text-[#596581] sm:text-xl">
