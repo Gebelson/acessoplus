@@ -64,13 +64,29 @@ const circularTransitionScript = `
       const collapsed = 'circle(0px at ' + state.x + 'px ' + state.y + 'px)';
       const isBack = state.direction === 'back';
 
+      const duration = isBack ? 980 : 1180;
+      const circlePseudo = isBack ? '::view-transition-old(root)' : '::view-transition-new(root)';
+      const backgroundPseudo = isBack ? '::view-transition-new(root)' : '::view-transition-old(root)';
+
       root.animate(
         { clipPath: isBack ? [expanded, collapsed] : [collapsed, expanded] },
         {
-          duration: isBack ? 620 : 700,
-          easing: isBack ? 'cubic-bezier(.65, 0, .35, 1)' : 'cubic-bezier(.22, 1, .36, 1)',
+          duration,
+          easing: isBack ? 'cubic-bezier(.65, 0, .35, 1)' : 'cubic-bezier(.4, 0, .2, 1)',
           fill: 'both',
-          pseudoElement: isBack ? '::view-transition-old(root)' : '::view-transition-new(root)',
+          pseudoElement: circlePseudo,
+        },
+      );
+
+      root.animate(
+        isBack
+          ? { filter: ['brightness(.68) saturate(.82)', 'brightness(1) saturate(1)'], transform: ['scale(.985)', 'scale(1)'] }
+          : { filter: ['brightness(1) saturate(1)', 'brightness(.68) saturate(.82)'], transform: ['scale(1)', 'scale(.985)'] },
+        {
+          duration,
+          easing: 'cubic-bezier(.4, 0, .2, 1)',
+          fill: 'both',
+          pseudoElement: backgroundPseudo,
         },
       );
     }).catch(() => {});
