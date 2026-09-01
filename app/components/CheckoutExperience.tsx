@@ -6,7 +6,6 @@ import {
   Check,
   ChevronRight,
   Clock3,
-  Copy,
   LockKeyhole,
   Mail,
   Send,
@@ -38,7 +37,6 @@ export function CheckoutExperience({ initialConversationId }: { initialConversat
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [copied, setCopied] = useState(false);
   const messageEnd = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -130,13 +128,11 @@ export function CheckoutExperience({ initialConversationId }: { initialConversat
     }, 350);
   };
 
-  const simulatePayment = () => {
-    addMessage('customer', 'Realizar pagamento');
+  const openPaymentPage = () => {
+    addMessage('customer', 'Ir para o pagamento');
     window.setTimeout(() => {
-      addMessage('system', 'Demonstração: pagamento confirmado. Nenhuma cobrança real foi realizada.');
-      addMessage('assistant', 'Pagamento confirmado! Sua ativação está em andamento. Assim que o acesso estiver pronto, enviaremos tudo aqui nesta conversa.');
-      setStep('preparing');
-    }, 500);
+      addMessage('assistant', 'A página de pagamento da Cakto foi aberta em uma nova aba. Depois da confirmação, acompanhe sua ativação por aqui.');
+    }, 250);
   };
 
   const simulateDelivery = () => {
@@ -148,7 +144,6 @@ export function CheckoutExperience({ initialConversationId }: { initialConversat
   const placeholder = 'Digite sua resposta...';
   const timelineStep = step === 'confirm' || step === 'name' || step === 'email' || step === 'phone' ? 1 : step === 'payment' ? 2 : step === 'preparing' ? 4 : 5;
   const firstName = name.split(' ')[0] || 'Você';
-  const pixCode = '00020101021226870014br.gov.bcb.pix2565checkout-demo.acessoplus.com.br/pix/nao-real520400005303986540567.905802BR5920ACESSO MAIS DEMO6009SAO PAULO62070503***6304DEMO';
 
   const timeline = useMemo(() => [
     ['Pedido criado', timelineStep >= 1],
@@ -208,9 +203,8 @@ export function CheckoutExperience({ initialConversationId }: { initialConversat
                 <div className="ml-auto max-w-[510px] rounded-[22px] border border-[#dce2ec] bg-[#f8f9fc] p-5 shadow-sm">
                   <div className="flex items-start justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-[.1em] text-[#68738d]">Pedido {orderId}</p><h2 className="mt-2 text-lg font-extrabold">Gemini Pro · 18 meses</h2></div><span className="rounded-full bg-[#fff1c8] px-3 py-1 text-[10px] font-extrabold text-[#8b6418]">AGUARDANDO PAGAMENTO</span></div>
                   <div className="mt-5 flex items-end justify-between border-t border-[#e0e5ed] pt-5"><span className="text-sm text-[#68738d]">Total</span><strong className="text-2xl tracking-[-.04em]">R$ 67,90</strong></div>
-                  <div className="mt-4 rounded-xl border border-[#eadfbd] bg-[#fffaf0] p-3 text-xs leading-5 text-[#766744]"><strong>Ambiente demonstrativo:</strong> o gateway real ainda não está configurado. O botão abaixo apenas mostra o fluxo, sem cobrar.</div>
-                  <button onClick={simulatePayment} className="quick-reply mt-4 w-full justify-center">Simular confirmação segura <ChevronRight size={16} /></button>
-                  <button onClick={() => { navigator.clipboard.writeText(pixCode); setCopied(true); }} className="mt-3 flex w-full items-center justify-center gap-2 text-xs font-bold text-[#65708a]"><Copy size={14} /> {copied ? 'Código demo copiado' : 'Copiar código Pix demonstrativo'}</button>
+                  <div className="mt-4 rounded-xl border border-[#dce2ec] bg-white p-3 text-xs leading-5 text-[#68738d]">O pagamento é processado pela Cakto e será aberto em uma nova aba. Sua conversa continuará salva aqui.</div>
+                  <a href="https://pay.cakto.com.br/378w2xn_1049695" target="_blank" rel="noopener noreferrer" onClick={openPaymentPage} className="quick-reply mt-4 w-full justify-center">Ir para o pagamento <ChevronRight size={16} /></a>
                 </div>
               )}
 
