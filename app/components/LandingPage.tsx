@@ -363,8 +363,8 @@ export function LandingPage() {
         <div className="video-card" data-reveal>
           <div className="max-w-[540px]">
             <span className="section-kicker">VEJA COMO FUNCIONA</span>
-            <h2 className="mt-4 text-3xl font-semibold tracking-[-.045em] sm:text-4xl">Entenda o processo antes de comprar.</h2>
-            <p className="mt-4 max-w-[500px] leading-7 text-[#68738d]">Veja como funciona o pedido, a ativação e o recebimento do seu acesso.</p>
+            <h2 className="mt-4 text-3xl font-semibold leading-[1.08] tracking-[-.045em] sm:text-[55px]">Entenda o processo antes de comprar.</h2>
+            <p className="mt-4 max-w-[500px] leading-7 text-[#68738d]">Veja como funciona todo o processo de compra. Desde o pedido até o recebimento do Gemini PRO.</p>
           </div>
           <div className="video-stage">
             <video
