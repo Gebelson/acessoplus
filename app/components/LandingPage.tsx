@@ -335,7 +335,7 @@ export function LandingPage() {
 
       <section id="como-funciona" className="bg-[#192444] text-white scroll-mt-20">
         <div className="section-shell">
-          <div className="grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
+          <div className="grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:items-center">
             <div className="section-heading !mx-0 !text-left" data-reveal>
               <span className="section-kicker !text-[#55ddc7]">SIMPLES DO PEDIDO À ATIVAÇÃO</span>
               <h2 className="!text-white">Seu acesso em poucos passos.</h2>
