@@ -228,8 +228,19 @@ export function LandingPage() {
   };
 
   return (
-    <main className="site-motion overflow-x-clip bg-[#f7f9fc] pt-[74px] text-[#15203e]">
+    <main className="site-main site-motion overflow-x-clip bg-[#f7f9fc] text-[#15203e]">
       <header className="glass-header fixed inset-x-0 top-0 z-50">
+        <div className="announcement-bar" role="status" aria-label="Oferta de R$ 67,90 por tempo limitado">
+          <div className="announcement-track">
+            {[false, true].map((isDuplicate) => (
+              <div className="announcement-group" aria-hidden={isDuplicate || undefined} key={isDuplicate ? 'announcement-duplicate' : 'announcement-primary'}>
+                {[0, 1, 2, 3].map((item) => (
+                  <span className="announcement-item" aria-hidden={isDuplicate || item > 0 || undefined} key={`${isDuplicate ? 'duplicate' : 'primary'}-${item}`}>R$ 67,90 por tempo limitado</span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
         <nav className="mx-auto flex h-[74px] w-full max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-7" aria-label="Navegação principal">
           <button type="button" className="header-section-button" onClick={scrollToSection('inicio')} aria-label="Acesso+ — início">
             <Image src="/logo-acesso.svg" alt="Acesso+" width={748} height={109} priority className="h-auto w-[136px] sm:w-[152px]" />
@@ -264,7 +275,7 @@ export function LandingPage() {
         )}
       </header>
 
-      <section id="inicio" className="hero-scene relative mx-auto grid min-h-[calc(100svh-74px)] w-full max-w-[1440px] scroll-mt-20 items-center gap-12 px-4 sm:px-6 lg:grid-cols-[1.05fr_.95fr] lg:px-7">
+      <section id="inicio" className="hero-scene relative mx-auto grid w-full max-w-[1440px] scroll-mt-20 items-center gap-12 px-4 sm:px-6 lg:grid-cols-[1.05fr_.95fr] lg:px-7">
         <div className="hero-depth-grid" aria-hidden="true" />
         <div className="relative z-10 order-2 max-w-[690px] lg:order-1" data-reveal>
           <div className="eyebrow hidden sm:inline-flex"><Sparkles size={14} /> 18 MESES · PAGAMENTO ÚNICO</div>
