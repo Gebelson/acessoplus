@@ -234,8 +234,8 @@ export function LandingPage() {
           <div className="announcement-track">
             {[false, true].map((isDuplicate) => (
               <div className="announcement-group" aria-hidden={isDuplicate || undefined} key={isDuplicate ? 'announcement-duplicate' : 'announcement-primary'}>
-                {[0, 1, 2, 3].map((item) => (
-                  <span className="announcement-item" aria-hidden={isDuplicate || item > 0 || undefined} key={`${isDuplicate ? 'duplicate' : 'primary'}-${item}`}>R$ 67,90 por tempo limitado</span>
+                {[0, 1, 2, 3, 4, 5, 6, 7].map((item) => (
+                  <span className="announcement-item" aria-hidden={isDuplicate || item > 0 || undefined} key={`${isDuplicate ? 'duplicate' : 'primary'}-${item}`}>R$67,90 POR TEMPO LIMITADO!</span>
                 ))}
               </div>
             ))}

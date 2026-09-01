@@ -3,7 +3,7 @@
 :root {
   --ink: #192444;
   --mint: #00bea5;
-  --announcement-height: 32px;
+  --announcement-height: 38px;
   --header-height: 74px;
   --top-chrome-height: calc(var(--announcement-height) + var(--header-height));
   --section-spacing: clamp(5rem, 8vw, 7.5rem);
@@ -29,11 +29,11 @@ a { text-decoration: none; }
 
 .site-main { padding-top: var(--top-chrome-height); }
 
-.announcement-bar { height: var(--announcement-height); overflow: hidden; background: linear-gradient(90deg,#1f58dc,#3f73ef 52%,#1f58dc); color: #fff; }
-.announcement-track { display: flex; width: max-content; height: 100%; animation: announcement-scroll 20s linear infinite; will-change: transform; }
+.announcement-bar { height: var(--announcement-height); overflow: hidden; background: linear-gradient(180deg,#4b8cff 0%,#0868ed 54%,#0058dc 100%); color: #fff; box-shadow: inset 0 -1px 0 rgba(0,35,125,.18); }
+.announcement-track { display: flex; width: max-content; height: 100%; animation: announcement-scroll 32s linear infinite; will-change: transform; }
 .announcement-group { display: flex; height: 100%; flex: none; align-items: center; }
-.announcement-item { display: flex; height: 100%; align-items: center; padding-inline: 2.3rem; font-size: .65rem; font-weight: 850; letter-spacing: .11em; text-transform: uppercase; white-space: nowrap; }
-.announcement-item::before { width: 4px; height: 4px; margin-right: 2.3rem; border-radius: 50%; background: rgba(255,255,255,.82); content: ''; }
+.announcement-item { display: flex; height: 100%; align-items: center; padding-left: 2.4rem; font-size: .66rem; font-weight: 850; letter-spacing: .045em; text-shadow: 0 1px 6px rgba(0,40,130,.28); white-space: nowrap; }
+.announcement-item::after { width: 4px; height: 4px; margin-left: 2.4rem; border-radius: 50%; background: rgba(255,255,255,.88); content: ''; box-shadow: 0 0 7px rgba(255,255,255,.45); }
 
 @keyframes announcement-scroll {
   from { transform: translate3d(0,0,0); }
@@ -855,9 +855,9 @@ a { text-decoration: none; }
 @media (max-width: 640px) {
   .primary-button { width: 100%; }
   .secondary-button { min-height: 44px; padding: 0 .8rem; font-size: .74rem; }
-  .announcement-track { animation-duration: 16s; }
-  .announcement-item { padding-inline: 1.4rem; font-size: .58rem; letter-spacing: .09em; }
-  .announcement-item::before { margin-right: 1.4rem; }
+  .announcement-track { animation-duration: 25s; }
+  .announcement-item { padding-left: 1.5rem; font-size: .59rem; }
+  .announcement-item::after { margin-left: 1.5rem; }
   .banana-mark { width: 68px; height: 68px; font-size: 2.25rem; }
   .hero-scene { gap: 1.75rem; padding-inline: .5rem; }
   .hero-scene > .relative.z-10 { padding-inline: .375rem; }
