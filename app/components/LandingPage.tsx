@@ -431,7 +431,7 @@ export function LandingPage() {
               <div className="comparison-price-line comparison-price-access">
                 <strong>R$ 67,90</strong>
               </div>
-              <p className="comparison-saving">Economize R$ 802,00 em relação ao preço anual de referência — e receba 6 meses a mais.</p>
+              <p className="comparison-saving">R$ 802,00 a menos que o valor anual da referência</p>
               <CTA className="mt-6 w-full">Quero meus 18 meses</CTA>
             </article>
           </div>
