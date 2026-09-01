@@ -706,9 +706,6 @@ a { text-decoration: none; }
 .kinetic-cta::before { top: -55%; right: -5%; width: 410px; height: 410px; background: rgba(0,190,165,.2); animation: orb-float 8s ease-in-out infinite; }
 .kinetic-cta::after { bottom: -80%; left: -8%; width: 430px; height: 430px; background: rgba(25,36,68,.28); animation: orb-float 9s ease-in-out -3s infinite; }
 .kinetic-cta > :not(.kinetic-plus) { position: relative; z-index: 2; }
-.final-price { display: flex; flex-direction: column; align-items: center; }
-.final-price strong { font-size: clamp(2.5rem,5vw,4rem); font-weight: 720; letter-spacing: -.06em; line-height: 1; }
-.final-price span { margin-top: .6rem; color: #ded9ff; font-size: .82rem; font-weight: 750; }
 .kinetic-plus { position: absolute; z-index: 1; color: rgba(255,255,255,.18); font-weight: 300; line-height: 1; text-shadow: 0 12px 35px rgba(25,36,68,.18); animation: plus-drift 6s ease-in-out infinite; }
 .kinetic-plus-one { top: 10%; left: 8%; font-size: 6rem; transform: translateZ(20px); }
 .kinetic-plus-two { right: 9%; bottom: 6%; font-size: 8rem; animation-delay: -2s; }

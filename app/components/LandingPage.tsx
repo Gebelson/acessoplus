@@ -486,11 +486,8 @@ export function LandingPage() {
           <span className="kinetic-plus kinetic-plus-two" aria-hidden="true">+</span>
           <span className="kinetic-plus kinetic-plus-three" aria-hidden="true">+</span>
           <span className="text-xs font-extrabold tracking-[.14em] text-[#d5d0ff]">PRONTO PARA COMEÇAR?</span>
-          <h2 className="mt-4 max-w-[820px] text-3xl font-semibold tracking-[-.045em] sm:text-5xl">Garanta seus próximos 18 meses de Gemini Pro.</h2>
-          <p className="mt-5 max-w-[680px] text-sm leading-7 text-[#e1ddff] sm:text-base">Faça seu pedido, confira todos os detalhes e acompanhe sua ativação em um único lugar.</p>
-          <div className="final-price mt-6"><strong>R$ 67,90</strong><span>18 meses · pagamento único</span></div>
-          <CTA className="mt-8 !bg-white !text-[#4035aa] !shadow-none">Quero ativar agora</CTA>
-          <p className="mt-5 text-xs font-semibold text-[#d5d0ff]">5 TB de armazenamento · Ativação digital · Suporte durante o processo</p>
+          <h2 className="mt-4 max-w-[720px] text-3xl font-semibold tracking-[-.045em] sm:text-5xl">Seu próximo projeto pode começar com uma conversa.</h2>
+          <CTA className="mt-8 !bg-white !text-[#4035aa] !shadow-none">Garantir 18 meses de acesso</CTA>
         </div>
       </section>
 
