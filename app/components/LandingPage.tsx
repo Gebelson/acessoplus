@@ -268,10 +268,18 @@ export function LandingPage() {
             <strong>R$ 67,90</strong>
             <span>18 meses · pagamento único</span>
           </div>
-          <div className="mt-7 flex flex-col gap-4 sm:flex-row sm:items-center">
-            <CTA>Quero meu acesso</CTA>
+          <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <CTA>Quero garantir meu acesso</CTA>
+            <div className="flex items-center gap-3 px-1 text-sm text-[#65708a]">
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-sm"><MessageCircle size={17} /></span>
+              Compra assistida pelo chat
+            </div>
           </div>
-          <p className="hero-microcopy mt-4">Você confere todos os detalhes antes de pagar · Ativação digital · Suporte durante o processo</p>
+          <div className="mt-10 hidden grid-cols-2 gap-x-5 gap-y-4 border-t border-[#dce2ed] pt-7 sm:flex sm:flex-wrap sm:gap-6">
+            {['Pagamento único', 'Entrega digital', 'Ativação assistida', 'Suporte humano'].map((item) => (
+              <span key={item} className="flex items-center gap-2 text-sm font-semibold text-[#53607b]"><Check size={15} className="text-[#00a891]" />{item}</span>
+            ))}
+          </div>
         </div>
 
         <TiltSurface className="hero-card-stage relative order-1 mx-auto w-full max-w-[520px] lg:order-2 lg:justify-self-end">
