@@ -264,7 +264,7 @@ export function LandingPage() {
         )}
       </header>
 
-      <section id="inicio" className="hero-scene relative mx-auto grid min-h-[calc(100svh-74px)] w-full max-w-[1440px] scroll-mt-20 items-center gap-12 px-4 pb-20 pt-14 sm:px-6 lg:grid-cols-[1.05fr_.95fr] lg:px-7 lg:py-24">
+      <section id="inicio" className="hero-scene relative mx-auto grid min-h-[calc(100svh-74px)] w-full max-w-[1440px] scroll-mt-20 items-center gap-12 px-4 sm:px-6 lg:grid-cols-[1.05fr_.95fr] lg:px-7">
         <div className="hero-depth-grid" aria-hidden="true" />
         <div className="relative z-10 order-2 max-w-[690px] lg:order-1" data-reveal>
           <div className="eyebrow hidden sm:inline-flex"><Sparkles size={14} /> 18 MESES · PAGAMENTO ÚNICO</div>
@@ -397,7 +397,7 @@ export function LandingPage() {
         </div>
       </section>
 
-      <section id="oferta" className="section-shell scroll-mt-24 !pt-4">
+      <section id="oferta" className="section-shell scroll-mt-24">
         <div className="offer-heading" data-reveal>
           <span className="section-kicker">COMPARE E ESCOLHA</span>
           <h2><span>Tudo do plano anual.</span><span>Mais 6 meses GRÁTIS.</span></h2>
@@ -519,7 +519,7 @@ export function LandingPage() {
         </div>
       </section>
 
-      <section className="px-4 pb-6 sm:px-6 lg:px-7">
+      <section className="closing-section px-4 sm:px-6 lg:px-7">
         <div className="kinetic-cta relative mx-auto flex max-w-[1384px] flex-col items-center overflow-hidden rounded-[32px] bg-[#5e50d7] px-6 py-14 text-center text-white sm:px-12 sm:py-18" data-reveal>
           <span className="kinetic-plus kinetic-plus-one" aria-hidden="true">+</span>
           <span className="kinetic-plus kinetic-plus-two" aria-hidden="true">+</span>
@@ -530,8 +530,8 @@ export function LandingPage() {
         </div>
       </section>
 
-      <footer className="mt-10 border-t border-[#e0e5ed] bg-white">
-        <div className="mx-auto grid max-w-[1440px] gap-8 px-4 py-10 sm:px-6 md:grid-cols-[1fr_auto] lg:px-7">
+      <footer className="site-footer border-t border-[#e0e5ed] bg-white">
+        <div className="site-footer-inner mx-auto grid max-w-[1440px] gap-8 px-4 sm:px-6 md:grid-cols-[1fr_auto] lg:px-7">
           <div>
             <Image src="/logo-acesso.svg" alt="Acesso+" width={748} height={109} className="h-auto w-[130px]" />
             <p className="mt-4 max-w-[620px] text-xs leading-5 text-[#7a849b]">A Acesso+ é uma empresa independente e não possui vínculo, representação, afiliação ou parceria oficial com o Google. Todas as marcas citadas pertencem aos seus respectivos proprietários.</p>
