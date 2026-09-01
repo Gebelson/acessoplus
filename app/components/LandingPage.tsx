@@ -262,12 +262,8 @@ export function LandingPage() {
             <span>Pague uma única vez.</span>
           </h1>
           <p className="mt-7 max-w-[625px] text-lg leading-8 text-[#596581] sm:text-xl">
-            Tenha acesso aos recursos avançados de IA do Google para trabalhar, estudar, pesquisar, criar conteúdo e desenvolver projetos.
+            Tenha acesso aos recursos avançados de IA do Google para trabalhar, estudar, pesquisar, criar conteúdos e desenvolver projetos pagando muito pouco!
           </p>
-          <div className="hero-offer-price mt-7">
-            <strong>R$ 67,90</strong>
-            <span>18 meses · pagamento único</span>
-          </div>
           <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
             <CTA>Quero garantir meu acesso</CTA>
             <div className="flex items-center gap-3 px-1 text-sm text-[#65708a]">
