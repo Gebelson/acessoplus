@@ -64,6 +64,17 @@ const comparisonBenefits = [
   'Outros recursos disponibilizados pelo Google para contas elegíveis',
 ];
 
+const includedTools = [
+  { name: 'Gemini', logo: 'https://api.iconify.design/logos/google-gemini.svg' },
+  { name: 'NotebookLM', logo: 'https://api.iconify.design/simple-icons/notebooklm.svg?color=%2315203e' },
+  { name: 'Google Flow', logo: 'https://labs.google/fx/icons/favicon/flow_favicon_b.png' },
+  { name: 'Google AI Studio', logo: 'https://api.iconify.design/logos/google-aistudio.svg' },
+  { name: 'Google Antigravity', logo: 'https://api.iconify.design/thesvg-color/antigravity-google.svg' },
+  { name: 'Google Labs', logo: 'https://labs.google/assets/icons/favicon-48x48.png' },
+  { name: 'Google Drive', logo: 'https://api.iconify.design/logos/google-drive.svg' },
+  { name: 'Gmail', logo: 'https://api.iconify.design/logos/google-gmail.svg' },
+];
+
 function CTA({ className = '', children = 'Quero meu acesso' }: { className?: string; children?: ReactNode }) {
   return (
     <Link className={`primary-button ${className}`} href="/checkout/novo">
@@ -464,6 +475,30 @@ export function LandingPage() {
           </div>
         </div>
         <p className="comparison-disclaimer">Comparação baseada no preço anual de R$ 869,90 apresentado na referência. Valores e condições do plano convencional podem mudar no canal oficial.</p>
+      </section>
+
+      <section className="tools-marquee-section" aria-labelledby="included-tools-title">
+        <div className="tools-marquee-heading" data-reveal>
+          <span className="section-kicker">ECOSSISTEMA GOOGLE AI PRO</span>
+          <h2 id="included-tools-title">Ferramentas para criar, pesquisar e produzir mais.</h2>
+          <p>Um conjunto de recursos avançados para diferentes momentos do seu dia.</p>
+        </div>
+        <div className="tools-logo-viewport" aria-label="Ferramentas e serviços disponíveis no ecossistema Google AI Pro">
+          <div className="tools-logo-track">
+            {[false, true].map((isDuplicate) => (
+              <div className="tools-logo-group" aria-hidden={isDuplicate || undefined} key={isDuplicate ? 'tools-duplicate' : 'tools-primary'}>
+                {includedTools.map((tool) => (
+                  <div className="tool-logo-card" key={`${isDuplicate ? 'duplicate' : 'primary'}-${tool.name}`}>
+                    <span className="tool-logo-image-shell">
+                      <img src={tool.logo} alt="" loading="lazy" />
+                    </span>
+                    <span>{tool.name}</span>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       <section id="faq" className="section-shell scroll-mt-24">
