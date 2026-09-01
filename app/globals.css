@@ -870,6 +870,7 @@ a { text-decoration: none; }
   .video-card { min-height: 0; padding: 1.25rem; }
   .chat-bubble { max-width: 88%; }
   .offer-comparison { border-radius: 24px; padding: .75rem; }
+  .offer-heading h2 span { white-space: normal; }
   .comparison-card { border-radius: 20px; }
   .comparison-card-topline { align-items: flex-start; flex-direction: column; gap: .6rem; }
   .comparison-benefit-row { grid-template-columns: minmax(0,1fr) 48px 52px; padding: .65rem .7rem; font-size: .72rem; }
