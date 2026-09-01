@@ -57,6 +57,8 @@ a { text-decoration: none; }
 }
 
 .site-scrollbar[data-visible='true'] { opacity: 1; }
+.site-main + .site-scrollbar { top: calc(var(--top-chrome-height) + 8px); }
+.checkout-shell + .site-scrollbar { top: 76px; }
 .site-scrollbar-thumb {
   position: absolute;
   top: 0;
