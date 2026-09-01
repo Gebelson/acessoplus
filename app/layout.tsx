@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Manrope } from 'next/font/google';
+import { CustomScrollbar } from './components/CustomScrollbar';
 import './globals.css';
 
 const manrope = Manrope({
@@ -121,7 +122,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="pt-BR">
       <head><script dangerouslySetInnerHTML={{ __html: circularTransitionScript }} /></head>
-      <body className={`${manrope.variable} antialiased`}>{children}</body>
+      <body className={`${manrope.variable} antialiased`}>
+        {children}
+        <CustomScrollbar />
+      </body>
     </html>
   );
 }
