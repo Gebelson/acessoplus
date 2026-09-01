@@ -985,6 +985,40 @@ html[data-circle-transition='back']::view-transition-old(root) { z-index: 2; }
   .tool-logo-image-shell img { width: 27px; height: 27px; }
 }
 
+@media (hover: hover) and (pointer: fine) {
+  html,
+  body,
+  .site-scrollbar {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M4.25 3.75v24.1c0 1.18 1.43 1.76 2.25.92l5.18-5.3 3.72 7.06 5.14-2.72-3.74-7.08h7.72c1.2 0 1.77-1.49.87-2.28L6.42 2.74a1.31 1.31 0 0 0-2.17 1.01Z' fill='white' stroke='%23186BE8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 4 4, auto;
+  }
+
+  a,
+  button,
+  summary,
+  select,
+  label[for],
+  [role='button'],
+  .admin-table tbody tr,
+  input[type='button'],
+  input[type='checkbox'],
+  input[type='radio'],
+  input[type='reset'],
+  input[type='submit'] {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 512 512'%3E%3Cpath d='M240 64c-17.7 0-32 14.3-32 32v192.8l-57.3-42.9c-15.7-11.8-38-8.6-49.8 7.1s-8.6 38 7.1 49.8l144 108c13.8 10.4 30.7 16 48 16h116c53 0 96-43 96-96V224c0-17.7-14.3-32-32-32s-32 14.3-32 32v-32c0-17.7-14.3-32-32-32s-32 14.3-32 32v-32c0-17.7-14.3-32-32-32s-32 14.3-32 32V96c0-17.7-14.3-32-32-32Z' fill='white' stroke='%23186BE8' stroke-width='34' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 15 5, pointer !important;
+  }
+
+  input:not([type='button']):not([type='checkbox']):not([type='radio']):not([type='reset']):not([type='submit']),
+  textarea,
+  [contenteditable='true'] {
+    cursor: text !important;
+  }
+
+  :disabled,
+  [aria-disabled='true'] {
+    cursor: not-allowed !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation-duration: .01ms !important; }
