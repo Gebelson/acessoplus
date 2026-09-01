@@ -284,7 +284,7 @@ export function LandingPage() {
             <span>pagando uma única vez.</span>
           </h1>
           <p className="mt-7 max-w-[625px] text-lg leading-8 text-[#596581] sm:text-xl">
-            Tenha acesso aos recursos avançados de IA do Google para trabalhar, estudar, pesquisar, criar conteúdos e desenvolver projetos pagando muito pouco!
+            Tenha acesso a todas as ferramentas do Google IA para trabalhar, estudar, pesquisar, criar conteúdos e desenvolver projetos a preço de banana!
           </p>
           <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
             <CTA>Quero garantir meu acesso</CTA>
