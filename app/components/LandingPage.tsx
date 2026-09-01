@@ -319,7 +319,7 @@ export function LandingPage() {
       <section id="beneficios" className="section-shell scroll-mt-24">
         <div className="section-heading" data-reveal>
           <span className="section-kicker">18 MESES PARA FAZER MAIS</span>
-          <h2>18 meses para fazer muito mais com IA.</h2>
+          <h2><span>Mais IA.</span><span>Mais possibilidades.</span><span>Mais resultados.</span></h2>
           <p>Use o Gemini para acelerar tarefas, criar conteúdos, pesquisar, estudar, programar e trabalhar com mais produtividade.</p>
         </div>
         <div className="mt-12 grid gap-4 md:grid-cols-6">
