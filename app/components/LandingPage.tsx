@@ -432,11 +432,6 @@ export function LandingPage() {
             </article>
           </div>
 
-          <div className="included-heading">
-            <span className="section-kicker">TUDO QUE VOCÊ DESBLOQUEIA</span>
-            <h3>Muito mais que um chatbot.</h3>
-            <p>A oferta da Acesso+ reúne os benefícios apresentados no plano de referência, com 18 meses de acesso.</p>
-          </div>
           <div className="comparison-benefits" aria-label="Comparação de benefícios">
             <div className="comparison-benefit-row comparison-benefit-head">
               <span>Benefícios incluídos</span>
@@ -456,8 +451,6 @@ export function LandingPage() {
               <span className="comparison-check comparison-check-access" aria-label="Incluído na oferta Acesso+"><Check size={15} /></span>
             </div>
           </div>
-
-          <p className="included-note">Gemini Pro é oferecido por meio dos benefícios associados ao plano Google AI Pro. Recursos, limites e disponibilidade podem variar conforme região, conta e atualizações realizadas pelo Google.</p>
 
           <div className="comparison-footer">
             <div><Check size={17} /><span>Pagamento único</span></div>
