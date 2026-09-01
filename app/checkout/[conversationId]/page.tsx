@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { CheckoutExperience } from '../../components/CheckoutExperience';
 
 export const metadata: Metadata = {
-  title: 'Checkout conversacional | Acesso+',
+  title: 'Cessi | Ativação Acesso+',
   description: 'Conversa segura para criar e acompanhar seu pedido Acesso+.',
   robots: { index: false, follow: false },
 };

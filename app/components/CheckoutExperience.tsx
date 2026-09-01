@@ -9,7 +9,6 @@ import {
   Copy,
   LockKeyhole,
   Mail,
-  MessageCircle,
   Send,
   ShieldCheck,
   UserRound,
@@ -21,7 +20,7 @@ type Message = { id: string; sender: Sender; content: string; time?: string };
 type Step = 'confirm' | 'name' | 'email' | 'phone' | 'payment' | 'preparing' | 'delivered';
 
 const initialMessages: Message[] = [
-  { id: 'welcome', sender: 'assistant', content: 'Olá! 👋 Vou acompanhar você durante a ativação dos seus 18 meses de Gemini Pro.' },
+  { id: 'welcome', sender: 'assistant', content: 'Olá! 👋 Eu sou a Cessi e vou acompanhar você durante a ativação dos seus 18 meses de Gemini Pro.' },
   { id: 'summary', sender: 'assistant', content: 'Antes de avançarmos, vou confirmar os detalhes do seu pedido. Está tudo correto?' },
 ];
 
@@ -165,8 +164,8 @@ export function CheckoutExperience({ initialConversationId }: { initialConversat
         <div className="mx-auto flex h-full max-w-[1180px] items-center justify-between px-4 sm:px-6">
           <div className="flex items-center gap-3">
             <a href="/" className="icon-button grid !h-10 !w-10" aria-label="Voltar para o site"><ArrowLeft size={19} /></a>
-            <div className="bot-avatar"><MessageCircle size={20} /></div>
-            <div><p className="text-sm font-extrabold tracking-[-.02em]">Ativação Acesso+</p><p className="flex items-center gap-1.5 text-[11px] font-semibold text-[#168a76]"><span className="h-1.5 w-1.5 rounded-full bg-[#00bea5]" /> Atendimento online · Suporte disponível</p></div>
+            <div className="bot-avatar"><video className="bot-avatar-video" autoPlay loop muted playsInline preload="auto" aria-hidden="true"><source src="/cessi-avatar.mp4" type="video/mp4" /></video></div>
+            <div><p className="text-sm font-extrabold tracking-[-.02em]">Cessi</p><p className="flex items-center gap-1.5 text-[11px] font-semibold text-[#168a76]"><span className="h-1.5 w-1.5 rounded-full bg-[#00bea5]" /> Atendimento online · Suporte disponível</p></div>
           </div>
           <Image src="/logo-acesso.svg" alt="Acesso+" width={748} height={109} className="hidden h-auto w-[105px] sm:block" />
         </div>
@@ -183,7 +182,7 @@ export function CheckoutExperience({ initialConversationId }: { initialConversat
                     <div className="system-message"><ShieldCheck size={14} /> {message.content}</div>
                   ) : (
                     <div className={`chat-bubble ${message.sender === 'customer' ? 'customer-bubble' : 'assistant-bubble'}`}>
-                      {message.sender === 'assistant' && <span className="mb-1.5 block text-[10px] font-extrabold uppercase tracking-[.08em] text-[#6457d3]">Ativação Acesso+</span>}
+                      {message.sender === 'assistant' && <span className="mb-1.5 block text-[10px] font-extrabold uppercase tracking-[.08em] text-[#6457d3]">Cessi</span>}
                       {message.content}
                     </div>
                   )}
