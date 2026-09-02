@@ -14,6 +14,17 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
 const circularTransitionScript = `
 (() => {
   const storageKey = 'acessoplus:circle-transition';
+  const activeConversationKey = 'acessoplus:active-conversation';
+
+  const conversationId = () => {
+    const saved = localStorage.getItem(activeConversationKey)?.trim() || '';
+    if (/^[a-zA-Z0-9_-]{12,100}$/.test(saved)) return saved;
+    const created = typeof crypto !== 'undefined' && 'randomUUID' in crypto
+      ? crypto.randomUUID().replaceAll('-', '').slice(0, 18)
+      : Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+    localStorage.setItem(activeConversationKey, created);
+    return created;
+  };
 
   document.addEventListener('click', (event) => {
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
@@ -24,6 +35,9 @@ const circularTransitionScript = `
     if (destination.origin !== window.location.origin) return;
 
     const currentPath = window.location.pathname;
+    if (currentPath === '/' && destination.pathname === '/checkout/novo') {
+      destination.pathname = '/checkout/' + conversationId();
+    }
     const direction = currentPath === '/' && destination.pathname.startsWith('/checkout/')
       ? 'forward'
       : currentPath.startsWith('/checkout/') && destination.pathname === '/'
@@ -39,6 +53,10 @@ const circularTransitionScript = `
     try {
       sessionStorage.setItem(storageKey, JSON.stringify({ x, y, direction, timestamp: Date.now() }));
     } catch {}
+
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    window.location.assign(destination.href);
   }, true);
 
   window.addEventListener('pagereveal', (event) => {
