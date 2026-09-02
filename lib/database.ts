@@ -1,6 +1,6 @@
 import 'server-only';
 
-import { neon } from '@neondatabase/serverless';
+import postgres, { type ParameterOrJSON, type Sql, type TransactionSql } from 'postgres';
 import { requireEnv } from './config';
 
 export type OrderStatus = 'WAITING_PAYMENT' | 'PAYMENT_CONFIRMED' | 'PAYMENT_FAILED' | 'PAYMENT_REFUNDED';
@@ -8,9 +8,50 @@ export type DeliveryStatus = 'NEW' | 'FULFILLMENT_PENDING' | 'IN_PROGRESS' | 'DE
 export type MessageSender = 'assistant' | 'customer' | 'system' | 'admin';
 
 let schemaPromise: Promise<void> | null = null;
+let postgresClient: Sql | null = null;
 
-export function database() {
-  return neon(requireEnv('DATABASE_URL'));
+type QueryParameter = ParameterOrJSON<never>;
+type QueryRow = Record<string, unknown>;
+type QueryExecutor = Sql | TransactionSql;
+
+export type QueryClient = {
+  query<T extends QueryRow = QueryRow>(statement: string, parameters?: unknown[]): Promise<T[]>;
+};
+
+export type DatabaseClient = QueryClient & {
+  transaction(callback: (transaction: QueryClient) => Promise<unknown>[]): Promise<unknown[]>;
+};
+
+function queryClient(executor: QueryExecutor): QueryClient {
+  return {
+    async query<T extends QueryRow = QueryRow>(statement: string, parameters: unknown[] = []) {
+      const normalizedParameters = parameters.map((parameter) => (
+        parameter === undefined ? null : parameter
+      )) as QueryParameter[];
+      const rows = await executor.unsafe<T[]>(statement, normalizedParameters, { prepare: false });
+      return Array.from(rows);
+    },
+  };
+}
+
+export function database(): DatabaseClient {
+  if (!postgresClient) {
+    postgresClient = postgres(requireEnv('DATABASE_URL'), {
+      ssl: 'require',
+      prepare: false,
+      max: 1,
+      idle_timeout: 20,
+      connect_timeout: 15,
+    });
+  }
+
+  const client = queryClient(postgresClient);
+  return {
+    ...client,
+    transaction: (callback) => postgresClient!.begin(async (transaction) => (
+      Promise.all(callback(queryClient(transaction)))
+    )),
+  };
 }
 
 export async function ensureSchema() {
@@ -85,4 +126,3 @@ export function publicOrderId() {
 export function recordId(prefix: string) {
   return `${prefix}_${crypto.randomUUID()}`;
 }
-
