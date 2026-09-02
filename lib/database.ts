@@ -39,7 +39,7 @@ export function database(): DatabaseClient {
     postgresClient = postgres(requireEnv('DATABASE_URL'), {
       ssl: 'require',
       prepare: false,
-      max: 1,
+      max: 5,
       idle_timeout: 20,
       connect_timeout: 15,
     });
