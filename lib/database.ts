@@ -58,6 +58,14 @@ export async function ensureSchema() {
   if (schemaPromise) return schemaPromise;
   schemaPromise = (async () => {
     const sql = database();
+    const schemaState = await sql.query<{ ready: boolean }>(`SELECT
+      to_regclass('public.orders') IS NOT NULL
+      AND to_regclass('public.messages') IS NOT NULL
+      AND to_regclass('public.audit_logs') IS NOT NULL
+      AND to_regclass('public.webhook_events') IS NOT NULL
+      AND to_regclass('public.admin_settings') IS NOT NULL AS ready`);
+    if (schemaState[0]?.ready) return;
+
     await sql.query(`CREATE TABLE IF NOT EXISTS orders (
       id text PRIMARY KEY,
       conversation_id text NOT NULL UNIQUE,
