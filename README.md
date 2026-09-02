@@ -31,7 +31,7 @@ O projeto também possui `npm run build:vercel` para o build Next.js usado pela 
 ## Variáveis obrigatórias
 
 - `DATABASE_URL`: conexão PostgreSQL compatível com Neon/Vercel.
-- `ADMIN_EMAIL`: e-mail autorizado no painel.
-- `ADMIN_PASSWORD`: senha administrativa forte e exclusiva.
+- `ADMIN_ACCOUNTS`: lista JSON protegida com as contas autorizadas no formato `[{"email":"...","password":"..."}]`.
+- `ADMIN_EMAIL` e `ADMIN_PASSWORD`: alternativa legada para instalações com apenas uma conta.
 - `ADMIN_SESSION_SECRET`: segredo aleatório com pelo menos 32 bytes.
 - `CAKTO_WEBHOOK_SECRET`: segredo exibido ao criar o webhook na Cakto.

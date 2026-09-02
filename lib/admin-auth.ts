@@ -6,6 +6,7 @@ import { requireEnv } from './config';
 const COOKIE_NAME = 'acessoplus_admin';
 const SESSION_SECONDS = 60 * 60 * 12;
 const encoder = new TextEncoder();
+type AdminAccount = { email: string; password: string };
 
 function toBase64Url(value: Uint8Array | string) {
   const bytes = typeof value === 'string' ? encoder.encode(value) : value;
@@ -40,16 +41,48 @@ function constantTimeEqual(left: string, right: string) {
   return mismatch === 0;
 }
 
-export async function credentialsAreValid(email: string, password: string) {
-  const expectedEmail = requireEnv('ADMIN_EMAIL').toLowerCase();
-  const expectedPassword = requireEnv('ADMIN_PASSWORD');
-  return constantTimeEqual(email.trim().toLowerCase(), expectedEmail)
-    && constantTimeEqual(password, expectedPassword);
+function getAdminAccounts(): AdminAccount[] {
+  const configured = process.env.ADMIN_ACCOUNTS?.trim();
+  if (configured) {
+    const parsed = JSON.parse(configured) as unknown;
+    if (!Array.isArray(parsed)) throw new Error('Configuração inválida: ADMIN_ACCOUNTS');
+    const accounts = parsed.map((account) => {
+      if (!account || typeof account !== 'object') throw new Error('Configuração inválida: ADMIN_ACCOUNTS');
+      const candidate = account as { email?: unknown; password?: unknown };
+      const email = typeof candidate.email === 'string' ? candidate.email.trim().toLowerCase() : '';
+      const password = typeof candidate.password === 'string' ? candidate.password : '';
+      if (!email || !password) throw new Error('Configuração inválida: ADMIN_ACCOUNTS');
+      return { email, password };
+    });
+    if (!accounts.length || new Set(accounts.map((account) => account.email)).size !== accounts.length) {
+      throw new Error('Configuração inválida: ADMIN_ACCOUNTS');
+    }
+    return accounts;
+  }
+  return [{
+    email: requireEnv('ADMIN_EMAIL').toLowerCase(),
+    password: requireEnv('ADMIN_PASSWORD'),
+  }];
 }
 
-export async function createAdminSession() {
+export async function credentialsAreValid(email: string, password: string) {
+  const normalizedEmail = email.trim().toLowerCase();
+  let authenticatedEmail = '';
+  for (const account of getAdminAccounts()) {
+    if (constantTimeEqual(normalizedEmail, account.email) && constantTimeEqual(password, account.password)) {
+      authenticatedEmail = account.email;
+    }
+  }
+  return authenticatedEmail || null;
+}
+
+export async function createAdminSession(email: string) {
+  const normalizedEmail = email.trim().toLowerCase();
+  if (!getAdminAccounts().some((account) => constantTimeEqual(account.email, normalizedEmail))) {
+    throw new Error('Conta administrativa não autorizada.');
+  }
   const payload = toBase64Url(JSON.stringify({
-    email: requireEnv('ADMIN_EMAIL').toLowerCase(),
+    email: normalizedEmail,
     exp: Math.floor(Date.now() / 1000) + SESSION_SECONDS,
   }));
   const signature = await sign(payload);
@@ -77,10 +110,9 @@ export async function getAdminSession() {
     if (!payload || !signature || !constantTimeEqual(signature, await sign(payload))) return null;
     const data = JSON.parse(new TextDecoder().decode(fromBase64Url(payload))) as { email?: string; exp?: number };
     if (!data.email || !data.exp || data.exp <= Math.floor(Date.now() / 1000)) return null;
-    if (!constantTimeEqual(data.email, requireEnv('ADMIN_EMAIL').toLowerCase())) return null;
+    if (!getAdminAccounts().some((account) => constantTimeEqual(data.email!, account.email))) return null;
     return { email: data.email };
   } catch {
     return null;
   }
 }
-
